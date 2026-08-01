@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>SCS Cognitive Command Centre</title>
+
+<style>
+
+body {
+    background:#080b14;
+    color:white;
+    font-family:Arial, sans-serif;
+    padding:30px;
+}
+
+h1 {
+    text-align:center;
+    color:#60a5fa;
+}
+
+.grid {
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+}
+
+.card {
+    background:#111827;
+    border:1px solid #374151;
+    border-radius:15px;
+    padding:20px;
+    box-shadow:0 0 15px #000;
+    margin-bottom:20px;
+}
+
+.online {
+    color:#22c55e;
+    font-size:20px;
+}
+
+input {
+    background:#0f172a;
+    color:white;
+    border:1px solid #374151;
+    border-radius:8px;
+}
+
+button {
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.module {
+    display:inline-block;
+    padding:10px;
+    margin:5px;
+    background:#1f2937;
+    border-radius:10px;
+    animation:pulse 2s infinite;
+}
+
+
+@keyframes pulse {
+
+    0% {
+        box-shadow:0 0 5px #22c55e;
+    }
+
+    50% {
+        box-shadow:0 0 20px #22c55e;
+    }
+
+    100% {
+        box-shadow:0 0 5px #22c55e;
+    }
+
+}
+
+
+.leftpulse {
+    border-left:5px solid #3b82f6;
+    animation:pulseblue 2s infinite;
+}
+
+.rightpulse {
+    border-left:5px solid #a855f7;
+    animation:pulsepurple 2s infinite;
+}
+
+.synthpulse {
+    border-left:5px solid #22c55e;
+    animation:pulsegreeen 2s infinite;
+}
+
+.verifypulse {
+    border-left:5px solid #eab308;
+    animation:pulseyellow 2s infinite;
+}
+
+
+@keyframes pulseblue {
+    50% {box-shadow:0 0 20px #3b82f6;}
+}
+
+@keyframes pulsepurple {
+    50% {box-shadow:0 0 20px #a855f7;}
+}
+
+@keyframes pulsegreeen {
+    50% {box-shadow:0 0 20px #22c55e;}
+}
+
+@keyframes pulseyellow {
+    50% {box-shadow:0 0 20px #eab308;}
+}
+
+
+.score {
+    font-size:35px;
+    color:#22c55e;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<h1>🧠 SCS Cognitive Command Centre</h1>
+
+
+<div class="card">
+
+<h2>🧠 SCS Think Console</h2>
+
+<input 
+id="question"
+type="text"
+placeholder="Ask SCS a question..."
+style="width:80%; padding:10px;"
+>
+
+<button onclick="think()" style="padding:10px;">
+THINK
+</button>
+
+<p id="response"></p>
+
+</div>
+
+
+<div class="grid">
+
+
+<div class="card">
+
+<h2>System Status</h2>
+
+<p class="online">● ONLINE</p>
+
+<p>{{ data.system }}</p>
+
+<p>
+Cognitive State:
+{{ data.orchestration.cognitive_state }}
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h2>Current Question</h2>
+
+<p>{{ data.question }}</p>
+
+</div>
+<div class="card">
+
+<h2>⚡ Active Cognitive Path</h2>
+
+{% for module in data.activation.activated_modules %}
+
+<div class="
+module
+{% if module == 'left_reasoning' %}
+leftpulse
+{% elif module == 'right_reasoning' %}
+rightpulse
+{% elif module == 'synthesis' %}
+synthpulse
+{% elif module == 'verifier' %}
+verifypulse
+{% else %}
+module
+{% endif %}
+">
+
+{% if module == "goal_planning" %}
+🎯 Goal Planning
+
+{% elif module == "left_reasoning" %}
+🔵 Left Reasoning
+
+{% elif module == "right_reasoning" %}
+🟣 Right Reasoning
+
+{% elif module == "synthesis" %}
+🟢 Synthesis
+
+{% elif module == "verifier" %}
+🟡 Verifier
+
+{% elif module == "learning" %}
+🧬 Learning
+
+{% else %}
+{{ module }}
+
+{% endif %}
+
+<br>
+ACTIVE
+
+</div>
+
+{% endfor %}
+
+</div>
+
+
+
+<div class="card">
+
+<h2>🎯 Strategy Engine</h2>
+
+<p>
+{{ data.base_result.strategy_choice.strategy }}
+</p>
+
+<p>
+Performance:
+</p>
+
+<div class="score">
+{{ data.base_result.performance.performance_score }}
+</div>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>🧬 Learning Memory</h2>
+
+<p>
+Memories:
+{{ data.base_result.learning.memory_result.total_memories }}
+</p>
+
+<p>
+Experiences:
+{{ data.base_result.experience_update.total_experiences }}
+</p>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>🔍 Verification</h2>
+
+<p>
+Verdict:
+{{ data.base_result.pulse.verification.verdict }}
+</p>
+
+<p>
+Confidence:
+{{ data.base_result.pulse.verification.confidence }}
+</p>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>⚡ Cognitive Pulse Map</h2>
+
+<div style="text-align:center;">
+
+
+<div class="module leftpulse">
+🔵 LEFT REASONING<br>
+Analytical<br>
+Confidence:
+{{ data.base_result.pulse.left.confidence }}
+</div>
+
+<br>⬇<br>
+
+
+<div class="module rightpulse">
+🟣 RIGHT REASONING<br>
+Creative<br>
+Confidence:
+{{ data.base_result.pulse.right.confidence }}
+</div>
+
+<br>⬇<br>
+
+
+<div class="module synthpulse">
+🟢 SYNTHESIS<br>
+Combined Reasoning<br>
+Confidence:
+{{ data.base_result.pulse.synthesis.confidence }}
+</div>
+
+<br>⬇<br>
+
+
+<div class="module verifypulse">
+🟡 VERIFIER<br>
+{{ data.base_result.pulse.verification.verdict }}<br>
+Confidence:
+{{ data.base_result.pulse.verification.confidence }}
+</div>
+
+
+</div>
+
+</div>
+
+
+
+<script>
+
+function think(){
+
+let question =
+document.getElementById("question").value;
+
+
+fetch("/think_custom", {
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+question:question
+})
+
+})
+
+.then(response => response.json())
+
+.then(data => {
+
+document.getElementById("response").innerHTML =
+"✅ SCS completed thought cycle";
+
+});
+
+}
+
+</script>
+
+
+</div>
+
+</body>
+</html>

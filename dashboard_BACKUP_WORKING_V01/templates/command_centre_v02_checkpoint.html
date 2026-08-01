@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>SCS Cognitive Command Centre</title>
+
+<style>
+
+body {
+    background:#080b14;
+    color:white;
+    font-family:Arial, sans-serif;
+    padding:30px;
+}
+
+h1 {
+    text-align:center;
+    color:#60a5fa;
+}
+
+.grid {
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+}
+
+.card {
+    background:#111827;
+    border:1px solid #374151;
+    border-radius:15px;
+    padding:20px;
+    box-shadow:0 0 15px #000;
+}
+
+.online {
+    color:#22c55e;
+    font-size:20px;
+}
+
+.module {
+    display:inline-block;
+    padding:10px;
+    margin:5px;
+    background:#1f2937;
+    border-radius:10px;
+}
+
+.left {
+    border-left:5px solid #3b82f6;
+}
+
+.right {
+    border-left:5px solid #a855f7;
+}
+
+.core {
+    border-left:5px solid #22c55e;
+}
+
+.score {
+    font-size:35px;
+    color:#22c55e;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<h1>🧠 SCS Cognitive Command Centre</h1>
+
+
+<div class="grid">
+
+
+<div class="card">
+
+<h2>System Status</h2>
+
+<p class="online">● ONLINE</p>
+
+<p>{{ data.system }}</p>
+
+<p>Cognitive State:
+{{ data.orchestration.cognitive_state }}</p>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>Current Question</h2>
+
+<p>{{ data.question }}</p>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>⚡ Active Cognitive Modules</h2>
+
+{% for module in data.activation.activated_modules %}
+
+<div class="module">
+{{ module }}
+</div>
+
+{% endfor %}
+
+</div>
+
+
+
+<div class="card">
+
+<h2>🎯 Strategy Engine</h2>
+
+<p>
+{{ data.base_result.strategy_choice.strategy }}
+</p>
+
+<p>
+Performance:
+</p>
+
+<div class="score">
+{{ data.base_result.performance.performance_score }}
+</div>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>🧬 Learning Memory</h2>
+
+<p>
+Memories:
+{{ data.base_result.learning.memory_result.total_memories }}
+</p>
+
+<p>
+Experiences:
+{{ data.base_result.experience_update.total_experiences }}
+</p>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>🔍 Verification</h2>
+
+<p>
+Verdict:
+{{ data.base_result.pulse.verification.verdict }}
+</p>
+
+<p>
+Confidence:
+{{ data.base_result.pulse.verification.confidence }}
+</p>
+
+</div>
+
+
+</div>
+
+
+</body>
+</html>

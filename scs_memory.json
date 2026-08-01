@@ -1,0 +1,428 @@
+[
+    {
+        "question": "Should SCS use multiple agents?",
+        "result": "REVIEW",
+        "strategy": "LEFT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "result": "REVIEW",
+        "strategy": "LEFT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "mode": "memory_guided",
+        "strategy": "LEFT+SYNTHESIS",
+        "confidence": 5
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS create a planning agent?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "test",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "hello SCS",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "hello SCS",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "hello SCS",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "hello SCS",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "hello scs",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "hello scs",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "hello scs",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "hello scs",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "hello scs",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "hello scs",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "hello",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "2+2",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "2+2",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "2+2",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should we build a multi-agent AI system instead of one large AI model?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should we build a multi-agent AI system instead of one large AI model?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should we build a multi-agent AI system instead of one large AI model?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    }
+]

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synthetic Cognitive System</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #07111f;
+            color: #ffffff;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 25px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .question {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        input {
+            flex: 1;
+            padding: 15px;
+            font-size: 17px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            background: #0f1c2e;
+            color: white;
+        }
+
+        button {
+            padding: 15px 25px;
+            border: 0;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #3b82f6;
+        }
+
+        .status {
+            text-align: center;
+            margin: 15px;
+            color: #94a3b8;
+        }
+
+        .card {
+            background: #0d1b2d;
+            border: 1px solid #1e3a5f;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .left {
+            border-left: 5px solid #3b82f6;
+        }
+
+        .system {
+            border-left: 5px solid #22c55e;
+        }
+
+        .learning {
+            border-left: 5px solid #a855f7;
+        }
+
+        .error {
+            border-left: 5px solid #ef4444;
+            color: #fecaca;
+        }
+
+        .label {
+            color: #94a3b8;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .value {
+            font-size: 18px;
+            margin-top: 6px;
+        }
+
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            color: #cbd5e1;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🧠 Synthetic Cognitive System</h1>
+
+    <div class="question">
+        <input
+            id="question"
+            type="text"
+            placeholder="Ask the Synthetic Cognitive System something..."
+        >
+
+        <button onclick="think()">THINK</button>
+    </div>
+
+    <div id="status" class="status">
+        System ready.
+    </div>
+
+    <div id="response"></div>
+
+</div>
+
+<script>
+
+async function think() {
+
+    const questionBox = document.getElementById("question");
+    const responseBox = document.getElementById("response");
+    const statusBox = document.getElementById("status");
+
+    const question = questionBox.value.trim();
+
+    if (!question) {
+        statusBox.textContent = "Please enter a question.";
+        return;
+    }
+
+    statusBox.textContent = "⚡ Cognitive system thinking...";
+    responseBox.innerHTML = "";
+
+    try {
+
+        const response = await fetch("/think_custom", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                question: question
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error("Server returned HTTP " + response.status);
+        }
+
+        const data = await response.json();
+
+        console.log("SCS RESPONSE:", data);
+
+        const base = data.base_result || {};
+        const pulse = base.pulse || {};
+
+        const left = pulse.left || {};
+
+        const learning = base.learning || {};
+        const strategy = base.strategy_choice || {};
+
+        responseBox.innerHTML = `
+
+            <div class="card system">
+
+                <h2>🧠 SCS Cognitive Stream</h2>
+
+                <div class="label">Activation Engine</div>
+                <div class="value">⚡ COMPLETE</div>
+
+                <br>
+
+                <div class="label">System Status</div>
+                <div class="value">
+                    ${base.status || data.status || "ACTIVE"}
+                </div>
+
+            </div>
+
+
+            <div class="card left">
+
+                <h2>🔵 Left Reasoning</h2>
+
+                <div class="label">Mode</div>
+                <div class="value">
+                    ${left.mode || "ACTIVE"}
+                </div>
+
+                <br>
+
+                <div class="label">Confidence</div>
+                <div class="value">
+                    ${left.confidence ?? "N/A"}
+                </div>
+
+                <br>
+
+                <div class="label">Analysis</div>
+                <div class="value">
+                    ${left.analysis || "Analysis complete."}
+                </div>
+
+            </div>
+
+
+            <div class="card learning">
+
+                <h2>🧬 Learning</h2>
+
+                <div class="label">Status</div>
+                <div class="value">
+                    ${learning.learning_status || "ACTIVE"}
+                </div>
+
+            </div>
+
+
+            <div class="card system">
+
+                <h2>🎯 Strategy</h2>
+
+                <div class="label">Selected Strategy</div>
+                <div class="value">
+                    ${strategy.strategy || base.best_strategy || "Adaptive"}
+                </div>
+
+            </div>
+
+        `;
+
+        statusBox.textContent =
+            "🟢 Cognitive cycle complete — " +
+            (data.status || "success");
+
+    }
+
+    catch (error) {
+
+        console.error("SCS ERROR:", error);
+
+        responseBox.innerHTML = `
+
+            <div class="card error">
+
+                <h2>🔴 Cognitive Stream Error</h2>
+
+                <p>
+                    The server responded, but the dashboard could not process
+                    the result.
+                </p>
+
+                <pre>${error.message}</pre>
+
+            </div>
+
+        `;
+
+        statusBox.textContent = "🔴 Error";
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
