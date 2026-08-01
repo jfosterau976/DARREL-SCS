@@ -170,7 +170,7 @@ async function think() {
 
         const base = data.base_result || {};
         const pulse = data.pulse || {};
-        const left = pulse.left || {};
+        const left = data.left_reasoning || {};
 
         const learning = base.learning || {};
         const strategy = base.strategy_choice || {};
