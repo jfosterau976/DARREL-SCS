@@ -19,7 +19,27 @@ class PulseController:
 
         print("\n=== SCS PULSE ===")
         print("Question:", question)
+      
+        memory_context = cognitive_memory.recall_relevant(
+            question
+        )
 
+
+        print("\nMEMORY CONTEXT:")
+        print(f"Relevant memories: {len(memory_context)}")
+
+        for item in memory_context[:3]:
+            memory = item.get("memory", {})
+
+            summary = (
+                memory.get("question")
+                or memory.get("input")
+                or memory.get("lesson")
+                or memory.get("type")
+                or str(memory)[:80]
+            )
+
+            print("-", item.get("score"), summary)
         if feedback:
             print("\nFEEDBACK RECEIVED:")
             print(feedback)
