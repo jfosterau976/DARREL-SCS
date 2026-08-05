@@ -5,6 +5,7 @@ from core.verifier_engine import verifier_engine
 from core.pulse_router import pulse_router
 from core.attention_router import attention_router
 from core.reflection_agent import reflection_agent
+from core.learning_extractor import learning_extractor
 
 
 class PulseController:
@@ -124,6 +125,10 @@ class PulseController:
                    reflection_result = reflection_agent.reflect(
                        verification_result
                 )
+                   learning_result = learning_extractor.extract(
+                       reflection_result
+            )
+
         return {
             "question": question,
             "decision": decision,
@@ -153,6 +158,8 @@ class PulseController:
             ),
 
             "reflection": reflection_result,
+
+            "learning": learning_result, 
         }
 
 
