@@ -6,6 +6,7 @@ from core.pulse_router import pulse_router
 from core.attention_router import attention_router
 from core.reflection_agent import reflection_agent
 from core.learning_extractor import learning_extractor
+from core.cognitive_memory import cognitive_memory
 
 
 class PulseController:
@@ -128,7 +129,9 @@ class PulseController:
                    learning_result = learning_extractor.extract(
                        reflection_result
             )
-
+                   memory_result = cognitive_memory.remember(
+                       learning_result
+            )
         return {
             "question": question,
             "decision": decision,

@@ -15702,7 +15702,7 @@
                 "Expand learned reasoning connections"
             ]
         },
-        "strength": 19,
+        "strength": 20,
         "importance": "HIGH"
     },
     {
@@ -15716,5 +15716,20 @@
         },
         "importance": "MEDIUM",
         "status": "learned"
+    },
+    {
+        "agent": "SCS Learning Extractor",
+        "role": "reflection_to_learning",
+        "status": "learning_extracted",
+        "lessons": [
+            {
+                "type": "learning",
+                "source": "reflection_agent",
+                "lesson": "Continue improving confidence calibration",
+                "confidence": 0.8,
+                "timestamp": "2026-08-05T11:11:08.022935"
+            }
+        ],
+        "lesson_count": 1
     }
 ]
