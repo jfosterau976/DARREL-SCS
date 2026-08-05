@@ -15702,7 +15702,7 @@
                 "Expand learned reasoning connections"
             ]
         },
-        "strength": 25,
+        "strength": 27,
         "importance": "HIGH"
     },
     {
@@ -15803,6 +15803,36 @@
                 "lesson": "Continue improving confidence calibration",
                 "confidence": 0.8,
                 "timestamp": "2026-08-05T12:18:51.739382"
+            }
+        ],
+        "lesson_count": 1
+    },
+    {
+        "agent": "SCS Learning Extractor",
+        "role": "reflection_to_learning",
+        "status": "learning_extracted",
+        "lessons": [
+            {
+                "type": "learning",
+                "source": "reflection_agent",
+                "lesson": "Continue improving confidence calibration",
+                "confidence": 0.8,
+                "timestamp": "2026-08-05T12:35:11.803743"
+            }
+        ],
+        "lesson_count": 1
+    },
+    {
+        "agent": "SCS Learning Extractor",
+        "role": "reflection_to_learning",
+        "status": "learning_extracted",
+        "lessons": [
+            {
+                "type": "learning",
+                "source": "reflection_agent",
+                "lesson": "Continue improving confidence calibration",
+                "confidence": 0.8,
+                "timestamp": "2026-08-05T12:41:52.486960"
             }
         ],
         "lesson_count": 1
