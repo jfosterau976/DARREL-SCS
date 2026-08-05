@@ -86,7 +86,10 @@ class PulseController:
                 left_question = question
 
             left_result = left_brain.think(
-                left_question
+                {
+                    "question": left_question,
+                    "memory_context": memory_context_package
+                }
             )
 
         # RIGHT BRAIN
@@ -105,7 +108,10 @@ class PulseController:
                 right_question = question
 
             right_result = right_brain.think(
-                right_question
+                {
+                    "question": right_question,
+                    "memory_context": memory_context_package
+                }
             )
 
         # SYNTHESIS
