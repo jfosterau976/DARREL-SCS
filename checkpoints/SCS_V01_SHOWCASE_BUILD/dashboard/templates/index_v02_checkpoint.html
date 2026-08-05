@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SCS Dashboard</title>
+
+    <style>
+        body {
+            background: #111827;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+
+        .card {
+            background: #1f2937;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 12px;
+        }
+
+        .green {
+            color: #22c55e;
+            font-weight: bold;
+        }
+
+        .module {
+            display: inline-block;
+            background: #374151;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>🧠 SCS Control Panel</h1>
+
+<div class="card">
+    <h2>Status</h2>
+    <p class="green">● ONLINE</p>
+    <p>System: Synthetic Cognitive System</p>
+    <p>Version: 0.1</p>
+</div>
+
+<div class="card">
+    <h2>Active Cognitive Modules</h2>
+
+    <div class="module">Goal Planning</div>
+    <div class="module">Left Reasoning</div>
+    <div class="module">Right Reasoning</div>
+    <div class="module">Synthesis</div>
+    <div class="module">Verifier</div>
+    <div class="module">Learning</div>
+</div>
+
+<div class="card">
+    <h2>Current Goal</h2>
+    <p>{{ data.goal.goal }}</p>
+</div>
+
+<div class="card">
+    <h2>Strategy</h2>
+    <p>{{ data.strategy_choice.strategy }}</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SCS Cognitive Console</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<h1>⚡ Synthetic Cognitive System</h1>
+<div class="card">
+
+<form method="post">
+
+<input 
+name="question"
+value="{{ result.question if result else '' }}"
+style="width:70%;padding:10px"
+placeholder="Ask SCS..."
+>
+
+<button style="padding:10px">
+Run Pulse
+</button>
+
+</form>
+
+</div>
+
+<div class="card">
+    <h2>🧠 Goal</h2>
+    <p>{{ result.question if result else "Waiting for pulse..." }}</p>
+</div>
+
+
+<div class="grid">
+
+<div class="card left">
+
+<h2>🔵 Left Brain</h2>
+
+<p>
+Confidence:
+{{ result.answer.left.confidence * 100 }}%
+</p>
+
+<h3>Mode</h3>
+<p>
+{{ result.answer.left.mode }}
+</p>
+
+<h3>Problem Breakdown</h3>
+<ul>
+{% for item in result.answer.left.analysis.problem_breakdown %}
+<li>{{ item }}</li>
+{% endfor %}
+</ul>
+
+<h3>Risk Analysis</h3>
+<ul>
+{% for item in result.answer.left.analysis.risk_analysis %}
+<li>{{ item }}</li>
+{% endfor %}
+</ul>
+
+<h3>Recommendation</h3>
+<p>
+{{ result.answer.left.analysis.recommendation }}
+</p>
+
+</div>
+
+
+<div class="card right">
+
+<h2>🟣 Right Brain</h2>
+
+<p>
+Confidence:
+{{ result.answer.right.confidence * 100 }}%
+</p>
+
+<h3>Mode</h3>
+<p>
+{{ result.answer.right.mode }}
+</p>
+
+<h3>Creative Recommendation</h3>
+<p>
+{{ result.answer.right.analysis.creative_recommendation }}
+</p>
+
+<h3>Innovation Ideas</h3>
+<ul>
+{% for item in result.answer.right.analysis.innovation_ideas %}
+<li>{{ item }}</li>
+{% endfor %}
+</ul>
+
+<h3>Future Scenarios</h3>
+<ul>
+{% for item in result.answer.right.analysis.future_scenarios %}
+<li>{{ item }}</li>
+{% endfor %}
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h2>🟢 Synthesis</h2>
+
+<h3>Combined Insight</h3>
+
+<p>
+{{ result.answer.synthesis.combined_reasoning.combined_insight }}
+</p>
+
+
+<h3>Confidence</h3>
+
+<p>
+{{ result.answer.synthesis.confidence * 100 }}%
+</p>
+
+
+<h3>Status</h3>
+
+<p>
+{{ result.answer.synthesis.status }}
+</p>
+
+
+<h3>Analytical Summary</h3>
+
+<ul>
+{% for item in result.answer.synthesis.combined_reasoning.analytical_summary.main_points %}
+<li>{{ item }}</li>
+{% endfor %}
+</ul>
+
+
+<h3>Creative Summary</h3>
+
+<ul>
+{% for item in result.answer.synthesis.combined_reasoning.creative_summary.ideas %}
+<li>{{ item }}</li>
+{% endfor %}
+</ul>
+
+
+</div>
+
+
+<div class="card">
+
+<h2>🟡 Verification</h2>
+
+<h3>Verdict</h3>
+<p>
+{{ result.answer.verification.verdict }}
+</p>
+
+
+<h3>Confidence</h3>
+<p>
+{{ result.answer.verification.confidence * 100 }}%
+</p>
+
+
+<h3>Checks</h3>
+<ul>
+{% for item in result.answer.verification.checks %}
+<li>{{ item }}</li>
+{% endfor %}
+</ul>
+
+
+<h3>Status</h3>
+<p>
+{{ result.answer.verification.mode }}
+</p>
+
+</div>
+
+
+<div class="grid">
+
+
+<div class="card learn">
+
+<h2>🧬 Learning</h2>
+
+<h3>Performance</h3>
+
+<p>
+{{ result.base_result.learning.performance_score * 100 }}%
+</p>
+
+
+<h3>Status</h3>
+
+<p>
+{{ result.base_result.learning.status }}
+</p>
+
+
+<h3>Lessons Learned</h3>
+
+<ul>
+{% for item in result.base_result.learning.lessons %}
+<li>{{ item }}</li>
+{% endfor %}
+</ul>
+
+
+<h3>Memory</h3>
+
+<p>
+Total Memories:
+{{ result.base_result.learning.memory.total_memories }}
+</p>
+
+
+<h3>Experiences Stored</h3>
+
+<p>
+{{ result.base_result.learning.experiences_stored }}
+</p>
+
+</div>
+
+<div class="card decision">
+
+<h2>🎯 Executive Decision</h2>
+
+<h3>Decision</h3>
+<p>
+{{ result.base_result.decision.decision }}
+</p>
+
+<h3>Confidence</h3>
+<p>
+{{ result.base_result.decision.confidence * 100 }}%
+</p>
+
+<h3>Reasoning</h3>
+<ul>
+{% for item in result.base_result.decision.reasoning %}
+<li>{{ item }}</li>
+{% endfor %}
+</ul>
+
+<h3>Risks</h3>
+<ul>
+{% for item in result.base_result.decision.risks %}
+<li>{{ item }}</li>
+{% endfor %}
+</ul>
+
+<h3>Opportunities</h3>
+<ul>
+{% for item in result.base_result.decision.opportunities %}
+<li>{{ item }}</li>
+{% endfor %}
+</ul>
+
+<h3>Next Action</h3>
+<p>
+{{ result.base_result.decision.next_action }}
+</p>
+
+</div>
+
+</body>
+</html>

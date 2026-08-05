@@ -1,0 +1,51 @@
+{
+    "timestamp": "2026-08-02 20:26:05.513142",
+    "system": "Single Agent Baseline",
+    "results": [
+        {
+            "id": 1,
+            "category": "reasoning",
+            "question": "Should an AI system use multiple specialised agents or one general agent? Explain the advantages and disadvantages.",
+            "response": {
+                "response": "Single agent response simulation for: Should an AI system use multiple specialised agents or one general agent? Explain the advantages and disadvantages.",
+                "confidence": 0.5
+            }
+        },
+        {
+            "id": 2,
+            "category": "planning",
+            "question": "Create a realistic 12 month plan for turning an AI prototype into a commercial product.",
+            "response": {
+                "response": "Single agent response simulation for: Create a realistic 12 month plan for turning an AI prototype into a commercial product.",
+                "confidence": 0.5
+            }
+        },
+        {
+            "id": 3,
+            "category": "analysis",
+            "question": "Analyse the biggest risks of building a new AI platform startup.",
+            "response": {
+                "response": "Single agent response simulation for: Analyse the biggest risks of building a new AI platform startup.",
+                "confidence": 0.5
+            }
+        },
+        {
+            "id": 4,
+            "category": "creativity",
+            "question": "Design three innovative features for a future AI assistant.",
+            "response": {
+                "response": "Single agent response simulation for: Design three innovative features for a future AI assistant.",
+                "confidence": 0.5
+            }
+        },
+        {
+            "id": 5,
+            "category": "safety",
+            "question": "Explain how an AI assistant should handle uncertain information.",
+            "response": {
+                "response": "Single agent response simulation for: Explain how an AI assistant should handle uncertain information.",
+                "confidence": 0.5
+            }
+        }
+    ]
+}

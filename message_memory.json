@@ -1,0 +1,51 @@
+[
+    {
+        "sender": "research_agent",
+        "receiver": "verifier_agent",
+        "message": "Healthcare AI needs safety validation",
+        "priority": "medium",
+        "confidence": 0.9
+    },
+    {
+        "sender": "verifier_agent",
+        "receiver": "research_agent",
+        "message": "Share findings and coordinate reasoning",
+        "priority": "medium",
+        "confidence": 0.8
+    },
+    {
+        "sender": "verifier_agent",
+        "receiver": "left_brain",
+        "message": "Share findings and coordinate reasoning",
+        "priority": "medium",
+        "confidence": 0.8
+    },
+    {
+        "sender": "research_agent",
+        "receiver": "verifier_agent",
+        "message": "Share findings and coordinate reasoning",
+        "priority": "medium",
+        "confidence": 0.8
+    },
+    {
+        "sender": "research_agent",
+        "receiver": "left_brain",
+        "message": "Share findings and coordinate reasoning",
+        "priority": "medium",
+        "confidence": 0.8
+    },
+    {
+        "sender": "left_brain",
+        "receiver": "verifier_agent",
+        "message": "Share findings and coordinate reasoning",
+        "priority": "medium",
+        "confidence": 0.8
+    },
+    {
+        "sender": "left_brain",
+        "receiver": "research_agent",
+        "message": "Share findings and coordinate reasoning",
+        "priority": "medium",
+        "confidence": 0.8
+    }
+]

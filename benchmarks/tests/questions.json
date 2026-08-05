@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "category": "reasoning",
+        "question": "Should an AI system use multiple specialised agents or one general agent? Explain the advantages and disadvantages."
+    },
+    {
+        "id": 2,
+        "category": "planning",
+        "question": "Create a realistic 12 month plan for turning an AI prototype into a commercial product."
+    },
+    {
+        "id": 3,
+        "category": "analysis",
+        "question": "Analyse the biggest risks of building a new AI platform startup."
+    },
+    {
+        "id": 4,
+        "category": "creativity",
+        "question": "Design three innovative features for a future AI assistant."
+    },
+    {
+        "id": 5,
+        "category": "safety",
+        "question": "Explain how an AI assistant should handle uncertain information."
+    }
+]

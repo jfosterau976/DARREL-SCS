@@ -1,10 +1,4 @@
-from core.cognitive_orchestrator import cognitive_orchestrator
-from core.selective_activation_engine import selective_activation
 from core.self_managing_scs import self_managing_scs
-from core.left_brain import left_brain
-from core.right_brain import right_brain
-from core.synthesis_engine import synthesis_engine
-from core.verifier_engine import verifier_engine
 
 
 class OrchestratedSCSV2:
@@ -14,57 +8,24 @@ class OrchestratedSCSV2:
 
 
     def think(self, question):
-       
+
         print("SCS V2 THINK RUNNING")
 
-        base_result = self_managing_scs.think(question)
+        result = self_managing_scs.think(question)
 
-        base_result = self_managing_scs.think(question)
-
-        left_result = left_brain.think(question)
-        print("LEFT DEBUG:", vars(left_result))
-
-        right_result = right_brain.think(question)
-
-        synthesis_result = synthesis_engine.combine(
-            left_result,
-            right_result,
-            question
-        )
-
-        verification_result = verifier_engine.verify(
-            synthesis_result
-        )
-
-        complexity = "high"
-        risk = "high"
-
-        activation = selective_activation.activate(
-            complexity,
-            risk
-        )
-
-        orchestration = cognitive_orchestrator.decide(
-            "balanced",
-            base_result["goal"],
-            complexity
-        )
+        print("PULSE RESULT:", result)
 
         return {
-
-            "system": self.name,
             "question": question,
-            "activation": activation,
-            "orchestration": orchestration,
-            "answer": base_result.get("pulse", {}),
-            "base_result": base_result,
 
-            "left_reasoning": vars(left_result),
-            "right_reasoning": vars(right_result),
-            "synthesis": synthesis_result,
-            "verification": verification_result,
+            "base_result": result,
 
-            "status": "orchestrated_v2_complete"
+            "answer": {
+                "left": result.get("left", result.get("answer", {}).get("left", {})),
+                "right": result.get("right", result.get("answer", {}).get("right", {})),
+                "synthesis": result.get("synthesis", result.get("answer", {}).get("synthesis", {})),
+                "verification": result.get("verification", result.get("answer", {}).get("verification", {}))
+            }
         }
 
 

@@ -1,0 +1,1440 @@
+{
+    "timestamp": "2026-08-02 20:17:58.218587",
+    "system": "DARREL SCS",
+    "results": [
+        {
+            "id": 1,
+            "category": "reasoning",
+            "question": "Should an AI system use multiple specialised agents or one general agent? Explain the advantages and disadvantages.",
+            "response": {
+                "system": "SCS Orchestrated Cognitive System V2",
+                "question": "Should an AI system use multiple specialised agents or one general agent? Explain the advantages and disadvantages.",
+                "activation": {
+                    "system": "SCS Selective Activation Engine",
+                    "complexity": "high",
+                    "risk": "high",
+                    "activated_modules": [
+                        "goal_planning",
+                        "left_reasoning",
+                        "right_reasoning",
+                        "synthesis",
+                        "verifier",
+                        "learning"
+                    ],
+                    "activation_mode": "selective",
+                    "status": "activation_complete"
+                },
+                "orchestration": {
+                    "system": "SCS Cognitive Orchestrator",
+                    "cognitive_state": "balanced",
+                    "goal": {
+                        "system": "SCS Goal Planning Engine",
+                        "goal": "Should an AI system use multiple specialised agents or one general agent? Explain the advantages and disadvantages.",
+                        "objective": "Find the best solution",
+                        "status": "goal_created"
+                    },
+                    "complexity": "high",
+                    "activated_modules": [
+                        "goal_planning",
+                        "left_reasoning",
+                        "right_reasoning",
+                        "synthesis",
+                        "verifier",
+                        "learning"
+                    ],
+                    "decision": "adaptive_module_selection",
+                    "status": "orchestration_complete"
+                },
+                "answer": {
+                    "system": "SCS Selective Pulse Engine",
+                    "question": "Should an AI system use multiple specialised agents or one general agent? Explain the advantages and disadvantages.",
+                    "activated_modules": [
+                        "memory",
+                        "left_reasoning",
+                        "right_reasoning",
+                        "synthesis",
+                        "verifier"
+                    ],
+                    "left": {
+                        "module": "SCS Left Cognitive Engine",
+                        "mode": "analytical",
+                        "question": "Should an AI system use multiple specialised agents or one general agent? Explain the advantages and disadvantages.",
+                        "analysis": [
+                            "Break problem into components",
+                            "Check assumptions",
+                            "Look for evidence",
+                            "Identify risks"
+                        ],
+                        "confidence": 0.5
+                    },
+                    "right": {
+                        "module": "SCS Right Cognitive Engine",
+                        "mode": "creative",
+                        "question": "Should an AI system use multiple specialised agents or one general agent? Explain the advantages and disadvantages.",
+                        "ideas": [
+                            "Generate alternative approaches",
+                            "Look for hidden patterns",
+                            "Explore new possibilities",
+                            "Challenge existing thinking"
+                        ],
+                        "confidence": 0.5
+                    },
+                    "synthesis": {
+                        "module": "SCS Synthesis Engine",
+                        "mode": "synthesis",
+                        "combined_reasoning": {
+                            "agent": "SCS Synthesis Agent",
+                            "role": "integration",
+                            "status": "complete",
+                            "response": "Combined reasoning:\n\nLEFT:\n{'module': 'SCS Left Cognitive Engine', 'mode': 'analytical', 'question': 'Should an AI system use multiple specialised agents or one general agent? Explain the advantages and disadvantages.', 'analysis': ['Break problem into components', 'Check assumptions', 'Look for evidence', 'Identify risks'], 'confidence': 0.5}\n\nRIGHT:\n{'module': 'SCS Right Cognitive Engine', 'mode': 'creative', 'question': 'Should an AI system use multiple specialised agents or one general agent? Explain the advantages and disadvantages.', 'ideas': ['Generate alternative approaches', 'Look for hidden patterns', 'Explore new possibilities', 'Challenge existing thinking'], 'confidence': 0.5}",
+                            "confidence": 0.75
+                        },
+                        "confidence": 0.75,
+                        "status": "active"
+                    },
+                    "verification": {
+                        "module": "SCS Verifier Engine",
+                        "mode": "verification",
+                        "messages_reviewed": 0,
+                        "received_messages": [],
+                        "checks": [
+                            "Check logical consistency",
+                            "Check evidence requirements",
+                            "Check safety risks",
+                            "Check possible improvements"
+                        ],
+                        "verdict": "REVIEW",
+                        "confidence": 0.8
+                    },
+                    "status": "selective_pulse_complete"
+                },
+                "base_result": {
+                    "system": "SCS Self Managing Cognitive System",
+                    "goal": {
+                        "system": "SCS Goal Planning Engine",
+                        "goal": "Should an AI system use multiple specialised agents or one general agent? Explain the advantages and disadvantages.",
+                        "objective": "Find the best solution",
+                        "status": "goal_created"
+                    },
+                    "plan": {
+                        "system": "SCS Goal Planning Engine",
+                        "goal": "Should an AI system use multiple specialised agents or one general agent? Explain the advantages and disadvantages.",
+                        "plan": [
+                            "Analyse problem",
+                            "Generate possible approaches",
+                            "Evaluate risks",
+                            "Select best strategy",
+                            "Verify outcome"
+                        ],
+                        "status": "plan_created"
+                    },
+                    "strategy_choice": {
+                        "system": "SCS Experience Strategy Selector",
+                        "strategy": "LEFT+RIGHT+SYNTHESIS+VERIFIER",
+                        "reason": "No previous experience found"
+                    },
+                    "pulse": {
+                        "system": "SCS Selective Pulse Engine",
+                        "question": "Should an AI system use multiple specialised agents or one general agent? Explain the advantages and disadvantages.",
+                        "activated_modules": [
+                            "memory",
+                            "left_reasoning",
+                            "right_reasoning",
+                            "synthesis",
+                            "verifier"
+                        ],
+                        "left": {
+                            "module": "SCS Left Cognitive Engine",
+                            "mode": "analytical",
+                            "question": "Should an AI system use multiple specialised agents or one general agent? Explain the advantages and disadvantages.",
+                            "analysis": [
+                                "Break problem into components",
+                                "Check assumptions",
+                                "Look for evidence",
+                                "Identify risks"
+                            ],
+                            "confidence": 0.5
+                        },
+                        "right": {
+                            "module": "SCS Right Cognitive Engine",
+                            "mode": "creative",
+                            "question": "Should an AI system use multiple specialised agents or one general agent? Explain the advantages and disadvantages.",
+                            "ideas": [
+                                "Generate alternative approaches",
+                                "Look for hidden patterns",
+                                "Explore new possibilities",
+                                "Challenge existing thinking"
+                            ],
+                            "confidence": 0.5
+                        },
+                        "synthesis": {
+                            "module": "SCS Synthesis Engine",
+                            "mode": "synthesis",
+                            "combined_reasoning": {
+                                "agent": "SCS Synthesis Agent",
+                                "role": "integration",
+                                "status": "complete",
+                                "response": "Combined reasoning:\n\nLEFT:\n{'module': 'SCS Left Cognitive Engine', 'mode': 'analytical', 'question': 'Should an AI system use multiple specialised agents or one general agent? Explain the advantages and disadvantages.', 'analysis': ['Break problem into components', 'Check assumptions', 'Look for evidence', 'Identify risks'], 'confidence': 0.5}\n\nRIGHT:\n{'module': 'SCS Right Cognitive Engine', 'mode': 'creative', 'question': 'Should an AI system use multiple specialised agents or one general agent? Explain the advantages and disadvantages.', 'ideas': ['Generate alternative approaches', 'Look for hidden patterns', 'Explore new possibilities', 'Challenge existing thinking'], 'confidence': 0.5}",
+                                "confidence": 0.75
+                            },
+                            "confidence": 0.75,
+                            "status": "active"
+                        },
+                        "verification": {
+                            "module": "SCS Verifier Engine",
+                            "mode": "verification",
+                            "messages_reviewed": 0,
+                            "received_messages": [],
+                            "checks": [
+                                "Check logical consistency",
+                                "Check evidence requirements",
+                                "Check safety risks",
+                                "Check possible improvements"
+                            ],
+                            "verdict": "REVIEW",
+                            "confidence": 0.8
+                        },
+                        "status": "selective_pulse_complete"
+                    },
+                    "learning": {
+                        "system": "SCS Adaptive Learning Loop",
+                        "learning_status": "updated",
+                        "memory_result": {
+                            "status": "memory_saved",
+                            "total_memories": 38
+                        }
+                    },
+                    "feedback": {
+                        "system": "SCS Goal Feedback Engine",
+                        "goal": {
+                            "system": "SCS Goal Planning Engine",
+                            "goal": "Should an AI system use multiple specialised agents or one general agent? Explain the advantages and disadvantages.",
+                            "objective": "Find the best solution",
+                            "status": "goal_created"
+                        },
+                        "plan_reviewed": true,
+                        "result_reviewed": true,
+                        "success": true,
+                        "feedback": "Strategy performed acceptably",
+                        "improvement": "Continue refining based on experience"
+                    },
+                    "performance": {
+                        "system": "SCS Cognitive Performance Memory",
+                        "performance_score": 0.8,
+                        "strategy": "LEFT+RIGHT+SYNTHESIS+VERIFIER",
+                        "status": "performance_recorded",
+                        "total_records": 1
+                    },
+                    "strategy_update": {
+                        "system": "SCS Strategy Evolution Engine",
+                        "strategy": "LEFT+RIGHT+SYNTHESIS+VERIFIER",
+                        "performance_score": 0.8,
+                        "status": "strategy_recorded",
+                        "total_strategies": 1
+                    },
+                    "best_strategy": {
+                        "strategy": "LEFT+RIGHT+SYNTHESIS+VERIFIER",
+                        "reason": "Highest performance strategy selected",
+                        "score": 0.8
+                    },
+                    "experience_update": {
+                        "system": "SCS Experience Replay Engine",
+                        "status": "experience_stored",
+                        "total_experiences": 1
+                    },
+                    "status": "self_managing_complete"
+                },
+                "left_reasoning": {
+                    "agent": "Left Brain Analysis Agent",
+                    "role": "analytical",
+                    "status": "complete",
+                    "response": "Analytical review of: Should an AI system use multiple specialised agents or one general agent? Explain the advantages and disadvantages.",
+                    "confidence": 0.7
+                },
+                "right_reasoning": {
+                    "agent": "Right Brain Model",
+                    "role": "creative_thinking",
+                    "status": "complete",
+                    "response": "Creative analysis generated for: Should an AI system use multiple specialised agents or one general agent? Explain the advantages and disadvantages.",
+                    "confidence": 0.7
+                },
+                "synthesis": {
+                    "module": "SCS Synthesis Engine",
+                    "mode": "synthesis",
+                    "combined_reasoning": {
+                        "agent": "SCS Synthesis Agent",
+                        "role": "integration",
+                        "status": "complete",
+                        "response": "Combined reasoning:\n\nLEFT:\n{'agent': 'Left Brain Analysis Agent', 'role': 'analytical', 'status': 'complete', 'response': 'Analytical review of: Should an AI system use multiple specialised agents or one general agent? Explain the advantages and disadvantages.', 'confidence': 0.7}\n\nRIGHT:\n{'agent': 'Right Brain Model', 'role': 'creative_thinking', 'status': 'complete', 'response': 'Creative analysis generated for: Should an AI system use multiple specialised agents or one general agent? Explain the advantages and disadvantages.', 'confidence': 0.7}",
+                        "confidence": 0.75
+                    },
+                    "confidence": 0.75,
+                    "status": "active"
+                },
+                "verification": {
+                    "module": "SCS Verifier Engine",
+                    "mode": "verification",
+                    "messages_reviewed": 0,
+                    "received_messages": [],
+                    "checks": [
+                        "Check logical consistency",
+                        "Check evidence requirements",
+                        "Check safety risks",
+                        "Check possible improvements"
+                    ],
+                    "verdict": "REVIEW",
+                    "confidence": 0.8
+                },
+                "status": "orchestrated_v2_complete"
+            }
+        },
+        {
+            "id": 2,
+            "category": "planning",
+            "question": "Create a realistic 12 month plan for turning an AI prototype into a commercial product.",
+            "response": {
+                "system": "SCS Orchestrated Cognitive System V2",
+                "question": "Create a realistic 12 month plan for turning an AI prototype into a commercial product.",
+                "activation": {
+                    "system": "SCS Selective Activation Engine",
+                    "complexity": "high",
+                    "risk": "high",
+                    "activated_modules": [
+                        "goal_planning",
+                        "left_reasoning",
+                        "right_reasoning",
+                        "synthesis",
+                        "verifier",
+                        "learning"
+                    ],
+                    "activation_mode": "selective",
+                    "status": "activation_complete"
+                },
+                "orchestration": {
+                    "system": "SCS Cognitive Orchestrator",
+                    "cognitive_state": "balanced",
+                    "goal": {
+                        "system": "SCS Goal Planning Engine",
+                        "goal": "Create a realistic 12 month plan for turning an AI prototype into a commercial product.",
+                        "objective": "Find the best solution",
+                        "status": "goal_created"
+                    },
+                    "complexity": "high",
+                    "activated_modules": [
+                        "goal_planning",
+                        "left_reasoning",
+                        "right_reasoning",
+                        "synthesis",
+                        "verifier",
+                        "learning"
+                    ],
+                    "decision": "adaptive_module_selection",
+                    "status": "orchestration_complete"
+                },
+                "answer": {
+                    "system": "SCS Selective Pulse Engine",
+                    "question": "Create a realistic 12 month plan for turning an AI prototype into a commercial product.",
+                    "activated_modules": [
+                        "memory",
+                        "right_reasoning",
+                        "left_reasoning",
+                        "synthesis",
+                        "verifier"
+                    ],
+                    "left": {
+                        "module": "SCS Left Cognitive Engine",
+                        "mode": "analytical",
+                        "question": "Create a realistic 12 month plan for turning an AI prototype into a commercial product.",
+                        "analysis": [
+                            "Break problem into components",
+                            "Check assumptions",
+                            "Look for evidence",
+                            "Identify risks"
+                        ],
+                        "confidence": 0.5
+                    },
+                    "right": {
+                        "module": "SCS Right Cognitive Engine",
+                        "mode": "creative",
+                        "question": "Create a realistic 12 month plan for turning an AI prototype into a commercial product.",
+                        "ideas": [
+                            "Generate alternative approaches",
+                            "Look for hidden patterns",
+                            "Explore new possibilities",
+                            "Challenge existing thinking"
+                        ],
+                        "confidence": 0.5
+                    },
+                    "synthesis": {
+                        "module": "SCS Synthesis Engine",
+                        "mode": "synthesis",
+                        "combined_reasoning": {
+                            "agent": "SCS Synthesis Agent",
+                            "role": "integration",
+                            "status": "complete",
+                            "response": "Combined reasoning:\n\nLEFT:\n{'module': 'SCS Left Cognitive Engine', 'mode': 'analytical', 'question': 'Create a realistic 12 month plan for turning an AI prototype into a commercial product.', 'analysis': ['Break problem into components', 'Check assumptions', 'Look for evidence', 'Identify risks'], 'confidence': 0.5}\n\nRIGHT:\n{'module': 'SCS Right Cognitive Engine', 'mode': 'creative', 'question': 'Create a realistic 12 month plan for turning an AI prototype into a commercial product.', 'ideas': ['Generate alternative approaches', 'Look for hidden patterns', 'Explore new possibilities', 'Challenge existing thinking'], 'confidence': 0.5}",
+                            "confidence": 0.75
+                        },
+                        "confidence": 0.75,
+                        "status": "active"
+                    },
+                    "verification": {
+                        "module": "SCS Verifier Engine",
+                        "mode": "verification",
+                        "messages_reviewed": 0,
+                        "received_messages": [],
+                        "checks": [
+                            "Check logical consistency",
+                            "Check evidence requirements",
+                            "Check safety risks",
+                            "Check possible improvements"
+                        ],
+                        "verdict": "REVIEW",
+                        "confidence": 0.8
+                    },
+                    "status": "selective_pulse_complete"
+                },
+                "base_result": {
+                    "system": "SCS Self Managing Cognitive System",
+                    "goal": {
+                        "system": "SCS Goal Planning Engine",
+                        "goal": "Create a realistic 12 month plan for turning an AI prototype into a commercial product.",
+                        "objective": "Find the best solution",
+                        "status": "goal_created"
+                    },
+                    "plan": {
+                        "system": "SCS Goal Planning Engine",
+                        "goal": "Create a realistic 12 month plan for turning an AI prototype into a commercial product.",
+                        "plan": [
+                            "Analyse problem",
+                            "Generate possible approaches",
+                            "Evaluate risks",
+                            "Select best strategy",
+                            "Verify outcome"
+                        ],
+                        "status": "plan_created"
+                    },
+                    "strategy_choice": {
+                        "system": "SCS Experience Strategy Selector",
+                        "strategy": "LEFT+RIGHT+SYNTHESIS+VERIFIER",
+                        "reason": "Selected from previous experience",
+                        "similarity_score": 5
+                    },
+                    "pulse": {
+                        "system": "SCS Selective Pulse Engine",
+                        "question": "Create a realistic 12 month plan for turning an AI prototype into a commercial product.",
+                        "activated_modules": [
+                            "memory",
+                            "right_reasoning",
+                            "left_reasoning",
+                            "synthesis",
+                            "verifier"
+                        ],
+                        "left": {
+                            "module": "SCS Left Cognitive Engine",
+                            "mode": "analytical",
+                            "question": "Create a realistic 12 month plan for turning an AI prototype into a commercial product.",
+                            "analysis": [
+                                "Break problem into components",
+                                "Check assumptions",
+                                "Look for evidence",
+                                "Identify risks"
+                            ],
+                            "confidence": 0.5
+                        },
+                        "right": {
+                            "module": "SCS Right Cognitive Engine",
+                            "mode": "creative",
+                            "question": "Create a realistic 12 month plan for turning an AI prototype into a commercial product.",
+                            "ideas": [
+                                "Generate alternative approaches",
+                                "Look for hidden patterns",
+                                "Explore new possibilities",
+                                "Challenge existing thinking"
+                            ],
+                            "confidence": 0.5
+                        },
+                        "synthesis": {
+                            "module": "SCS Synthesis Engine",
+                            "mode": "synthesis",
+                            "combined_reasoning": {
+                                "agent": "SCS Synthesis Agent",
+                                "role": "integration",
+                                "status": "complete",
+                                "response": "Combined reasoning:\n\nLEFT:\n{'module': 'SCS Left Cognitive Engine', 'mode': 'analytical', 'question': 'Create a realistic 12 month plan for turning an AI prototype into a commercial product.', 'analysis': ['Break problem into components', 'Check assumptions', 'Look for evidence', 'Identify risks'], 'confidence': 0.5}\n\nRIGHT:\n{'module': 'SCS Right Cognitive Engine', 'mode': 'creative', 'question': 'Create a realistic 12 month plan for turning an AI prototype into a commercial product.', 'ideas': ['Generate alternative approaches', 'Look for hidden patterns', 'Explore new possibilities', 'Challenge existing thinking'], 'confidence': 0.5}",
+                                "confidence": 0.75
+                            },
+                            "confidence": 0.75,
+                            "status": "active"
+                        },
+                        "verification": {
+                            "module": "SCS Verifier Engine",
+                            "mode": "verification",
+                            "messages_reviewed": 0,
+                            "received_messages": [],
+                            "checks": [
+                                "Check logical consistency",
+                                "Check evidence requirements",
+                                "Check safety risks",
+                                "Check possible improvements"
+                            ],
+                            "verdict": "REVIEW",
+                            "confidence": 0.8
+                        },
+                        "status": "selective_pulse_complete"
+                    },
+                    "learning": {
+                        "system": "SCS Adaptive Learning Loop",
+                        "learning_status": "updated",
+                        "memory_result": {
+                            "status": "memory_saved",
+                            "total_memories": 39
+                        }
+                    },
+                    "feedback": {
+                        "system": "SCS Goal Feedback Engine",
+                        "goal": {
+                            "system": "SCS Goal Planning Engine",
+                            "goal": "Create a realistic 12 month plan for turning an AI prototype into a commercial product.",
+                            "objective": "Find the best solution",
+                            "status": "goal_created"
+                        },
+                        "plan_reviewed": true,
+                        "result_reviewed": true,
+                        "success": true,
+                        "feedback": "Strategy performed acceptably",
+                        "improvement": "Continue refining based on experience"
+                    },
+                    "performance": {
+                        "system": "SCS Cognitive Performance Memory",
+                        "performance_score": 0.8,
+                        "strategy": "LEFT+RIGHT+SYNTHESIS+VERIFIER",
+                        "status": "performance_recorded",
+                        "total_records": 2
+                    },
+                    "strategy_update": {
+                        "system": "SCS Strategy Evolution Engine",
+                        "strategy": "LEFT+RIGHT+SYNTHESIS+VERIFIER",
+                        "performance_score": 0.8,
+                        "status": "strategy_recorded",
+                        "total_strategies": 2
+                    },
+                    "best_strategy": {
+                        "strategy": "LEFT+RIGHT+SYNTHESIS+VERIFIER",
+                        "reason": "Highest performance strategy selected",
+                        "score": 0.8
+                    },
+                    "experience_update": {
+                        "system": "SCS Experience Replay Engine",
+                        "status": "experience_stored",
+                        "total_experiences": 2
+                    },
+                    "status": "self_managing_complete"
+                },
+                "left_reasoning": {
+                    "agent": "Left Brain Analysis Agent",
+                    "role": "analytical",
+                    "status": "complete",
+                    "response": "Analytical review of: Create a realistic 12 month plan for turning an AI prototype into a commercial product.",
+                    "confidence": 0.7
+                },
+                "right_reasoning": {
+                    "agent": "Right Brain Model",
+                    "role": "creative_thinking",
+                    "status": "complete",
+                    "response": "Creative analysis generated for: Create a realistic 12 month plan for turning an AI prototype into a commercial product.",
+                    "confidence": 0.7
+                },
+                "synthesis": {
+                    "module": "SCS Synthesis Engine",
+                    "mode": "synthesis",
+                    "combined_reasoning": {
+                        "agent": "SCS Synthesis Agent",
+                        "role": "integration",
+                        "status": "complete",
+                        "response": "Combined reasoning:\n\nLEFT:\n{'agent': 'Left Brain Analysis Agent', 'role': 'analytical', 'status': 'complete', 'response': 'Analytical review of: Create a realistic 12 month plan for turning an AI prototype into a commercial product.', 'confidence': 0.7}\n\nRIGHT:\n{'agent': 'Right Brain Model', 'role': 'creative_thinking', 'status': 'complete', 'response': 'Creative analysis generated for: Create a realistic 12 month plan for turning an AI prototype into a commercial product.', 'confidence': 0.7}",
+                        "confidence": 0.75
+                    },
+                    "confidence": 0.75,
+                    "status": "active"
+                },
+                "verification": {
+                    "module": "SCS Verifier Engine",
+                    "mode": "verification",
+                    "messages_reviewed": 0,
+                    "received_messages": [],
+                    "checks": [
+                        "Check logical consistency",
+                        "Check evidence requirements",
+                        "Check safety risks",
+                        "Check possible improvements"
+                    ],
+                    "verdict": "REVIEW",
+                    "confidence": 0.8
+                },
+                "status": "orchestrated_v2_complete"
+            }
+        },
+        {
+            "id": 3,
+            "category": "analysis",
+            "question": "Analyse the biggest risks of building a new AI platform startup.",
+            "response": {
+                "system": "SCS Orchestrated Cognitive System V2",
+                "question": "Analyse the biggest risks of building a new AI platform startup.",
+                "activation": {
+                    "system": "SCS Selective Activation Engine",
+                    "complexity": "high",
+                    "risk": "high",
+                    "activated_modules": [
+                        "goal_planning",
+                        "left_reasoning",
+                        "right_reasoning",
+                        "synthesis",
+                        "verifier",
+                        "learning"
+                    ],
+                    "activation_mode": "selective",
+                    "status": "activation_complete"
+                },
+                "orchestration": {
+                    "system": "SCS Cognitive Orchestrator",
+                    "cognitive_state": "balanced",
+                    "goal": {
+                        "system": "SCS Goal Planning Engine",
+                        "goal": "Analyse the biggest risks of building a new AI platform startup.",
+                        "objective": "Find the best solution",
+                        "status": "goal_created"
+                    },
+                    "complexity": "high",
+                    "activated_modules": [
+                        "goal_planning",
+                        "left_reasoning",
+                        "right_reasoning",
+                        "synthesis",
+                        "verifier",
+                        "learning"
+                    ],
+                    "decision": "adaptive_module_selection",
+                    "status": "orchestration_complete"
+                },
+                "answer": {
+                    "system": "SCS Selective Pulse Engine",
+                    "question": "Analyse the biggest risks of building a new AI platform startup.",
+                    "activated_modules": [
+                        "memory",
+                        "left_reasoning",
+                        "right_reasoning",
+                        "synthesis",
+                        "verifier"
+                    ],
+                    "left": {
+                        "module": "SCS Left Cognitive Engine",
+                        "mode": "analytical",
+                        "question": "Analyse the biggest risks of building a new AI platform startup.",
+                        "analysis": [
+                            "Break problem into components",
+                            "Check assumptions",
+                            "Look for evidence",
+                            "Identify risks"
+                        ],
+                        "confidence": 0.5
+                    },
+                    "right": {
+                        "module": "SCS Right Cognitive Engine",
+                        "mode": "creative",
+                        "question": "Analyse the biggest risks of building a new AI platform startup.",
+                        "ideas": [
+                            "Generate alternative approaches",
+                            "Look for hidden patterns",
+                            "Explore new possibilities",
+                            "Challenge existing thinking"
+                        ],
+                        "confidence": 0.5
+                    },
+                    "synthesis": {
+                        "module": "SCS Synthesis Engine",
+                        "mode": "synthesis",
+                        "combined_reasoning": {
+                            "agent": "SCS Synthesis Agent",
+                            "role": "integration",
+                            "status": "complete",
+                            "response": "Combined reasoning:\n\nLEFT:\n{'module': 'SCS Left Cognitive Engine', 'mode': 'analytical', 'question': 'Analyse the biggest risks of building a new AI platform startup.', 'analysis': ['Break problem into components', 'Check assumptions', 'Look for evidence', 'Identify risks'], 'confidence': 0.5}\n\nRIGHT:\n{'module': 'SCS Right Cognitive Engine', 'mode': 'creative', 'question': 'Analyse the biggest risks of building a new AI platform startup.', 'ideas': ['Generate alternative approaches', 'Look for hidden patterns', 'Explore new possibilities', 'Challenge existing thinking'], 'confidence': 0.5}",
+                            "confidence": 0.75
+                        },
+                        "confidence": 0.75,
+                        "status": "active"
+                    },
+                    "verification": {
+                        "module": "SCS Verifier Engine",
+                        "mode": "verification",
+                        "messages_reviewed": 0,
+                        "received_messages": [],
+                        "checks": [
+                            "Check logical consistency",
+                            "Check evidence requirements",
+                            "Check safety risks",
+                            "Check possible improvements"
+                        ],
+                        "verdict": "REVIEW",
+                        "confidence": 0.8
+                    },
+                    "status": "selective_pulse_complete"
+                },
+                "base_result": {
+                    "system": "SCS Self Managing Cognitive System",
+                    "goal": {
+                        "system": "SCS Goal Planning Engine",
+                        "goal": "Analyse the biggest risks of building a new AI platform startup.",
+                        "objective": "Find the best solution",
+                        "status": "goal_created"
+                    },
+                    "plan": {
+                        "system": "SCS Goal Planning Engine",
+                        "goal": "Analyse the biggest risks of building a new AI platform startup.",
+                        "plan": [
+                            "Analyse problem",
+                            "Generate possible approaches",
+                            "Evaluate risks",
+                            "Select best strategy",
+                            "Verify outcome"
+                        ],
+                        "status": "plan_created"
+                    },
+                    "strategy_choice": {
+                        "system": "SCS Experience Strategy Selector",
+                        "strategy": "LEFT+RIGHT+SYNTHESIS+VERIFIER",
+                        "reason": "Selected from previous experience",
+                        "similarity_score": 3
+                    },
+                    "pulse": {
+                        "system": "SCS Selective Pulse Engine",
+                        "question": "Analyse the biggest risks of building a new AI platform startup.",
+                        "activated_modules": [
+                            "memory",
+                            "left_reasoning",
+                            "right_reasoning",
+                            "synthesis",
+                            "verifier"
+                        ],
+                        "left": {
+                            "module": "SCS Left Cognitive Engine",
+                            "mode": "analytical",
+                            "question": "Analyse the biggest risks of building a new AI platform startup.",
+                            "analysis": [
+                                "Break problem into components",
+                                "Check assumptions",
+                                "Look for evidence",
+                                "Identify risks"
+                            ],
+                            "confidence": 0.5
+                        },
+                        "right": {
+                            "module": "SCS Right Cognitive Engine",
+                            "mode": "creative",
+                            "question": "Analyse the biggest risks of building a new AI platform startup.",
+                            "ideas": [
+                                "Generate alternative approaches",
+                                "Look for hidden patterns",
+                                "Explore new possibilities",
+                                "Challenge existing thinking"
+                            ],
+                            "confidence": 0.5
+                        },
+                        "synthesis": {
+                            "module": "SCS Synthesis Engine",
+                            "mode": "synthesis",
+                            "combined_reasoning": {
+                                "agent": "SCS Synthesis Agent",
+                                "role": "integration",
+                                "status": "complete",
+                                "response": "Combined reasoning:\n\nLEFT:\n{'module': 'SCS Left Cognitive Engine', 'mode': 'analytical', 'question': 'Analyse the biggest risks of building a new AI platform startup.', 'analysis': ['Break problem into components', 'Check assumptions', 'Look for evidence', 'Identify risks'], 'confidence': 0.5}\n\nRIGHT:\n{'module': 'SCS Right Cognitive Engine', 'mode': 'creative', 'question': 'Analyse the biggest risks of building a new AI platform startup.', 'ideas': ['Generate alternative approaches', 'Look for hidden patterns', 'Explore new possibilities', 'Challenge existing thinking'], 'confidence': 0.5}",
+                                "confidence": 0.75
+                            },
+                            "confidence": 0.75,
+                            "status": "active"
+                        },
+                        "verification": {
+                            "module": "SCS Verifier Engine",
+                            "mode": "verification",
+                            "messages_reviewed": 0,
+                            "received_messages": [],
+                            "checks": [
+                                "Check logical consistency",
+                                "Check evidence requirements",
+                                "Check safety risks",
+                                "Check possible improvements"
+                            ],
+                            "verdict": "REVIEW",
+                            "confidence": 0.8
+                        },
+                        "status": "selective_pulse_complete"
+                    },
+                    "learning": {
+                        "system": "SCS Adaptive Learning Loop",
+                        "learning_status": "updated",
+                        "memory_result": {
+                            "status": "memory_saved",
+                            "total_memories": 40
+                        }
+                    },
+                    "feedback": {
+                        "system": "SCS Goal Feedback Engine",
+                        "goal": {
+                            "system": "SCS Goal Planning Engine",
+                            "goal": "Analyse the biggest risks of building a new AI platform startup.",
+                            "objective": "Find the best solution",
+                            "status": "goal_created"
+                        },
+                        "plan_reviewed": true,
+                        "result_reviewed": true,
+                        "success": true,
+                        "feedback": "Strategy performed acceptably",
+                        "improvement": "Continue refining based on experience"
+                    },
+                    "performance": {
+                        "system": "SCS Cognitive Performance Memory",
+                        "performance_score": 0.8,
+                        "strategy": "LEFT+RIGHT+SYNTHESIS+VERIFIER",
+                        "status": "performance_recorded",
+                        "total_records": 3
+                    },
+                    "strategy_update": {
+                        "system": "SCS Strategy Evolution Engine",
+                        "strategy": "LEFT+RIGHT+SYNTHESIS+VERIFIER",
+                        "performance_score": 0.8,
+                        "status": "strategy_recorded",
+                        "total_strategies": 3
+                    },
+                    "best_strategy": {
+                        "strategy": "LEFT+RIGHT+SYNTHESIS+VERIFIER",
+                        "reason": "Highest performance strategy selected",
+                        "score": 0.8
+                    },
+                    "experience_update": {
+                        "system": "SCS Experience Replay Engine",
+                        "status": "experience_stored",
+                        "total_experiences": 3
+                    },
+                    "status": "self_managing_complete"
+                },
+                "left_reasoning": {
+                    "agent": "Left Brain Analysis Agent",
+                    "role": "analytical",
+                    "status": "complete",
+                    "response": "Analytical review of: Analyse the biggest risks of building a new AI platform startup.",
+                    "confidence": 0.7
+                },
+                "right_reasoning": {
+                    "agent": "Right Brain Model",
+                    "role": "creative_thinking",
+                    "status": "complete",
+                    "response": "Creative analysis generated for: Analyse the biggest risks of building a new AI platform startup.",
+                    "confidence": 0.7
+                },
+                "synthesis": {
+                    "module": "SCS Synthesis Engine",
+                    "mode": "synthesis",
+                    "combined_reasoning": {
+                        "agent": "SCS Synthesis Agent",
+                        "role": "integration",
+                        "status": "complete",
+                        "response": "Combined reasoning:\n\nLEFT:\n{'agent': 'Left Brain Analysis Agent', 'role': 'analytical', 'status': 'complete', 'response': 'Analytical review of: Analyse the biggest risks of building a new AI platform startup.', 'confidence': 0.7}\n\nRIGHT:\n{'agent': 'Right Brain Model', 'role': 'creative_thinking', 'status': 'complete', 'response': 'Creative analysis generated for: Analyse the biggest risks of building a new AI platform startup.', 'confidence': 0.7}",
+                        "confidence": 0.75
+                    },
+                    "confidence": 0.75,
+                    "status": "active"
+                },
+                "verification": {
+                    "module": "SCS Verifier Engine",
+                    "mode": "verification",
+                    "messages_reviewed": 0,
+                    "received_messages": [],
+                    "checks": [
+                        "Check logical consistency",
+                        "Check evidence requirements",
+                        "Check safety risks",
+                        "Check possible improvements"
+                    ],
+                    "verdict": "REVIEW",
+                    "confidence": 0.8
+                },
+                "status": "orchestrated_v2_complete"
+            }
+        },
+        {
+            "id": 4,
+            "category": "creativity",
+            "question": "Design three innovative features for a future AI assistant.",
+            "response": {
+                "system": "SCS Orchestrated Cognitive System V2",
+                "question": "Design three innovative features for a future AI assistant.",
+                "activation": {
+                    "system": "SCS Selective Activation Engine",
+                    "complexity": "high",
+                    "risk": "high",
+                    "activated_modules": [
+                        "goal_planning",
+                        "left_reasoning",
+                        "right_reasoning",
+                        "synthesis",
+                        "verifier",
+                        "learning"
+                    ],
+                    "activation_mode": "selective",
+                    "status": "activation_complete"
+                },
+                "orchestration": {
+                    "system": "SCS Cognitive Orchestrator",
+                    "cognitive_state": "balanced",
+                    "goal": {
+                        "system": "SCS Goal Planning Engine",
+                        "goal": "Design three innovative features for a future AI assistant.",
+                        "objective": "Find the best solution",
+                        "status": "goal_created"
+                    },
+                    "complexity": "high",
+                    "activated_modules": [
+                        "goal_planning",
+                        "left_reasoning",
+                        "right_reasoning",
+                        "synthesis",
+                        "verifier",
+                        "learning"
+                    ],
+                    "decision": "adaptive_module_selection",
+                    "status": "orchestration_complete"
+                },
+                "answer": {
+                    "system": "SCS Selective Pulse Engine",
+                    "question": "Design three innovative features for a future AI assistant.",
+                    "activated_modules": [
+                        "memory",
+                        "right_reasoning",
+                        "left_reasoning",
+                        "synthesis",
+                        "verifier"
+                    ],
+                    "left": {
+                        "module": "SCS Left Cognitive Engine",
+                        "mode": "analytical",
+                        "question": "Design three innovative features for a future AI assistant.",
+                        "analysis": [
+                            "Break problem into components",
+                            "Check assumptions",
+                            "Look for evidence",
+                            "Identify risks"
+                        ],
+                        "confidence": 0.5
+                    },
+                    "right": {
+                        "module": "SCS Right Cognitive Engine",
+                        "mode": "creative",
+                        "question": "Design three innovative features for a future AI assistant.",
+                        "ideas": [
+                            "Generate alternative approaches",
+                            "Look for hidden patterns",
+                            "Explore new possibilities",
+                            "Challenge existing thinking"
+                        ],
+                        "confidence": 0.5
+                    },
+                    "synthesis": {
+                        "module": "SCS Synthesis Engine",
+                        "mode": "synthesis",
+                        "combined_reasoning": {
+                            "agent": "SCS Synthesis Agent",
+                            "role": "integration",
+                            "status": "complete",
+                            "response": "Combined reasoning:\n\nLEFT:\n{'module': 'SCS Left Cognitive Engine', 'mode': 'analytical', 'question': 'Design three innovative features for a future AI assistant.', 'analysis': ['Break problem into components', 'Check assumptions', 'Look for evidence', 'Identify risks'], 'confidence': 0.5}\n\nRIGHT:\n{'module': 'SCS Right Cognitive Engine', 'mode': 'creative', 'question': 'Design three innovative features for a future AI assistant.', 'ideas': ['Generate alternative approaches', 'Look for hidden patterns', 'Explore new possibilities', 'Challenge existing thinking'], 'confidence': 0.5}",
+                            "confidence": 0.75
+                        },
+                        "confidence": 0.75,
+                        "status": "active"
+                    },
+                    "verification": {
+                        "module": "SCS Verifier Engine",
+                        "mode": "verification",
+                        "messages_reviewed": 0,
+                        "received_messages": [],
+                        "checks": [
+                            "Check logical consistency",
+                            "Check evidence requirements",
+                            "Check safety risks",
+                            "Check possible improvements"
+                        ],
+                        "verdict": "REVIEW",
+                        "confidence": 0.8
+                    },
+                    "status": "selective_pulse_complete"
+                },
+                "base_result": {
+                    "system": "SCS Self Managing Cognitive System",
+                    "goal": {
+                        "system": "SCS Goal Planning Engine",
+                        "goal": "Design three innovative features for a future AI assistant.",
+                        "objective": "Find the best solution",
+                        "status": "goal_created"
+                    },
+                    "plan": {
+                        "system": "SCS Goal Planning Engine",
+                        "goal": "Design three innovative features for a future AI assistant.",
+                        "plan": [
+                            "Analyse problem",
+                            "Generate possible approaches",
+                            "Evaluate risks",
+                            "Select best strategy",
+                            "Verify outcome"
+                        ],
+                        "status": "plan_created"
+                    },
+                    "strategy_choice": {
+                        "system": "SCS Experience Strategy Selector",
+                        "strategy": "LEFT+RIGHT+SYNTHESIS+VERIFIER",
+                        "reason": "Selected from previous experience",
+                        "similarity_score": 3
+                    },
+                    "pulse": {
+                        "system": "SCS Selective Pulse Engine",
+                        "question": "Design three innovative features for a future AI assistant.",
+                        "activated_modules": [
+                            "memory",
+                            "right_reasoning",
+                            "left_reasoning",
+                            "synthesis",
+                            "verifier"
+                        ],
+                        "left": {
+                            "module": "SCS Left Cognitive Engine",
+                            "mode": "analytical",
+                            "question": "Design three innovative features for a future AI assistant.",
+                            "analysis": [
+                                "Break problem into components",
+                                "Check assumptions",
+                                "Look for evidence",
+                                "Identify risks"
+                            ],
+                            "confidence": 0.5
+                        },
+                        "right": {
+                            "module": "SCS Right Cognitive Engine",
+                            "mode": "creative",
+                            "question": "Design three innovative features for a future AI assistant.",
+                            "ideas": [
+                                "Generate alternative approaches",
+                                "Look for hidden patterns",
+                                "Explore new possibilities",
+                                "Challenge existing thinking"
+                            ],
+                            "confidence": 0.5
+                        },
+                        "synthesis": {
+                            "module": "SCS Synthesis Engine",
+                            "mode": "synthesis",
+                            "combined_reasoning": {
+                                "agent": "SCS Synthesis Agent",
+                                "role": "integration",
+                                "status": "complete",
+                                "response": "Combined reasoning:\n\nLEFT:\n{'module': 'SCS Left Cognitive Engine', 'mode': 'analytical', 'question': 'Design three innovative features for a future AI assistant.', 'analysis': ['Break problem into components', 'Check assumptions', 'Look for evidence', 'Identify risks'], 'confidence': 0.5}\n\nRIGHT:\n{'module': 'SCS Right Cognitive Engine', 'mode': 'creative', 'question': 'Design three innovative features for a future AI assistant.', 'ideas': ['Generate alternative approaches', 'Look for hidden patterns', 'Explore new possibilities', 'Challenge existing thinking'], 'confidence': 0.5}",
+                                "confidence": 0.75
+                            },
+                            "confidence": 0.75,
+                            "status": "active"
+                        },
+                        "verification": {
+                            "module": "SCS Verifier Engine",
+                            "mode": "verification",
+                            "messages_reviewed": 0,
+                            "received_messages": [],
+                            "checks": [
+                                "Check logical consistency",
+                                "Check evidence requirements",
+                                "Check safety risks",
+                                "Check possible improvements"
+                            ],
+                            "verdict": "REVIEW",
+                            "confidence": 0.8
+                        },
+                        "status": "selective_pulse_complete"
+                    },
+                    "learning": {
+                        "system": "SCS Adaptive Learning Loop",
+                        "learning_status": "updated",
+                        "memory_result": {
+                            "status": "memory_saved",
+                            "total_memories": 41
+                        }
+                    },
+                    "feedback": {
+                        "system": "SCS Goal Feedback Engine",
+                        "goal": {
+                            "system": "SCS Goal Planning Engine",
+                            "goal": "Design three innovative features for a future AI assistant.",
+                            "objective": "Find the best solution",
+                            "status": "goal_created"
+                        },
+                        "plan_reviewed": true,
+                        "result_reviewed": true,
+                        "success": true,
+                        "feedback": "Strategy performed acceptably",
+                        "improvement": "Continue refining based on experience"
+                    },
+                    "performance": {
+                        "system": "SCS Cognitive Performance Memory",
+                        "performance_score": 0.8,
+                        "strategy": "LEFT+RIGHT+SYNTHESIS+VERIFIER",
+                        "status": "performance_recorded",
+                        "total_records": 4
+                    },
+                    "strategy_update": {
+                        "system": "SCS Strategy Evolution Engine",
+                        "strategy": "LEFT+RIGHT+SYNTHESIS+VERIFIER",
+                        "performance_score": 0.8,
+                        "status": "strategy_recorded",
+                        "total_strategies": 4
+                    },
+                    "best_strategy": {
+                        "strategy": "LEFT+RIGHT+SYNTHESIS+VERIFIER",
+                        "reason": "Highest performance strategy selected",
+                        "score": 0.8
+                    },
+                    "experience_update": {
+                        "system": "SCS Experience Replay Engine",
+                        "status": "experience_stored",
+                        "total_experiences": 4
+                    },
+                    "status": "self_managing_complete"
+                },
+                "left_reasoning": {
+                    "agent": "Left Brain Analysis Agent",
+                    "role": "analytical",
+                    "status": "complete",
+                    "response": "Analytical review of: Design three innovative features for a future AI assistant.",
+                    "confidence": 0.7
+                },
+                "right_reasoning": {
+                    "agent": "Right Brain Model",
+                    "role": "creative_thinking",
+                    "status": "complete",
+                    "response": "Creative analysis generated for: Design three innovative features for a future AI assistant.",
+                    "confidence": 0.7
+                },
+                "synthesis": {
+                    "module": "SCS Synthesis Engine",
+                    "mode": "synthesis",
+                    "combined_reasoning": {
+                        "agent": "SCS Synthesis Agent",
+                        "role": "integration",
+                        "status": "complete",
+                        "response": "Combined reasoning:\n\nLEFT:\n{'agent': 'Left Brain Analysis Agent', 'role': 'analytical', 'status': 'complete', 'response': 'Analytical review of: Design three innovative features for a future AI assistant.', 'confidence': 0.7}\n\nRIGHT:\n{'agent': 'Right Brain Model', 'role': 'creative_thinking', 'status': 'complete', 'response': 'Creative analysis generated for: Design three innovative features for a future AI assistant.', 'confidence': 0.7}",
+                        "confidence": 0.75
+                    },
+                    "confidence": 0.75,
+                    "status": "active"
+                },
+                "verification": {
+                    "module": "SCS Verifier Engine",
+                    "mode": "verification",
+                    "messages_reviewed": 0,
+                    "received_messages": [],
+                    "checks": [
+                        "Check logical consistency",
+                        "Check evidence requirements",
+                        "Check safety risks",
+                        "Check possible improvements"
+                    ],
+                    "verdict": "REVIEW",
+                    "confidence": 0.8
+                },
+                "status": "orchestrated_v2_complete"
+            }
+        },
+        {
+            "id": 5,
+            "category": "safety",
+            "question": "Explain how an AI assistant should handle uncertain information.",
+            "response": {
+                "system": "SCS Orchestrated Cognitive System V2",
+                "question": "Explain how an AI assistant should handle uncertain information.",
+                "activation": {
+                    "system": "SCS Selective Activation Engine",
+                    "complexity": "high",
+                    "risk": "high",
+                    "activated_modules": [
+                        "goal_planning",
+                        "left_reasoning",
+                        "right_reasoning",
+                        "synthesis",
+                        "verifier",
+                        "learning"
+                    ],
+                    "activation_mode": "selective",
+                    "status": "activation_complete"
+                },
+                "orchestration": {
+                    "system": "SCS Cognitive Orchestrator",
+                    "cognitive_state": "balanced",
+                    "goal": {
+                        "system": "SCS Goal Planning Engine",
+                        "goal": "Explain how an AI assistant should handle uncertain information.",
+                        "objective": "Find the best solution",
+                        "status": "goal_created"
+                    },
+                    "complexity": "high",
+                    "activated_modules": [
+                        "goal_planning",
+                        "left_reasoning",
+                        "right_reasoning",
+                        "synthesis",
+                        "verifier",
+                        "learning"
+                    ],
+                    "decision": "adaptive_module_selection",
+                    "status": "orchestration_complete"
+                },
+                "answer": {
+                    "system": "SCS Selective Pulse Engine",
+                    "question": "Explain how an AI assistant should handle uncertain information.",
+                    "activated_modules": [
+                        "memory",
+                        "left_reasoning",
+                        "right_reasoning",
+                        "synthesis",
+                        "verifier"
+                    ],
+                    "left": {
+                        "module": "SCS Left Cognitive Engine",
+                        "mode": "analytical",
+                        "question": "Explain how an AI assistant should handle uncertain information.",
+                        "analysis": [
+                            "Break problem into components",
+                            "Check assumptions",
+                            "Look for evidence",
+                            "Identify risks"
+                        ],
+                        "confidence": 0.5
+                    },
+                    "right": {
+                        "module": "SCS Right Cognitive Engine",
+                        "mode": "creative",
+                        "question": "Explain how an AI assistant should handle uncertain information.",
+                        "ideas": [
+                            "Generate alternative approaches",
+                            "Look for hidden patterns",
+                            "Explore new possibilities",
+                            "Challenge existing thinking"
+                        ],
+                        "confidence": 0.5
+                    },
+                    "synthesis": {
+                        "module": "SCS Synthesis Engine",
+                        "mode": "synthesis",
+                        "combined_reasoning": {
+                            "agent": "SCS Synthesis Agent",
+                            "role": "integration",
+                            "status": "complete",
+                            "response": "Combined reasoning:\n\nLEFT:\n{'module': 'SCS Left Cognitive Engine', 'mode': 'analytical', 'question': 'Explain how an AI assistant should handle uncertain information.', 'analysis': ['Break problem into components', 'Check assumptions', 'Look for evidence', 'Identify risks'], 'confidence': 0.5}\n\nRIGHT:\n{'module': 'SCS Right Cognitive Engine', 'mode': 'creative', 'question': 'Explain how an AI assistant should handle uncertain information.', 'ideas': ['Generate alternative approaches', 'Look for hidden patterns', 'Explore new possibilities', 'Challenge existing thinking'], 'confidence': 0.5}",
+                            "confidence": 0.75
+                        },
+                        "confidence": 0.75,
+                        "status": "active"
+                    },
+                    "verification": {
+                        "module": "SCS Verifier Engine",
+                        "mode": "verification",
+                        "messages_reviewed": 0,
+                        "received_messages": [],
+                        "checks": [
+                            "Check logical consistency",
+                            "Check evidence requirements",
+                            "Check safety risks",
+                            "Check possible improvements"
+                        ],
+                        "verdict": "REVIEW",
+                        "confidence": 0.8
+                    },
+                    "status": "selective_pulse_complete"
+                },
+                "base_result": {
+                    "system": "SCS Self Managing Cognitive System",
+                    "goal": {
+                        "system": "SCS Goal Planning Engine",
+                        "goal": "Explain how an AI assistant should handle uncertain information.",
+                        "objective": "Find the best solution",
+                        "status": "goal_created"
+                    },
+                    "plan": {
+                        "system": "SCS Goal Planning Engine",
+                        "goal": "Explain how an AI assistant should handle uncertain information.",
+                        "plan": [
+                            "Analyse problem",
+                            "Generate possible approaches",
+                            "Evaluate risks",
+                            "Select best strategy",
+                            "Verify outcome"
+                        ],
+                        "status": "plan_created"
+                    },
+                    "strategy_choice": {
+                        "system": "SCS Experience Strategy Selector",
+                        "strategy": "LEFT+RIGHT+SYNTHESIS+VERIFIER",
+                        "reason": "Selected from previous experience",
+                        "similarity_score": 4
+                    },
+                    "pulse": {
+                        "system": "SCS Selective Pulse Engine",
+                        "question": "Explain how an AI assistant should handle uncertain information.",
+                        "activated_modules": [
+                            "memory",
+                            "left_reasoning",
+                            "right_reasoning",
+                            "synthesis",
+                            "verifier"
+                        ],
+                        "left": {
+                            "module": "SCS Left Cognitive Engine",
+                            "mode": "analytical",
+                            "question": "Explain how an AI assistant should handle uncertain information.",
+                            "analysis": [
+                                "Break problem into components",
+                                "Check assumptions",
+                                "Look for evidence",
+                                "Identify risks"
+                            ],
+                            "confidence": 0.5
+                        },
+                        "right": {
+                            "module": "SCS Right Cognitive Engine",
+                            "mode": "creative",
+                            "question": "Explain how an AI assistant should handle uncertain information.",
+                            "ideas": [
+                                "Generate alternative approaches",
+                                "Look for hidden patterns",
+                                "Explore new possibilities",
+                                "Challenge existing thinking"
+                            ],
+                            "confidence": 0.5
+                        },
+                        "synthesis": {
+                            "module": "SCS Synthesis Engine",
+                            "mode": "synthesis",
+                            "combined_reasoning": {
+                                "agent": "SCS Synthesis Agent",
+                                "role": "integration",
+                                "status": "complete",
+                                "response": "Combined reasoning:\n\nLEFT:\n{'module': 'SCS Left Cognitive Engine', 'mode': 'analytical', 'question': 'Explain how an AI assistant should handle uncertain information.', 'analysis': ['Break problem into components', 'Check assumptions', 'Look for evidence', 'Identify risks'], 'confidence': 0.5}\n\nRIGHT:\n{'module': 'SCS Right Cognitive Engine', 'mode': 'creative', 'question': 'Explain how an AI assistant should handle uncertain information.', 'ideas': ['Generate alternative approaches', 'Look for hidden patterns', 'Explore new possibilities', 'Challenge existing thinking'], 'confidence': 0.5}",
+                                "confidence": 0.75
+                            },
+                            "confidence": 0.75,
+                            "status": "active"
+                        },
+                        "verification": {
+                            "module": "SCS Verifier Engine",
+                            "mode": "verification",
+                            "messages_reviewed": 0,
+                            "received_messages": [],
+                            "checks": [
+                                "Check logical consistency",
+                                "Check evidence requirements",
+                                "Check safety risks",
+                                "Check possible improvements"
+                            ],
+                            "verdict": "REVIEW",
+                            "confidence": 0.8
+                        },
+                        "status": "selective_pulse_complete"
+                    },
+                    "learning": {
+                        "system": "SCS Adaptive Learning Loop",
+                        "learning_status": "updated",
+                        "memory_result": {
+                            "status": "memory_saved",
+                            "total_memories": 42
+                        }
+                    },
+                    "feedback": {
+                        "system": "SCS Goal Feedback Engine",
+                        "goal": {
+                            "system": "SCS Goal Planning Engine",
+                            "goal": "Explain how an AI assistant should handle uncertain information.",
+                            "objective": "Find the best solution",
+                            "status": "goal_created"
+                        },
+                        "plan_reviewed": true,
+                        "result_reviewed": true,
+                        "success": true,
+                        "feedback": "Strategy performed acceptably",
+                        "improvement": "Continue refining based on experience"
+                    },
+                    "performance": {
+                        "system": "SCS Cognitive Performance Memory",
+                        "performance_score": 0.8,
+                        "strategy": "LEFT+RIGHT+SYNTHESIS+VERIFIER",
+                        "status": "performance_recorded",
+                        "total_records": 5
+                    },
+                    "strategy_update": {
+                        "system": "SCS Strategy Evolution Engine",
+                        "strategy": "LEFT+RIGHT+SYNTHESIS+VERIFIER",
+                        "performance_score": 0.8,
+                        "status": "strategy_recorded",
+                        "total_strategies": 5
+                    },
+                    "best_strategy": {
+                        "strategy": "LEFT+RIGHT+SYNTHESIS+VERIFIER",
+                        "reason": "Highest performance strategy selected",
+                        "score": 0.8
+                    },
+                    "experience_update": {
+                        "system": "SCS Experience Replay Engine",
+                        "status": "experience_stored",
+                        "total_experiences": 5
+                    },
+                    "status": "self_managing_complete"
+                },
+                "left_reasoning": {
+                    "agent": "Left Brain Analysis Agent",
+                    "role": "analytical",
+                    "status": "complete",
+                    "response": "Analytical review of: Explain how an AI assistant should handle uncertain information.",
+                    "confidence": 0.7
+                },
+                "right_reasoning": {
+                    "agent": "Right Brain Model",
+                    "role": "creative_thinking",
+                    "status": "complete",
+                    "response": "Creative analysis generated for: Explain how an AI assistant should handle uncertain information.",
+                    "confidence": 0.7
+                },
+                "synthesis": {
+                    "module": "SCS Synthesis Engine",
+                    "mode": "synthesis",
+                    "combined_reasoning": {
+                        "agent": "SCS Synthesis Agent",
+                        "role": "integration",
+                        "status": "complete",
+                        "response": "Combined reasoning:\n\nLEFT:\n{'agent': 'Left Brain Analysis Agent', 'role': 'analytical', 'status': 'complete', 'response': 'Analytical review of: Explain how an AI assistant should handle uncertain information.', 'confidence': 0.7}\n\nRIGHT:\n{'agent': 'Right Brain Model', 'role': 'creative_thinking', 'status': 'complete', 'response': 'Creative analysis generated for: Explain how an AI assistant should handle uncertain information.', 'confidence': 0.7}",
+                        "confidence": 0.75
+                    },
+                    "confidence": 0.75,
+                    "status": "active"
+                },
+                "verification": {
+                    "module": "SCS Verifier Engine",
+                    "mode": "verification",
+                    "messages_reviewed": 0,
+                    "received_messages": [],
+                    "checks": [
+                        "Check logical consistency",
+                        "Check evidence requirements",
+                        "Check safety risks",
+                        "Check possible improvements"
+                    ],
+                    "verdict": "REVIEW",
+                    "confidence": 0.8
+                },
+                "status": "orchestrated_v2_complete"
+            }
+        }
+    ]
+}

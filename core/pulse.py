@@ -1,8 +1,10 @@
 from core.left_brain import left_brain
 from core.right_brain import right_brain
-from agents.synthesis_agent import synthesis_agent
-from agents.verifier_agent import verifier_agent
+from core.synthesis_agent import synthesis_agent
+from core.verifier_engine import verifier_engine
 from core.pulse_router import pulse_router
+from core.attention_router import attention_router
+from core.reflection_agent import reflection_agent
 
 
 class PulseController:
@@ -20,10 +22,21 @@ class PulseController:
             print("\nFEEDBACK RECEIVED:")
             print(feedback)
 
-        decision = pulse_router.decide(question)
+        attention_result = attention_router.route(
+            question
+        )
+
+        decision = {
+            "left": "left_reasoning" in attention_result["activation"]["activated_modules"],
+             "right": "right_reasoning" in attention_result["activation"]["activated_modules"],
+             "synthesis": "synthesis" in attention_result["activation"]["activated_modules"],
+             "verifier": "verifier" in attention_result["activation"]["activated_modules"]
+        }
 
         print("\nROUTER DECISION:")
         print(decision)
+        print("\nATTENTION STATE:")
+        print(attention_result)
 
         left_result = None
         right_result = None
@@ -98,35 +111,48 @@ class PulseController:
 
             if target_result is not None:
 
-                verification_result = (
-                    verifier_agent.check(
-                        target_result
-                    )
+                verification_result = verifier_engine.verify(
+                    target_result
                 )
+                reflection_result = None
 
+           
+            if verification_result:
+
+                   print("\n[REFLECTION] ACTIVE")
+
+                   reflection_result = reflection_agent.reflect(
+                       verification_result
+                )
         return {
             "question": question,
             "decision": decision,
 
             "left_brain": (
-                left_result.to_dict()
-                if left_result else None
+                left_result
+                if hasattr(left_result, "to_dict")
+                else left_result
             ),
 
             "right_brain": (
-                right_result.to_dict()
-                if right_result else None
+                right_result
+                if hasattr(right_result, "to_dict")
+                else right_result
             ),
 
             "synthesis": (
-                synthesis_result.to_dict()
-                if synthesis_result else None
+                synthesis_result
+                if hasattr(synthesis_result, "to_dict")
+                else synthesis_result
             ),
 
             "verification": (
-                verification_result.to_dict()
-                if verification_result else None
-            )
+                verification_result
+                if verification_result
+                else None
+            ),
+
+            "reflection": reflection_result,
         }
 
 
