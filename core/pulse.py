@@ -24,6 +24,11 @@ class PulseController:
             question
         )
 
+        memory_context_package = {
+            "relevant_memories": memory_context,
+            "memory_count": len(memory_context),
+            "source": "SCS Cognitive Memory"
+        }
 
         print("\nMEMORY CONTEXT:")
         print(f"Relevant memories: {len(memory_context)}")
