@@ -1,4 +1,4 @@
-from core.memory_gate import memory_gate
+from core.cognitive_memory import cognitive_memory
 
 
 class LearningCoordinator:
@@ -6,30 +6,36 @@ class LearningCoordinator:
     def __init__(self):
         self.name = "SCS Learning Coordinator"
 
-
     def decide_learning_path(self, question):
 
-        memory_result = memory_gate.evaluate(
+        memories = cognitive_memory.recall_relevant(
             question
         )
 
-        if memory_result.get("use_memory"):
+        if len(memories) >= 3:
 
-            return {
-                "mode": "memory_guided",
-                "strategy": memory_result.get(
-                    "strategy"
-                ),
-                "confidence": memory_result.get(
-                    "confidence"
-                )
-            }
+            mode = "memory_guided"
 
+        elif len(memories) > 0:
+
+            mode = "assisted"
+
+        else:
+
+            mode = "exploration"
 
         return {
-            "mode": "fresh_reasoning",
-            "strategy": None,
-            "confidence": 0
+
+            "system": self.name,
+
+            "mode": mode,
+
+            "memory_matches": len(memories),
+
+            "memory_context": memories,
+
+            "status": "learning_path_selected"
+
         }
 
 

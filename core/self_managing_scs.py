@@ -6,23 +6,9 @@ class SelfManagingSCS:
     def __init__(self):
         self.name = "SCS Self Managing System"
 
-
     def think(self, question):
 
-        modules = [
-            "goal_planning",
-            "left_reasoning",
-            "right_reasoning",
-            "synthesis",
-            "verifier",
-            "learning"
-        ]
-
-        pulse = selective_pulse_engine.run(
-            question,
-            modules
-        )
-
+        pulse = selective_pulse_engine.run(question)
 
         return {
 
@@ -44,10 +30,9 @@ class SelfManagingSCS:
 
             "decision": pulse.get("decision", {}),
 
-            "learning": pulse.get(
-                "learning",
-                {}
-            ),
+            "learning": pulse.get("learning", {}),
+
+            "activated_modules": pulse.get("activated_modules", []),
 
             "status": "self_managing_complete"
         }

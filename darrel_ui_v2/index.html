@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DARREL - Synthetic Cognitive System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="console">
+
+    <header>
+        <h1>🧠 DARREL</h1>
+        <p>Distributed Analytical Reasoning Engine</p>
+        <span>Synthetic Cognitive System V0.1</span>
+    </header>
+
+
+    <section class="question-panel">
+
+        <h2>QUESTION</h2>
+
+        <input 
+        id="questionInput"
+        type="text"
+        placeholder="Ask DARREL something..."
+        >
+
+        <button onclick="startPulse()">
+            START PULSE
+        </button>
+
+    </section>
+
+
+
+    <section class="brain-layout">
+
+
+        <div class="brain-card">
+
+            <h2>🧠 LEFT BRAIN</h2>
+
+            <p id="leftStatus">
+                STANDBY
+            </p>
+
+        </div>
+
+
+
+        <div class="pulse-card">
+
+            <div id="pulseCore">
+
+                ⚡
+
+            </div>
+
+            <h2>PULSE CORE</h2>
+
+            <p id="pulseStatus">
+                READY
+            </p>
+
+            <p>
+                Pulse:
+                <span id="pulseCount">
+                0
+                </span>
+            </p>
+
+        </div>
+
+
+
+
+        <div class="brain-card">
+
+            <h2>🧠 RIGHT BRAIN</h2>
+
+            <p id="rightStatus">
+                STANDBY
+            </p>
+
+        </div>
+
+
+    </section>
+
+
+
+    <section class="flow-panel">
+
+        <h2>COGNITIVE FLOW</h2>
+
+
+        <div class="flow">
+
+            <div id="attention">
+                🧭 Attention Router
+            </div>
+
+            ↓
+
+            <div id="reasoning">
+                🧠 Reasoning
+            </div>
+
+            ↓
+
+            <div id="synthesis">
+                🧩 Synthesis
+            </div>
+
+            ↓
+
+            <div id="verification">
+                🛡 Verification
+            </div>
+
+            ↓
+
+            <div id="memory">
+                💾 Memory
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+
+    <section class="telemetry">
+
+        <h2>LIVE TELEMETRY</h2>
+
+
+        <p>
+        Confidence:
+        <span id="confidence">0%</span>
+        </p>
+
+
+        <p>
+        Complexity:
+        <span id="complexity">---</span>
+        </p>
+
+
+        <p>
+        Active Modules:
+        <span id="modules">0</span>
+        </p>
+
+
+        <p>
+        Processing:
+        <span id="processing">
+        0s
+        </span>
+        </p>
+
+
+    </section>
+
+
+
+</div>
+
+
+<script src="app.js"></script>
+
+</body>
+
+</html>

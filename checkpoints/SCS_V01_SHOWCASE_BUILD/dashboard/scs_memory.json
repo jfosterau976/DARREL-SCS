@@ -1,0 +1,142 @@
+[
+    {
+        "question": "hello",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "hello",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "hello",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "hello",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "hello",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "hello",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "hello",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "hello",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "hello scs",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "hello mate",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "What is 2 + 2?",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "2+2",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "2+2",
+        "verdict": "UNKNOWN",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "2+2",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should I build a website or an app first?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should I build a website or an app first?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    },
+    {
+        "question": "Should SCS use multiple agents?",
+        "verdict": "REVIEW",
+        "strategy": "LEFT+RIGHT+SYNTHESIS"
+    }
+]

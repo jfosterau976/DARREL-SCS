@@ -1,0 +1,1404 @@
+body {
+    margin: 0;
+    background: #020611;
+    color: #e8f4ff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.container {
+    width: 90%;
+    margin: auto;
+    padding: 30px;
+}
+
+
+header {
+    text-align: center;
+}
+
+
+h1 {
+    font-size: 60px;
+    color: #00d9ff;
+    text-shadow: 0 0 25px #00d9ff;
+}
+
+
+h2 {
+    color: #8ca7c7;
+}
+
+
+.pulse-status {
+    display: inline-block;
+    padding: 15px 30px;
+    border-radius: 30px;
+    margin: 20px;
+    font-size: 20px;
+}
+
+
+.idle {
+    background: #06351f;
+    color: #00ff88;
+}
+
+
+.thinking {
+    background: #450000;
+    color: #ff3333;
+    animation: flash 0.7s infinite;
+}
+
+
+.question-box,
+.modules {
+    background: #091426;
+    padding: 25px;
+    border-radius: 20px;
+    margin: 25px 0;
+    border: 1px solid #12365c;
+}
+
+
+input {
+    width: 70%;
+    padding: 15px;
+    background: #020611;
+    color: white;
+    border: 1px solid #00d9ff;
+    border-radius: 10px;
+}
+
+
+button {
+    padding: 15px 30px;
+    margin-left: 10px;
+    background: #00d9ff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+
+.brain-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 25px;
+    text-align: center;
+}
+
+
+.brain-panel,
+.pulse-core {
+
+    background: #091426;
+    padding: 30px;
+    border-radius: 25px;
+    border: 1px solid #164b75;
+
+}
+
+
+.brain-panel.active {
+
+    box-shadow: 0 0 35px #00ff88;
+    border-color: #00ff88;
+
+}
+
+
+.pulse-core {
+
+}
+
+
+#pulseCircle {
+
+    width: 130px;
+    height: 130px;
+    margin: 50px auto;
+
+    border-radius: 50%;
+
+    position: relative;
+
+    background:
+    radial-gradient(
+        circle,
+        white 0%,
+        #8affc1 10%,
+        #00ff88 30%,
+        #009955 60%,
+        transparent 75%
+    );
+
+    box-shadow:
+        0 0 25px #00ff88,
+        0 0 70px #00ff88,
+        0 0 140px rgba(0,255,136,0.7);
+
+    animation: coreBreath 3s infinite;
+}
+
+
+#pulseCircle::before {
+
+    content:"";
+
+    position:absolute;
+
+    width:220px;
+    height:220px;
+
+    top:50%;
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    border-radius:50%;
+
+    border:2px solid rgba(0,255,136,0.5);
+
+    animation:pulseWave 2s infinite;
+}
+
+
+#pulseCircle::after {
+
+    content:"";
+
+    position:absolute;
+
+    width:330px;
+    height:330px;
+
+    top:50%;
+    left:50%;
+
+    transform:translate(-50%,-50%);
+
+    border-radius:50%;
+
+    border:2px solid rgba(0,255,136,0.2);
+
+    animation:pulseWave 3s infinite;
+}
+
+
+@keyframes coreBreath {
+
+    0%,100% {
+        transform:scale(1);
+    }
+
+    50% {
+        transform:scale(1.08);
+    }
+
+}
+
+
+@keyframes pulseWave {
+
+    0% {
+
+        transform:
+        translate(-50%,-50%)
+        scale(.4);
+
+        opacity:1;
+
+    }
+
+    100% {
+
+        transform:
+        translate(-50%,-50%)
+        scale(1);
+
+        opacity:0;
+
+    }
+
+}
+
+
+#pulseCircle.thinking {
+
+    background: #ff2222;
+
+    box-shadow:
+    0 0 25px red,
+    0 0 80px red;
+
+    animation: pulse 0.6s infinite;
+
+}
+
+
+
+.modules p {
+
+    font-size: 20px;
+
+}
+
+
+
+@keyframes pulse {
+
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.25);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+
+}
+
+
+
+@keyframes flash {
+
+    50% {
+        opacity:0.3;
+    }
+
+}
+.brain-panel {
+
+    position: relative;
+
+    overflow: hidden;
+
+    transition: 0.5s;
+
+}
+
+
+
+.brain-panel h2 {
+
+    color:#00d9ff;
+
+}
+
+
+
+.brain-panel.active {
+
+    border-color:#00ff88;
+
+    box-shadow:
+
+    0 0 30px #00ff88,
+
+    inset 0 0 30px rgba(0,255,136,0.2);
+
+}
+
+
+
+.brain-panel::after {
+
+    content:"";
+
+    position:absolute;
+
+    width:120px;
+
+    height:120px;
+
+    background:
+
+    radial-gradient(circle,
+
+    rgba(0,255,136,.5),
+
+    transparent 70%);
+
+
+    top:50%;
+
+    left:50%;
+
+
+    transform:
+
+    translate(-50%,-50%);
+
+
+    opacity:.2;
+
+}
+
+
+
+.modules {
+
+    box-shadow:
+
+    0 0 20px rgba(0,217,255,.2);
+
+}
+/* =========================
+   DARREL TELEMETRY HUD
+========================= */
+
+
+.telemetry-panel,
+.verification-panel,
+.learning-panel {
+
+    margin-top:40px;
+
+    padding:30px;
+
+    background:
+    linear-gradient(
+        145deg,
+        rgba(15,30,55,0.95),
+        rgba(3,10,25,0.95)
+    );
+
+    border-radius:25px;
+
+    border:1px solid rgba(0,217,255,0.35);
+
+    box-shadow:
+    0 0 30px rgba(0,217,255,0.15),
+    inset 0 0 30px rgba(0,217,255,0.05);
+
+}
+
+
+
+.telemetry-panel h2,
+.verification-panel h2,
+.learning-panel h2 {
+
+    color:#00d9ff;
+
+    text-align:center;
+
+    letter-spacing:3px;
+
+    text-shadow:
+    0 0 15px #00d9ff;
+
+}
+
+
+
+.subtitle {
+
+    text-align:center;
+
+    color:#8ca7c7;
+
+    letter-spacing:2px;
+
+}
+
+
+
+.telemetry-grid {
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:20px;
+
+    margin-top:30px;
+
+}
+
+
+
+.telemetry-card {
+
+    background:
+
+    rgba(0,10,25,0.8);
+
+
+    border-radius:18px;
+
+    padding:20px;
+
+    border:
+
+    1px solid rgba(0,217,255,0.25);
+
+
+    transition:.4s;
+
+}
+
+
+
+.telemetry-card:hover {
+
+    transform:translateY(-5px);
+
+    border-color:#00ff88;
+
+    box-shadow:
+    0 0 25px rgba(0,255,136,.35);
+
+}
+
+
+
+.telemetry-card h3 {
+
+    color:#00ff88;
+
+    text-align:center;
+
+}
+
+
+
+.telemetry-card p {
+
+    color:#8ca7c7;
+
+    margin-bottom:5px;
+
+}
+
+
+
+.telemetry-card strong {
+
+    display:block;
+
+    color:white;
+
+    font-size:22px;
+
+    margin-bottom:15px;
+
+}
+
+
+
+.green {
+
+    color:#00ff88 !important;
+
+    text-shadow:
+    0 0 10px #00ff88;
+
+}
+
+
+
+.meter {
+
+    height:15px;
+
+    background:#020611;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    margin:10px 0;
+
+}
+
+
+
+.confidence {
+
+    width:78%;
+
+    height:100%;
+
+    background:
+
+    linear-gradient(
+    90deg,
+    #00ff88,
+    #00d9ff
+    );
+
+
+    box-shadow:
+    0 0 15px #00ff88;
+
+}
+.telemetry-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.telemetry-card {
+    padding: 12px;
+}
+
+.telemetry-card strong {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.telemetry-panel,
+.verification-panel,
+.learning-panel {
+    margin-top:20px;
+    padding:18px;
+}
+
+.brain-grid {
+    gap:15px;
+}
+
+.brain-panel,
+.pulse-core {
+    padding:20px;
+}
+/* DARREL COMPACT COMMAND MODE */
+
+
+.container {
+    width: 95%;
+    max-width: 1400px;
+    padding: 10px;
+}
+
+
+header {
+    margin-bottom:10px;
+}
+
+
+h1 {
+    font-size:42px;
+    margin:5px;
+}
+
+
+h2 {
+    font-size:20px;
+    margin:8px;
+}
+
+
+.brain-grid {
+    gap:10px;
+}
+
+
+.brain-panel,
+.pulse-core {
+
+    padding:12px;
+
+    border-radius:15px;
+
+}
+
+
+#pulseCircle {
+
+    width:90px;
+    height:90px;
+
+    margin:20px auto;
+
+}
+
+
+.telemetry-panel,
+.verification-panel,
+.learning-panel {
+
+    margin-top:12px;
+
+    padding:12px;
+
+    border-radius:15px;
+
+}
+
+
+.telemetry-grid {
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:10px;
+
+}
+
+
+.telemetry-card {
+
+    padding:10px;
+
+    border-radius:12px;
+
+}
+
+
+.telemetry-card h3 {
+
+    font-size:14px;
+
+}
+
+
+.telemetry-card p {
+
+    font-size:12px;
+
+}
+
+
+.telemetry-card strong {
+
+    font-size:16px;
+
+    margin-bottom:5px;
+
+}
+
+
+
+.modules {
+
+    padding:12px;
+
+    margin-top:12px;
+
+}
+
+
+button {
+
+    padding:10px 20px;
+
+}
+
+
+input {
+
+    padding:10px;
+
+}
+/* DARREL ULTRA COMPACT HUD */
+
+body {
+    overflow-x:hidden;
+}
+
+
+.container {
+    width:98%;
+    max-width:1600px;
+    padding:5px;
+}
+
+
+header {
+    margin:0;
+}
+
+
+.brain-grid {
+
+    display:grid;
+
+    grid-template-columns:
+    1fr 1fr 1fr;
+
+    gap:8px;
+
+    align-items:center;
+
+}
+
+
+.brain-panel,
+.pulse-core {
+
+    padding:8px;
+
+    min-height:120px;
+
+}
+
+
+.telemetry-panel,
+.verification-panel,
+.learning-panel {
+
+    margin-top:8px;
+
+    padding:8px;
+
+}
+
+
+.telemetry-grid {
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:6px;
+
+}
+
+
+.telemetry-card {
+
+    padding:8px;
+
+}
+
+
+.telemetry-card p {
+
+    margin:2px;
+
+}
+
+
+.telemetry-card strong {
+
+    margin:2px;
+
+}
+
+
+.modules {
+
+    display:none;
+
+}
+
+
+h1 {
+
+    font-size:32px;
+
+}
+
+
+h2 {
+
+    font-size:16px;
+
+}
+
+
+h3 {
+
+    font-size:12px;
+
+}
+/* ===========================
+   DARREL COCKPIT COMPACT HUD
+=========================== */
+
+body {
+    overflow-x: hidden;
+}
+
+
+.container {
+    width: 98%;
+    max-width: 1500px;
+    margin: auto;
+    padding: 5px;
+}
+
+
+header {
+    margin-bottom: 5px;
+}
+
+
+h1 {
+    font-size: 34px;
+    margin: 5px;
+}
+
+
+h2 {
+    font-size: 17px;
+    margin: 5px;
+}
+
+
+h3 {
+    font-size: 12px;
+    margin: 4px;
+}
+
+
+/* Brain + Pulse row */
+
+.brain-grid {
+
+    display:grid;
+
+    grid-template-columns:
+    1fr 1fr 1fr;
+
+    gap:8px;
+
+    align-items:center;
+
+}
+
+
+.brain-panel,
+.pulse-core {
+
+    padding:10px;
+
+    border-radius:15px;
+
+    min-height:110px;
+
+}
+
+
+/* Pulse smaller */
+
+#pulseCircle {
+
+    width:85px;
+    height:85px;
+
+    margin:15px auto;
+
+}
+
+
+/* Telemetry */
+
+.telemetry-panel,
+.verification-panel,
+.learning-panel {
+
+    margin-top:8px;
+
+    padding:10px;
+
+    border-radius:15px;
+
+}
+
+
+
+.telemetry-grid {
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:8px;
+
+}
+
+
+
+.telemetry-card {
+
+    padding:8px;
+
+    border-radius:12px;
+
+}
+
+
+
+.telemetry-card p {
+
+    margin:3px 0;
+
+    font-size:12px;
+
+}
+
+
+
+.telemetry-card strong {
+
+    font-size:16px;
+
+    margin:2px 0;
+
+}
+
+
+/* Pipeline row */
+
+.modules {
+
+    display:flex;
+
+    justify-content:space-around;
+
+    gap:10px;
+
+    padding:10px;
+
+}
+
+
+
+.modules p {
+
+    margin:4px;
+
+    font-size:13px;
+
+}
+
+
+/* Remove giant gaps */
+
+section {
+
+    margin-bottom:8px;
+
+}
+/* DARREL BRAND HEADER */
+
+
+.darrel-header {
+
+    text-align:center;
+
+    padding:10px;
+
+}
+
+
+
+.darrel-header h1 {
+
+    font-size:42px;
+
+    color:#ffffff;
+
+    text-shadow:
+    0 0 20px #00d9ff;
+
+}
+
+
+
+.acronym {
+
+    font-size:14px;
+
+    line-height:1.5;
+
+    color:#9fb4cc;
+
+    letter-spacing:1px;
+
+}
+
+
+
+.acronym span {
+
+    color:#00ff88;
+
+    font-weight:bold;
+
+}
+
+
+
+.tagline {
+
+    margin-top:8px;
+
+    color:#00d9ff;
+
+    font-size:12px;
+
+    letter-spacing:3px;
+
+}
+/* =========================
+   DARREL PULSE CORE EFFECT
+========================= */
+
+
+#pulseCircle {
+
+    width:90px;
+    height:90px;
+
+    margin:20px auto;
+
+    border-radius:50%;
+
+    background:
+    radial-gradient(
+        circle,
+        #ffffff,
+        #00ff88 30%,
+        #003322 70%
+    );
+
+
+    box-shadow:
+
+    0 0 20px #00ff88,
+    0 0 60px rgba(0,255,136,.7);
+
+
+    animation:
+    pulseGlow 2s infinite;
+
+}
+
+
+
+@keyframes pulseGlow {
+
+
+0% {
+
+transform:scale(1);
+
+opacity:.8;
+
+}
+
+
+50% {
+
+transform:scale(1.15);
+
+opacity:1;
+
+}
+
+
+100% {
+
+transform:scale(1);
+
+opacity:.8;
+
+}
+
+
+}
+
+
+
+/* THINKING STATE */
+
+.thinking #pulseCircle {
+
+background:
+
+radial-gradient(
+circle,
+#ffffff,
+#ff0033 35%,
+#330000 75%
+);
+
+
+box-shadow:
+
+0 0 25px #ff0033,
+0 0 80px rgba(255,0,51,.8);
+
+}
+/* DARREL NEURAL CONNECTION EFFECT */
+
+.brain-grid {
+    position: relative;
+}
+
+
+.brain-panel,
+.pulse-core {
+    position: relative;
+    z-index: 2;
+}
+
+
+.pulse-core::before,
+.pulse-core::after {
+
+    content:"";
+
+    position:absolute;
+
+    top:50%;
+
+    width:60px;
+
+    height:3px;
+
+    background:#00ff88;
+
+    box-shadow:
+    0 0 10px #00ff88,
+    0 0 20px #00d9ff;
+
+}
+
+
+.pulse-core::before {
+
+    left:-60px;
+
+}
+
+
+.pulse-core::after {
+
+    right:-60px;
+
+}
+
+
+.pulse-core {
+
+    animation:
+    coreGlow 2s infinite;
+
+}
+
+
+@keyframes coreGlow {
+
+    0%,100% {
+        filter:brightness(1);
+    }
+
+    50% {
+        filter:brightness(1.8);
+    }
+
+}
+/* FIX BRAIN TO PULSE HORIZONTAL LAYOUT */
+
+.brain-grid {
+
+    display:grid;
+
+    grid-template-columns:
+    1fr 160px 1fr;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+
+.brain-panel {
+
+    height:130px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+}
+
+
+.pulse-core {
+
+    height:130px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+
+/* pulse connections */
+
+.pulse-core::before,
+.pulse-core::after {
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+}
+
+
+.pulse-core::before {
+
+    left:-20px;
+
+}
+
+
+.pulse-core::after {
+
+    right:-20px;
+
+}
+/* FORCE DARREL BRAIN ROW */
+
+.brain-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+
+.brain-panel,
+.pulse-core {
+    flex: 1;
+    min-width: 0;
+}
+
+
+.pulse-core {
+    max-width: 220px;
+}
+/* BALANCE BRAIN COCKPIT SPACING */
+
+.brain-grid {
+
+    justify-content:center;
+
+    gap:10px;
+
+}
+
+
+.brain-panel {
+
+    padding:12px;
+
+    margin:0;
+
+}
+
+
+.pulse-core {
+
+    flex:0 0 200px;
+
+    margin:0 5px;
+
+}
+
+
+.brain-panel h2,
+.pulse-core h2 {
+
+    margin:5px 0;
+
+}
+
+
+.brain-panel p,
+.pulse-core p {
+
+    margin:3px 0;
+
+}
+/* EQUAL BRAIN PANEL SPACING */
+
+.brain-grid {
+
+    display:grid !important;
+
+    grid-template-columns: 
+    1fr 200px 1fr !important;
+
+    gap:15px !important;
+
+    align-items:center;
+
+}
+
+
+.brain-panel {
+
+    width:100%;
+
+}
+
+
+.pulse-core {
+
+    width:200px;
+
+    justify-self:center;
+
+}
+/* FINE TUNE PULSE POSITION */
+
+.brain-grid {
+
+    display:flex !important;
+
+    flex-direction:row !important;
+
+    justify-content:center !important;
+
+    align-items:center !important;
+
+    gap:10px !important;
+
+}
+
+
+.pulse-core {
+
+    position:relative;
+
+    left:10px;
+
+}
+
+
+.brain-panel {
+
+    flex:1;
+
+}
+
+
+.pulse-core {
+
+    flex:0 0 220px;
+
+}

@@ -6,26 +6,42 @@ class OrchestratedSCSV2:
     def __init__(self):
         self.name = "SCS Orchestrated Cognitive System V2"
 
-
     def think(self, question):
 
-        print("SCS V2 THINK RUNNING")
+        print("\n=== SCS V2 THINKING ===")
 
         result = self_managing_scs.think(question)
 
-        print("PULSE RESULT:", result)
-
         return {
+
             "question": question,
+
+            "system": self.name,
+
+            "status": result.get("status"),
+
+            "activated_modules": result.get(
+                "activated_modules",
+                []
+            ),
 
             "base_result": result,
 
             "answer": {
-                "left": result.get("left", result.get("answer", {}).get("left", {})),
-                "right": result.get("right", result.get("answer", {}).get("right", {})),
-                "synthesis": result.get("synthesis", result.get("answer", {}).get("synthesis", {})),
-                "verification": result.get("verification", result.get("answer", {}).get("verification", {}))
+
+                "left": result.get("left", {}),
+
+                "right": result.get("right", {}),
+
+                "synthesis": result.get("synthesis", {}),
+
+                "verification": result.get(
+                    "verification",
+                    {}
+                )
+
             }
+
         }
 
 

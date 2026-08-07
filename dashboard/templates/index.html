@@ -1,580 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Synthetic Cognitive System</title>
+<title>DARREL V0.1</title>
 
-<style>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#07111f;
-color:white;
-}
-
-.container{
-max-width:1100px;
-margin:auto;
-padding:30px;
-}
-
-h1{
-text-align:center;
-margin-bottom:30px;
-}
-
-.question{
-display:flex;
-gap:10px;
-margin-bottom:25px;
-}
-
-input{
-flex:1;
-padding:15px;
-font-size:17px;
-border-radius:8px;
-border:1px solid #334155;
-background:#0f1c2e;
-color:white;
-}
-
-button{
-padding:15px 25px;
-border:0;
-border-radius:8px;
-background:#2563eb;
-color:white;
-font-size:17px;
-font-weight:bold;
-cursor:pointer;
-}
-
-button:hover{
-background:#3b82f6;
-}
-
-.status{
-text-align:center;
-color:#94a3b8;
-margin:15px;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-gap:15px;
-}
-
-.card{
-background:#0d1b2d;
-border:1px solid #1e3a5f;
-border-radius:12px;
-padding:20px;
-}
-
-.card h2{
-margin-top:0;
-}
-
-.blue{border-left:5px solid #3b82f6;}
-.purple{border-left:5px solid #a855f7;}
-.green{border-left:5px solid #22c55e;}
-.yellow{border-left:5px solid #eab308;}
-.red{border-left:5px solid #ef4444;}
-.cyan{border-left:5px solid #06b6d4;}
-
-.label{
-font-size:12px;
-color:#94a3b8;
-text-transform:uppercase;
-letter-spacing:1px;
-margin-top:10px;
-}
-
-.value{
-font-size:17px;
-margin-top:5px;
-}
-
-.module-list{
-display:flex;
-flex-wrap:wrap;
-gap:8px;
-}
-
-.module{
-padding:7px 10px;
-border-radius:20px;
-background:#172a42;
-font-size:13px;
-}
-
-pre{
-white-space:pre-wrap;
-word-break:break-word;
-color:#cbd5e1;
-}
-
-#error{
-color:#fecaca;
-}
-
-</style>
 </head>
 
 <body>
 
 <div class="container">
 
-<h1>🧠 Synthetic Cognitive System</h1>
+<h1>DARREL V0.1</h1>
 
-<div class="question">
+<h3>Synthetic Cognitive System</h3>
 
-<input
+<textarea
 id="question"
-type="text"
-placeholder="Ask the Synthetic Cognitive System..."
->
-
-<button onclick="think()">THINK</button>
-
-</div>
-
-<div id="status" class="status">
-System ready.
-</div>
-
-<div id="response"></div>
-
-</div>
-
-<script>
-function displayAnalysis(value){
-
-    if(!value){
-        return "N/A";
-    }
-
-    if(typeof value === "object"){
-
-        return Object.entries(value)
-        .map(([key,val]) => {
-
-            if(Array.isArray(val)){
-                return `<b>${key}:</b><br>${val.join("<br>")}`;
-            }
-
-            if(typeof val === "object"){
-                return `<b>${key}:</b><br>${JSON.stringify(val,null,2)}`;
-            }
-
-            return `<b>${key}:</b> ${val}`;
-
-        })
-        .join("<br><br>");
-    }
-
-    return value;
-}
-async function think(){
-
-const question =
-document.getElementById("question").value.trim();
-
-const responseBox =
-document.getElementById("response");
-
-const statusBox =
-document.getElementById("status");
-
-if(!question){
-
-statusBox.textContent="Please enter a question.";
-
-return;
-
-}
-
-statusBox.textContent="⚡ Cognitive system thinking...";
-
-responseBox.innerHTML="";
-
-try{
-
-const response=await fetch("/think_custom",{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-question:question
-})
-
-});
-
-if(!response.ok){
-
-throw new Error(
-"Server returned HTTP "+response.status
-);
-
-}
-
-const data=await response.json();
-
-console.log("SCS DATA:",data);
-
-const base=data.base_result || {};
-
-const pulse=base.pulse || {};
-
-const left=data.left_reasoning || pulse.left || {};
-
-const right=data.right_reasoning || pulse.right || {};
-
-const synthesis=pulse.synthesis || {};
-
-const verification=pulse.verification || {};
-
-const learning=base.learning || {};
-
-const strategy=base.strategy_choice || {};
-
-const activated=
-pulse.activated_modules || [];
-
-let modules="";
-
-if(activated.length){
-
-modules=activated.map(function(module){
-
-return `<span class="module">${module}</span>`;
-
-}).join("");
-
-}else{
-
-modules="<span class='module'>none reported</span>";
-
-}
-
-let leftCard="";
-
-if(left){
-
-leftCard=`
-
-<div class="card blue">
-
-<h2>🔵 Left Reasoning</h2>
-
-<div class="label">Module</div>
-
-<div class="value">
-${left.module || "SCS Left Cognitive Engine"}
-</div>
-
-<div class="label">Mode</div>
-
-<div class="value">
-${left.mode || "N/A"}
-</div>
-
-<div class="label">Confidence</div>
-
-<div class="value">
-${left.confidence ?? "N/A"}
-</div>
-
-<div class="label">Analysis</div>
-
-<div class="value">
-${displayAnalysis(left.analysis)}
-</div>
-
-</div>
-
-`;
-
-}
-
-let rightCard="";
-
-if(right){
-
-rightCard=`
-
-<div class="card purple">
-
-<h2>🟣 Right Reasoning</h2>
-
-<div class="label">Mode</div>
-
-<div class="value">
-${right.mode || "N/A"}
-</div>
-
-<div class="label">Confidence</div>
-
-<div class="value">
-${right.confidence ?? "N/A"}
-</div>
-
-<div class="label">Analysis</div>
-
-<div class="value">
-${displayAnalysis(right.analysis)}
-
-</div>
-
-`;
-
-}
-
-let synthesisCard="";
-
-if(pulse.synthesis){
-
-synthesisCard=`
-
-<div class="card green">
-
-<h2>🟢 Synthesis</h2>
-
-<div class="label">Status</div>
-
-<div class="value">
-${synthesis.status || "ACTIVE"}
-</div>
-
-<div class="label">Confidence</div>
-
-<div class="value">
-${synthesis.confidence ?? "N/A"}
-</div>
-
-<div class="label">Result</div>
-
-<div class="value">
-${
-synthesis.combined_reasoning
-?
-displayAnalysis(synthesis.combined_reasoning)
-:
-synthesis.response ||
-synthesis.result ||
-synthesis.analysis ||
-"Available when activated."
-}
-</div>
-
-</div>
-
-`;
-
-}
-
-let verificationCard="";
-let decisionCard="";
-
-const decision = pulse.decision || base.decision || {};
-
-if(Object.keys(decision).length){
-
-decisionCard=`
-
-<div class="card yellow">
-
-<h2>🎯 Executive Decision</h2>
-
-<div class="label">Decision</div>
-
-<div class="value">
-${decision.decision || "N/A"}
-</div>
-
-<div class="label">Reasoning</div>
-
-<div class="value">
-${(decision.reasoning || []).join("<br>")}
-</div>
-
-<div class="label">Risks</div>
-
-<div class="value">
-${(decision.risks || []).join("<br>")}
-</div>
-
-<div class="label">Next Action</div>
-
-<div class="value">
-${decision.next_action || "N/A"}
-</div>
-
-<div class="label">Confidence</div>
-
-<div class="value">
-${decision.confidence ?? "N/A"}
-</div>
-
-</div>
-
-`;
-
-}
-
-if(pulse.verification){
-
-verificationCard=`
-
-<div class="card yellow">
-
-<h2>🟡 Verification</h2>
-
-<div class="label">Verdict</div>
-
-<div class="value">
-${verification.verdict || "N/A"}
-</div>
-
-<div class="label">Confidence</div>
-
-<div class="value">
-${verification.confidence ?? "N/A"}
-</div>
-
-</div>
-
-`;
-
-}
-
-responseBox.innerHTML=`
-
-<div class="grid">
-
-<div class="card cyan">
-
-<h2>⚡ Selective Pulse</h2>
-
-<div class="label">System</div>
-
-<div class="value">
-${pulse.system || "SCS Selective Pulse Engine"}
-</div>
-
-<div class="label">Status</div>
-
-<div class="value">
-${pulse.status || "N/A"}
-</div>
-
-<div class="label">Activated Modules</div>
+placeholder="Ask DARREL a question..."></textarea>
 
 <br>
 
-<div class="module-list">
+<button id="startPulse" onclick="runSCS()">
 
-${modules}
+START PULSE
 
+</button>
+
+<div class="grid">
+
+<div class="card">
+<h2>🧠 Memory</h2>
+<p class="status">Waiting...</p>
 </div>
 
+<div class="card">
+<h2>🟦 Left Brain</h2>
+<p class="status">Waiting...</p>
 </div>
 
-
-${leftCard}
-
-${rightCard}
-
-${synthesisCard}
-
-${verificationCard}
-${decisionCard}
-
-
-<div class="card purple">
-
-<h2>🧬 Learning</h2>
-
-<div class="label">Learning Status</div>
-
-<div class="value">
-${learning.learning_status || "N/A"}
+<div class="card">
+<h2>🟪 Right Brain</h2>
+<p class="status">Waiting...</p>
 </div>
 
+<div class="card">
+<h2>🟨 Synthesis</h2>
+<p class="status">Waiting...</p>
 </div>
 
+<div class="card">
+<h2>🟩 Verifier</h2>
+<p class="status">Waiting...</p>
+</div>
 
-<div class="card green">
-
-<h2>🎯 Strategy</h2>
-
-<div class="label">Selected Strategy</div>
-
-<div class="value">
-${strategy.strategy ||
-base.best_strategy ||
-"N/A"}
+<div class="card">
+<h2>⭐ Executive</h2>
+<p class="status">Waiting...</p>
 </div>
 
 </div>
 
 </div>
 
-
-<div class="card" style="margin-top:15px">
-
-<h2>📝 Question</h2>
-
-<div class="value">
-${data.question || question}
-</div>
-
-</div>
-
-`;
-
-statusBox.textContent=
-"🟢 Cognitive cycle complete";
-
-}
-
-catch(error){
-
-console.error(error);
-
-statusBox.textContent="🔴 Cognitive error";
-
-responseBox.innerHTML=`
-
-<div class="card red">
-
-<h2>🔴 Dashboard Error</h2>
-
-<p>
-The SCS server responded, but the dashboard
-could not display part of the result.
-</p>
-
-<pre id="error">${error.message}</pre>
-
-</div>
-
-`;
-
-}
-
-}
-
-</script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
 
 </body>
+
 </html>

@@ -1,46 +1,59 @@
 import json
+import os
+import urllib.error
 import urllib.request
 
 
 class LLMInterface:
 
-    def __init__(self, model_name="SCS Local Model", provider="local", model=None):
-        self.model_name = model or model_name
-        self.provider = provider
-        self.url = "http://localhost:11434/api/generate"
+    def __init__(
+        self,
+        model_name=None,
+        provider="ollama"
+    ):
+        self.model_name = (
+            model_name
+            or os.getenv("SCS_LLM_MODEL")
+            or "qwen3:1.7b"
+        )
 
+        self.provider = provider
+        self.url = "http://127.0.0.1:11434/api/generate"
 
     def connect(self):
-        return {
-            "status": "connected",
-            "provider": self.provider,
-            "model": self.model_name
-        }
 
+        return {
+            "status": "configured",
+            "provider": self.provider,
+            "model": self.model_name,
+            "url": self.url
+        }
 
     def generate(self, prompt):
 
         payload = {
             "model": self.model_name,
             "prompt": prompt,
-            "stream": False
+            "stream": False,
+            "options": {
+                "temperature": 0.4
+            }
         }
-
-        data = json.dumps(payload).encode("utf-8")
 
         request = urllib.request.Request(
             self.url,
-            data=data,
+            data=json.dumps(payload).encode("utf-8"),
             headers={
                 "Content-Type": "application/json"
-            }
+            },
+            method="POST"
         )
 
         try:
 
             with urllib.request.urlopen(
                 request,
-                timeout=10
+                timeout=120
             ) as response:
 
                 raw = response.read().decode("utf-8")
@@ -49,26 +62,59 @@ class LLMInterface:
                 text = result.get(
                     "response",
                     ""
-                )
+                ).strip()
 
                 if text:
+
                     return {
-                        "response": text
+                        "status": "success",
+                        "provider": self.provider,
+                        "model": self.model_name,
+                        "response": text,
+                        "fallback": False
                     }
 
                 return {
+                    "status": "empty_response",
+                    "provider": self.provider,
+                    "model": self.model_name,
                     "response": "",
-                    "error": "Empty model response"
+                    "error": "Ollama returned an empty response.",
+                    "fallback": True
                 }
 
+        except urllib.error.HTTPError as error:
+
+            return {
+                "status": "http_error",
+                "provider": self.provider,
+                "model": self.model_name,
+                "response": "",
+                "error": str(error),
+                "fallback": True
+            }
+
+        except urllib.error.URLError as error:
+
+            return {
+                "status": "connection_error",
+                "provider": self.provider,
+                "model": self.model_name,
+                "response": "",
+                "error": str(error),
+                "fallback": True
+            }
 
         except Exception as error:
 
             return {
-                "response": (
-                    "Local model unavailable. "
-                    "Using SCS internal reasoning mode."
-                ),
+                "status": "error",
+                "provider": self.provider,
+                "model": self.model_name,
+                "response": "",
                 "error": str(error),
                 "fallback": True
             }
+
+
+llm_interface = LLMInterface()

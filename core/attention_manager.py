@@ -4,13 +4,10 @@ class AttentionManager:
         self.name = "SCS Attention Manager"
         self.role = "priority_selection"
 
-
     def analyse_priority(self, message):
 
         message = message.lower()
-
         priorities = []
-
 
         if any(word in message for word in [
             "safe",
@@ -27,7 +24,6 @@ class AttentionManager:
                 "reason": "Potential high-impact consequences detected."
             })
 
-
         if any(word in message for word in [
             "facts",
             "verify",
@@ -43,27 +39,48 @@ class AttentionManager:
                 "reason": "Information quality requires checking."
             })
 
-
         if any(word in message for word in [
             "create",
             "invent",
             "idea",
-            "design"
+            "design",
+            "innovate",
+            "future"
         ]):
             priorities.append({
                 "area": "creativity",
                 "priority": "medium",
-                "reason": "New ideas or solutions required."
+                "reason": "Creative exploration is required."
             })
 
+        if any(word in message for word in [
+            "should",
+            "compare",
+            "versus",
+            "instead",
+            "advantages",
+            "disadvantages",
+            "strategy",
+            "analyse",
+            "analyze",
+            "evaluate",
+            "improve",
+            "multiple",
+            "specialised",
+            "specialized"
+        ]):
+            priorities.append({
+                "area": "analysis",
+                "priority": "medium",
+                "reason": "Comparative or strategic reasoning is required."
+            })
 
         if not priorities:
             priorities.append({
                 "area": "general_reasoning",
-                "priority": "medium",
-                "reason": "General cognitive processing."
+                "priority": "low",
+                "reason": "Basic cognitive processing is sufficient."
             })
-
 
         return {
             "manager": self.name,

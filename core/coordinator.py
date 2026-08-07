@@ -1,78 +1,98 @@
-from core.left_brain import left_brain
-from core.right_brain import right_brain
-from core.synthesis_agent import synthesis_agent
-from core.verifier_engine import verifier_engine
-from core.reflection_agent import reflection_agent
+from core.pulse import pulse
 from core.memory_consolidator import memory_consolidator
+from core.reflection_agent import reflection_agent
+from core.learning_feedback import learning_feedback
+from core.scs_executive import scs_executive
 
 
 class Coordinator:
 
     def __init__(self):
+        self.name = "SCS Central Coordinator"
 
-        self.name = "Central Cognitive Workspace"
+    def process(self, question):
 
-        self.workspace = {}
+        print("\n=== SCS COORDINATOR ===")
 
-    def process(self, request):
+        pulse_result = pulse.run(question)
 
-        print("\n🧠 Coordinator Workspace Active")
-
-        # Load consolidated memory first
-        memory_context = memory_consolidator.consolidate()
-
-        self.workspace["memory"] = memory_context
-
-        # Activate analytical reasoning
-        left_result = left_brain.analyse(
-            request,
-            memory_context.get("concepts", [])
+        execution = pulse_result.get(
+            "execution",
+            {}
         )
 
-        # Activate creative reasoning
-        right_result = right_brain.create(
-            request
+        results = execution.get(
+            "results",
+            {}
         )
 
-        # Store agent outputs
-        self.workspace["left_brain"] = left_result
-        self.workspace["right_brain"] = right_result
+        left = results.get(
+            "left_reasoning",
+            {}
+        ).get("output", {})
 
-        # Synthesis combines both brains + learned reasoning
-        synthesis = synthesis_agent.synthesize(
-            request,
-            left_result,
-            right_result
-        )
+        right = results.get(
+            "right_reasoning",
+            {}
+        ).get("output", {})
 
-        self.workspace["synthesis"] = synthesis
+        synthesis = results.get(
+            "synthesis",
+            {}
+        ).get("output", {})
 
-        # Verification checks synthesis
-        verification = verifier_engine.verify(
-            synthesis
-        )
+        verification = results.get(
+            "verifier",
+            {}
+        ).get("output", {})
 
-        self.workspace["verification"] = verification
+        reflection = results.get(
+            "reflection",
+            {}
+        ).get("output", {})
 
-        # Reflection learns from verification
-        reflection = reflection_agent.reflect(
+        learning = results.get(
+            "learning",
+            {}
+        ).get("output", {})
+
+        if verification and not reflection:
+            reflection = reflection_agent.reflect(
+                verification
+            )
+
+        if verification and not learning:
+            learning = learning_feedback.evaluate({
+                "synthesis": synthesis,
+                "verification": verification,
+                "reflection": reflection
+            })
+
+        memory = memory_consolidator.consolidate()
+
+        executive = scs_executive.process(
+            question,
+            synthesis,
             verification
         )
 
-        self.workspace["reflection"] = reflection
-
         return {
-            "coordinator": self.name,
+            "system": self.name,
             "status": "workspace_complete",
-            "input": request,
-            "workspace": self.workspace,
-            "agents_used": [
-                "left_brain",
-                "right_brain",
-                "synthesis_agent",
-                "verifier_agent",
-                "reflection_agent"
-            ]
+            "question": question,
+            "pulse": pulse_result,
+            "activated_modules": pulse_result.get(
+                "execution_plan",
+                {}
+            ).get("modules_to_run", []),
+            "memory": memory,
+            "left_brain": left,
+            "right_brain": right,
+            "synthesis": synthesis,
+            "verification": verification,
+            "reflection": reflection,
+            "learning": learning,
+            "executive": executive
         }
 
 

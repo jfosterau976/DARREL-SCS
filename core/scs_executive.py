@@ -1,5 +1,6 @@
 from core.ooda_loop import ooda_loop
 from core.learning_coordinator import learning_coordinator
+from core.decision_engine import decision_engine
 
 
 class SCSExecutive:
@@ -7,8 +8,12 @@ class SCSExecutive:
     def __init__(self):
         self.name = "SCS Executive Controller"
 
-
-    def process(self, question):
+    def process(
+        self,
+        question,
+        synthesis=None,
+        verification=None
+    ):
 
         observation = ooda_loop.observe(
             question
@@ -22,30 +27,38 @@ class SCSExecutive:
             question
         )
 
+        ooda_decision = ooda_loop.decide(
+            orientation
+        )
 
-        if learning_path.get("mode") == "memory_guided":
+        executive_decision = None
 
-            decision = ooda_loop.decide(
-                orientation,
-                {
-                    "left": True,
-                    "right": False,
-                    "synthesis": True,
-                    "verifier": True
-                }
+        if synthesis and verification:
+
+            executive_decision = decision_engine.decide(
+                question,
+                synthesis,
+                verification
             )
-
-        else:
-
-            decision = ooda_loop.decide(
-                orientation
-            )
-
 
         return {
+
+            "system": self.name,
+
             "question": question,
+
+            "observation": observation,
+
+            "orientation": orientation,
+
             "learning_path": learning_path,
-            "decision": decision
+
+            "ooda_decision": ooda_decision,
+
+            "executive_decision": executive_decision,
+
+            "status": "executive_complete"
+
         }
 
 
