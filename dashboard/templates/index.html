@@ -2,73 +2,144 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DARREL V0.2</title>
 
-<title>DARREL V0.1</title>
-
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
 </head>
 
 <body>
 
 <div class="container">
 
-<h1>DARREL V0.1</h1>
+    <h1>DARREL V0.2</h1>
+    <h3>Synthetic Cognitive System</h3>
 
-<h3>Synthetic Cognitive System</h3>
+    <select
+        id="questionPreset"
+        onchange="loadPresetQuestion()"
+    >
+        <option value="">
+            Select a test question...
+        </option>
 
-<textarea
-id="question"
-placeholder="Ask DARREL a question..."></textarea>
+        <option value="What is 2 plus 2?">
+            SIMPLE — What is 2 plus 2?
+        </option>
 
-<br>
+        <option value="Should SCS use multiple specialised AI agents?">
+            MEDIUM — Should SCS use multiple specialised AI agents?
+        </option>
 
-<button id="startPulse" onclick="runSCS()">
+        <option value="Should SCS use multiple specialised AI agents instead of one large model?">
+            MEDIUM — Multiple agents vs one large model
+        </option>
 
-START PULSE
+        <option value="Design three innovative features for a future AI assistant.">
+            CREATIVE — Design three AI features
+        </option>
 
-</button>
+        <option value="Create a realistic 12 month plan for turning an AI prototype into a commercial product.">
+            PLANNING — 12 month commercialisation plan
+        </option>
 
-<div class="grid">
+        <option value="Analyse the biggest risks of building a new AI platform startup.">
+            ANALYSIS — AI startup risks
+        </option>
 
-<div class="card">
-<h2>🧠 Memory</h2>
-<p class="status">Waiting...</p>
+        <option value="Explain how an AI assistant should handle uncertain information.">
+            VERIFICATION — Handling uncertain information
+        </option>
+
+        <option value="Analyse the safety risks of designing an AI healthcare assistant.">
+            HIGH RISK — AI healthcare safety
+        </option>
+
+        <option value="Design a commercial strategy for turning SCS into a future AI platform.">
+            STRATEGY — Commercial SCS platform
+        </option>
+
+        <option value="How could DARREL improve its own reasoning over time?">
+            LEARNING — Improve DARREL reasoning
+        </option>
+    </select>
+
+    <textarea
+        id="question"
+        placeholder="Choose a question above or type your own..."
+    ></textarea>
+
+    <button
+        id="startPulse"
+        onclick="runSCS()"
+    >
+        START PULSE
+    </button>
+
+    <div class="answer-card">
+        <h2>🤖 DARREL Response</h2>
+
+        <p id="darrelAnswer">
+            Waiting for a cognitive pulse...
+        </p>
+    </div>
+
+    <div class="grid">
+
+        <div class="card">
+            <h2>🧠 Memory</h2>
+            <p class="status">Waiting...</p>
+        </div>
+
+        <div class="card">
+            <h2>🟦 Left Brain</h2>
+            <p class="status">Waiting...</p>
+        </div>
+
+        <div class="card">
+            <h2>🟪 Right Brain</h2>
+            <p class="status">Waiting...</p>
+        </div>
+
+        <div class="card">
+            <h2>🟨 Synthesis</h2>
+            <p class="status">Waiting...</p>
+        </div>
+
+        <div class="card">
+            <h2>🟩 Verifier</h2>
+            <p class="status">Waiting...</p>
+        </div>
+
+        <div class="card">
+            <h2>⭐ Executive</h2>
+            <p class="status">Waiting...</p>
+        </div>
+
+    </div>
+
 </div>
 
-<div class="card">
-<h2>🟦 Left Brain</h2>
-<p class="status">Waiting...</p>
-</div>
+<script>
+function loadPresetQuestion() {
 
-<div class="card">
-<h2>🟪 Right Brain</h2>
-<p class="status">Waiting...</p>
-</div>
+    const preset =
+        document.getElementById("questionPreset").value;
 
-<div class="card">
-<h2>🟨 Synthesis</h2>
-<p class="status">Waiting...</p>
-</div>
+    if (preset) {
+        document.getElementById("question").value = preset;
+    }
+}
+</script>
 
-<div class="card">
-<h2>🟩 Verifier</h2>
-<p class="status">Waiting...</p>
-</div>
-
-<div class="card">
-<h2>⭐ Executive</h2>
-<p class="status">Waiting...</p>
-</div>
-
-</div>
-
-</div>
-
-<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+<script
+    src="{{ url_for('static', filename='js/app.js') }}?v=4"
+></script>
 
 </body>
 

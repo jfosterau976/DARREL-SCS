@@ -15848,7 +15848,7 @@
         },
         "importance": "HIGH",
         "status": "learned",
-        "strength": 21
+        "strength": 31
     },
     {
         "type": "reasoning_feedback",
@@ -15880,8 +15880,8 @@
                 "importance": "MEDIUM"
             }
         ],
-        "strength": 4,
-        "importance": "MEDIUM"
+        "strength": 10,
+        "importance": "HIGH"
     },
     {
         "type": "reasoning_feedback",

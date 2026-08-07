@@ -1,6 +1,9 @@
 function updatePanel(index, text) {
     const panels = document.querySelectorAll(".status");
-    panels[index].textContent = text;
+
+    if (panels[index]) {
+        panels[index].textContent = text;
+    }
 }
 
 function sleep(ms) {
@@ -9,82 +12,149 @@ function sleep(ms) {
 
 async function runSCS() {
 
-    const question = document.getElementById("question").value.trim();
+    const question = document
+        .getElementById("question")
+        .value
+        .trim();
+
+    const answerPanel = document.getElementById("darrelAnswer");
+    const startButton = document.getElementById("startPulse");
 
     if (!question) {
         alert("Please enter a question.");
         return;
     }
 
-    updatePanel(0,"🧠 Searching memory...");
-    updatePanel(1,"Waiting...");
-    updatePanel(2,"Waiting...");
-    updatePanel(3,"Waiting...");
-    updatePanel(4,"Waiting...");
-    updatePanel(5,"Waiting...");
+    startButton.disabled = true;
+    startButton.textContent = "THINKING...";
 
-    await sleep(250);
+    answerPanel.textContent = "DARREL is thinking...";
 
-    const response = await fetch("/process",{
-        method:"POST",
-        headers:{
-            "Content-Type":"application/json"
-        },
-        body:JSON.stringify({
-            question:question
-        })
-    });
+    updatePanel(0, "🧠 Searching memory...");
+    updatePanel(1, "Waiting...");
+    updatePanel(2, "Waiting...");
+    updatePanel(3, "Waiting...");
+    updatePanel(4, "Waiting...");
+    updatePanel(5, "Waiting...");
 
-    const result = await response.json();
+    try {
 
-    updatePanel(
-        0,
-        "🧠 " +
-        (result.memory?.total_memories ?? 0) +
-        " memories available"
-    );
+        const response = await fetch("/process", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                question: question
+            })
+        });
 
-    await sleep(250);
+        if (!response.ok) {
+            throw new Error(
+                "Server returned status " + response.status
+            );
+        }
 
-    updatePanel(
-        1,
-        "✅ Complete (" +
-        Math.round((result.left_brain?.confidence ?? 0)*100) +
-        "%)"
-    );
+        const result = await response.json();
 
-    await sleep(250);
+        updatePanel(
+            0,
+            "🧠 " +
+            (result.memory?.total_memories ?? 0) +
+            " memories available"
+        );
 
-    updatePanel(
-        2,
-        "✅ Complete (" +
-        Math.round((result.right_brain?.confidence ?? 0)*100) +
-        "%)"
-    );
+        await sleep(250);
 
-    await sleep(250);
+        const leftResponse =
+            result.left_brain?.llm_response ||
+            result.left_brain?.analysis?.recommendation ||
+            "Left Brain complete";
 
-    updatePanel(
-        3,
-        "🟨 Synthesis Complete"
-    );
+        updatePanel(
+            1,
+            "Confidence: " +
+            Math.round(
+                (result.left_brain?.confidence ?? 0) * 100
+            ) +
+            "%\n\n" +
+            leftResponse
+        );
 
-    await sleep(250);
+        await sleep(250);
 
-    updatePanel(
-        4,
-        "🟩 " +
-        result.verification.verdict +
-        " (" +
-        Math.round(result.verification.confidence*100) +
-        "%)"
-    );
+        const rightResponse =
+            result.right_brain?.llm_response ||
+            result.right_brain?.recommendation ||
+            result.right_brain?.creative_summary?.recommendation ||
+            "Right Brain complete";
 
-    await sleep(250);
+        updatePanel(
+            2,
+            "Confidence: " +
+            Math.round(
+                (result.right_brain?.confidence ?? 0) * 100
+            ) +
+            "%\n\n" +
+            rightResponse
+        );
 
-    updatePanel(
-        5,
-        "⭐ " +
-        (result.executive?.executive_decision?.decision ?? "ACCEPT")
-    );
+        await sleep(250);
+
+        const synthesisResponse =
+            result.synthesis?.combined_insight ||
+            result.synthesis?.recommendation ||
+            "Synthesis complete";
+
+        updatePanel(
+            3,
+            synthesisResponse
+        );
+
+        await sleep(250);
+
+        updatePanel(
+            4,
+            "Verdict: " +
+            (result.verification?.verdict ?? "UNKNOWN") +
+            "\nConfidence: " +
+            Math.round(
+                (result.verification?.confidence ?? 0) * 100
+            ) +
+            "%"
+        );
+
+        await sleep(250);
+
+        const executiveDecision =
+            result.executive?.executive_decision?.decision ||
+            "No executive decision";
+
+        updatePanel(
+            5,
+            executiveDecision
+        );
+
+        answerPanel.textContent =
+            synthesisResponse ||
+            leftResponse ||
+            rightResponse ||
+            "DARREL completed the cognitive pulse.";
+
+    } catch (error) {
+
+        answerPanel.textContent =
+            "Error: " + error.message;
+
+        document
+            .querySelectorAll(".status")
+            .forEach(panel => {
+                panel.textContent = "Error";
+            });
+
+    } finally {
+
+        startButton.disabled = false;
+        startButton.textContent = "START PULSE";
+    }
 }
