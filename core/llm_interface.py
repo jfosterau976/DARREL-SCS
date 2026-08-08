@@ -64,6 +64,27 @@ class LLMInterface:
                     ""
                 ).strip()
 
+                metrics = {
+                    "total_duration": result.get(
+                        "total_duration"
+                    ),
+                    "load_duration": result.get(
+                        "load_duration"
+                    ),
+                    "prompt_eval_count": result.get(
+                        "prompt_eval_count"
+                    ),
+                    "prompt_eval_duration": result.get(
+                        "prompt_eval_duration"
+                    ),
+                    "eval_count": result.get(
+                        "eval_count"
+                    ),
+                    "eval_duration": result.get(
+                        "eval_duration"
+                    )
+                }
+
                 if text:
 
                     return {
@@ -71,7 +92,8 @@ class LLMInterface:
                         "provider": self.provider,
                         "model": self.model_name,
                         "response": text,
-                        "fallback": False
+                        "fallback": False,
+                        "metrics": metrics
                     }
 
                 return {
@@ -80,7 +102,8 @@ class LLMInterface:
                     "model": self.model_name,
                     "response": "",
                     "error": "Ollama returned an empty response.",
-                    "fallback": True
+                    "fallback": True,
+                    "metrics": metrics
                 }
 
         except urllib.error.HTTPError as error:

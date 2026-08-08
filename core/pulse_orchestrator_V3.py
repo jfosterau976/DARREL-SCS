@@ -1,3 +1,5 @@
+import time
+
 from core.module_registry_setup import get_registry
 
 
@@ -22,6 +24,7 @@ class PulseOrchestrator:
 
         modules = execution_plan.get("modules_to_run", [])
         results = {}
+        module_times_ms = {}
 
         if isinstance(context, dict):
             question = context.get("question", "")
@@ -45,6 +48,8 @@ class PulseOrchestrator:
                     "status": "module_not_found"
                 }
                 continue
+
+            module_timer = time.perf_counter()
 
             try:
 
@@ -135,9 +140,19 @@ class PulseOrchestrator:
                     "error": str(error)
                 }
 
+            finally:
+
+                elapsed_ms = round(
+                    (time.perf_counter() - module_timer) * 1000,
+                    2
+                )
+
+                module_times_ms[module_name] = elapsed_ms
+
         return {
             "orchestrator": self.name,
             "executed_modules": modules,
+            "module_times_ms": module_times_ms,
             "results": results,
             "status": "execution_complete"
         }

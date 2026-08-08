@@ -135,5 +135,47 @@ class CognitiveMemory:
         }
 
 
+    def update_importance(self, memory):
 
+        strength = memory.get("strength", 1)
+
+        if strength >= 10:
+            memory["importance"] = "HIGH"
+
+        elif strength >= 3:
+            memory["importance"] = "MEDIUM"
+
+        else:
+            memory["importance"] = "LOW"
+
+
+    def strengthen_memory(self, memory_type, lesson):
+
+        for memory in self.memory:
+
+            if (
+                memory.get("type") == memory_type
+                and memory.get("lesson") == lesson
+            ):
+
+                memory["strength"] = memory.get(
+                    "strength",
+                    1
+                ) + 1
+
+                self.update_importance(memory)
+
+                self.save()
+
+                return {
+                    "status": "memory_strengthened",
+                    "strength": memory["strength"],
+                    "importance": memory["importance"],
+                    "total_memories": len(self.memory)
+                }
+
+        return {
+            "status": "memory_not_found",
+            "total_memories": len(self.memory)
+        }
 cognitive_memory = CognitiveMemory()
