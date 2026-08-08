@@ -56,6 +56,7 @@ class PulseOrchestrator:
         correction_attempted = False
         initial_verification = None
         corrected_verification = None
+        verifier_only_elapsed_ms = 0.0
 
         for module_name in modules:
 
@@ -123,7 +124,17 @@ class PulseOrchestrator:
                         }
                         continue
 
+                    verification_timer = time.perf_counter()
+            
                     output = module.verify(target)
+            
+                    verifier_only_elapsed_ms += round(
+                        (
+                            time.perf_counter()
+                            - verification_timer
+                        ) * 1000,
+                        2
+                    )
 
                     initial_verification = output
                     verification_output = output
@@ -178,10 +189,21 @@ class PulseOrchestrator:
                                     "synthesis"
                                 ]["output"] = revised_synthesis
 
+                            verification_timer = time.perf_counter()
+
+
                             corrected_verification = (
                                 module.verify(
                                     revised_synthesis
                                 )
+                            )
+
+                            verifier_only_elapsed_ms += round(
+                                (
+                                    time.perf_counter()
+                                    - verification_timer
+                                ) * 1000,
+                                2
                             )
 
                             verification_output = (
@@ -243,7 +265,12 @@ class PulseOrchestrator:
                     2
                 )
 
-                module_times_ms[module_name] = elapsed_ms
+                if module_name == "verifier":
+                    module_times_ms[module_name] = (
+                        verifier_only_elapsed_ms
+                    )
+                else:
+                    module_times_ms[module_name] = elapsed_ms
 
         return {
             "orchestrator": self.name,
