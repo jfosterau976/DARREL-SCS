@@ -53,6 +53,10 @@ class PulseOrchestrator:
         verification_output = None
         reflection_output = None
 
+        correction_attempted = False
+        initial_verification = None
+        corrected_verification = None
+
         for module_name in modules:
 
             module = self.registry.get(module_name)
@@ -76,6 +80,7 @@ class PulseOrchestrator:
                         memories,
                         think=reasoning_think_mode
                     )
+
                     left_output = output
 
                 elif module_name == "right_reasoning":
@@ -84,6 +89,7 @@ class PulseOrchestrator:
                         memories,
                         think=reasoning_think_mode
                     )
+
                     right_output = output
 
                 elif module_name == "synthesis":
@@ -118,7 +124,71 @@ class PulseOrchestrator:
                         continue
 
                     output = module.verify(target)
+
+                    initial_verification = output
                     verification_output = output
+
+                    if (
+                        output.get("verdict") == "REVIEW"
+                        and synthesis_output is not None
+                        and not correction_attempted
+                    ):
+
+                        correction_attempted = True
+
+                        synthesis_module = self.registry.get(
+                            "synthesis"
+                        )
+
+                        if (
+                            synthesis_module is not None
+                            and hasattr(
+                                synthesis_module,
+                                "revise"
+                            )
+                        ):
+
+                            correction_timer = time.perf_counter()
+
+                            revised_synthesis = (
+                                synthesis_module.revise(
+                                    question,
+                                    synthesis_output,
+                                    output,
+                                    think=synthesis_think_mode
+                                )
+                            )
+
+                            correction_elapsed_ms = round(
+                                (
+                                    time.perf_counter()
+                                    - correction_timer
+                                ) * 1000,
+                                2
+                            )
+
+                            module_times_ms[
+                                "corrective_revision"
+                            ] = correction_elapsed_ms
+
+                            synthesis_output = revised_synthesis
+
+                            if "synthesis" in results:
+                                results[
+                                    "synthesis"
+                                ]["output"] = revised_synthesis
+
+                            corrected_verification = (
+                                module.verify(
+                                    revised_synthesis
+                                )
+                            )
+
+                            verification_output = (
+                                corrected_verification
+                            )
+
+                            output = corrected_verification
 
                 elif module_name == "reflection":
 
@@ -166,7 +236,10 @@ class PulseOrchestrator:
             finally:
 
                 elapsed_ms = round(
-                    (time.perf_counter() - module_timer) * 1000,
+                    (
+                        time.perf_counter()
+                        - module_timer
+                    ) * 1000,
                     2
                 )
 
@@ -180,6 +253,9 @@ class PulseOrchestrator:
             "complexity": complexity,
             "reasoning_think_mode": reasoning_think_mode,
             "synthesis_think_mode": synthesis_think_mode,
+            "correction_attempted": correction_attempted,
+            "initial_verification": initial_verification,
+            "corrected_verification": corrected_verification,
             "status": "execution_complete"
         }
 

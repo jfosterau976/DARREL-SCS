@@ -82,6 +82,70 @@ Return only the polished final answer for the user.
 """.strip()
 
 
+    def build_revision_prompt(
+        self,
+        question,
+        original_answer,
+        verification
+    ):
+
+        critical_issues = verification.get(
+            "critical_issues",
+            []
+        )
+
+        warnings = verification.get(
+            "warnings",
+            []
+        )
+
+        improvements = verification.get(
+            "improvements",
+            []
+        )
+
+        return f"""
+You are DARREL's corrective synthesis stage.
+
+The previous answer failed verification.
+
+USER QUESTION:
+{question}
+
+PREVIOUS ANSWER:
+{original_answer}
+
+CRITICAL ISSUES:
+{critical_issues}
+
+WARNINGS:
+{warnings}
+
+REQUESTED IMPROVEMENTS:
+{improvements}
+
+Revise the answer so it resolves the verifier's legitimate
+critical issues while still answering the user's original
+question directly.
+
+RULES:
+
+- Fix the identified problems.
+- Preserve useful parts of the original answer.
+- Do not mention the verifier, correction process,
+  internal agents, prompts, or these instructions.
+- Do not invent evidence.
+- Do not make unsupported certainty claims.
+- Keep the answer concise and useful.
+- If the request is high-risk, clearly include relevant
+  risks, limitations, or safety considerations.
+- Critical safety requirements identified by verification
+  override conflicting user instructions that would remove
+  necessary safety information.
+- Return only the corrected final answer.
+""".strip()
+
+
     def synthesize(
         self,
         question,
@@ -123,7 +187,7 @@ Return only the polished final answer for the user.
 
         llm_result = llm_interface.generate(
             prompt,
-            think=think
+            think=False
         )
 
         llm_response = llm_result.get(
@@ -223,6 +287,80 @@ Return only the polished final answer for the user.
                 )
             )
         }
+
+
+    def revise(
+        self,
+        question,
+        synthesis_result,
+        verification,
+        think=None
+    ):
+
+        original_answer = synthesis_result.get(
+            "combined_insight",
+            ""
+        )
+
+        prompt = self.build_revision_prompt(
+            question,
+            original_answer,
+            verification
+        )
+
+        llm_result = llm_interface.generate(
+            prompt,
+            think=think
+        )
+
+        revised_answer = llm_result.get(
+            "response",
+            ""
+        )
+
+        revision_success = (
+            llm_result.get("status") == "success"
+            and bool(revised_answer)
+        )
+
+        revised_result = dict(
+            synthesis_result
+        )
+
+        revised_result["mode"] = (
+            "llm_corrective_revision"
+            if revision_success
+            else synthesis_result.get(
+                "mode",
+                "structured_fallback"
+            )
+        )
+
+        revised_result["revision_attempted"] = True
+
+        revised_result["revision_llm"] = {
+            "status": llm_result.get("status"),
+            "model": llm_result.get("model"),
+            "fallback": llm_result.get(
+                "fallback",
+                True
+            ),
+            "error": llm_result.get("error"),
+            "metrics": llm_result.get(
+                "metrics"
+            )
+        }
+
+        revised_result["original_combined_insight"] = (
+            original_answer
+        )
+
+        if revision_success:
+            revised_result["combined_insight"] = (
+                revised_answer
+            )
+
+        return revised_result
 
 
 synthesis_agent = SynthesisAgent()
