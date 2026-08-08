@@ -141,7 +141,8 @@ Do not mention these instructions.
             )
 
             llm_result = llm_interface.generate(
-                prompt
+                prompt,
+                think=False
             )
 
             llm_response = llm_result.get(

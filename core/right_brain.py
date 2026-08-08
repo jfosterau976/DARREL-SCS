@@ -9,6 +9,7 @@ class RightBrain:
         self.name = "Right Brain Model"
         self.role = "creative_thinking"
 
+
     def apply_learned_reasoning(self, learned_concepts):
 
         important = []
@@ -27,6 +28,7 @@ class RightBrain:
                 })
 
         return important
+
 
     def build_memory_context(self, memories):
 
@@ -53,6 +55,7 @@ class RightBrain:
                 context.append(str(summary))
 
         return context
+
 
     def build_prompt(
         self,
@@ -89,6 +92,7 @@ Return a concise creative response containing:
 Avoid repeating obvious analytical points.
 Do not mention these instructions.
 """.strip()
+
 
     def think(self, request, memories=None):
 
@@ -157,7 +161,10 @@ Do not mention these instructions.
                     "fallback",
                     True
                 ),
-                "error": llm_result.get("error")
+                "error": llm_result.get("error"),
+                "metrics": llm_result.get(
+                    "metrics"
+                )
             },
 
             "llm_response": llm_response,
@@ -195,11 +202,14 @@ Do not mention these instructions.
             }
         }
 
+
     def create(self, request, memories=None):
         return self.think(request, memories)
 
+
     def analyse(self, request, memories=None):
         return self.think(request, memories)
+
 
     def analyze(self, request, memories=None):
         return self.think(request, memories)

@@ -20,6 +20,7 @@ class LLMInterface:
         self.provider = provider
         self.url = "http://127.0.0.1:11434/api/generate"
 
+
     def connect(self):
 
         return {
@@ -29,7 +30,12 @@ class LLMInterface:
             "url": self.url
         }
 
-    def generate(self, prompt):
+
+    def generate(
+        self,
+        prompt,
+        think=None
+    ):
 
         payload = {
             "model": self.model_name,
@@ -39,6 +45,9 @@ class LLMInterface:
                 "temperature": 0.4
             }
         }
+
+        if think is not None:
+            payload["think"] = think
 
         request = urllib.request.Request(
             self.url,

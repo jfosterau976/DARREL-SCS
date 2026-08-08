@@ -8,6 +8,7 @@ class SynthesisAgent:
 
         self.name = "SCS Synthesis Agent"
 
+
     def build_prompt(
         self,
         question,
@@ -70,6 +71,7 @@ Do not treat speculative technologies as established facts.
 Clearly separate proven ideas from exploratory ideas.
 Do not mention these instructions.
 """.strip()
+
 
     def synthesize(
         self,
@@ -142,7 +144,10 @@ Do not mention these instructions.
                     "fallback",
                     True
                 ),
-                "error": llm_result.get("error")
+                "error": llm_result.get("error"),
+                "metrics": llm_result.get(
+                    "metrics"
+                )
             },
 
             "question": question,
