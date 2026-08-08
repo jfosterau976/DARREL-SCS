@@ -5,73 +5,159 @@ class VerifierEngine:
         self.name = "SCS Verification Engine"
 
 
-    def verify(self, synthesis):
+    def verify(self, result):
 
         checks = [
-
-            "Check logical consistency",
+            "Check final answer exists",
+            "Check answer has useful substance",
             "Check evidence requirements",
             "Check safety risks",
             "Check possible improvements",
             "Check learned reasoning usage"
-
         ]
 
-
-        learned_reasoning = synthesis.get(
-            "learned_reasoning",
-            []
+        question = result.get(
+            "question",
+            ""
         )
 
-
-        priority_memory = synthesis.get(
-            "priority_memory",
-            []
+        final_answer = (
+            result.get("combined_insight")
+            or result.get("llm_response")
+            or ""
         )
 
+        learned_reasoning = (
+            result.get("learned_reasoning")
+            or result.get("reasoning_context")
+            or []
+        )
 
-        analytical = synthesis.get(
+        priority_memory = (
+            result.get("priority_memory")
+            or result.get("memory_context")
+            or []
+        )
+
+        analytical = result.get(
             "analytical_summary",
             {}
         )
 
-
-        creative = synthesis.get(
+        creative = result.get(
             "creative_summary",
             {}
         )
 
+        evidence = analytical.get(
+            "evidence",
+            []
+        )
 
+        critical_issues = []
+        warnings = []
         improvements = []
 
+        if not isinstance(final_answer, str) or not final_answer.strip():
 
-        if not analytical.get("evidence"):
-
-            improvements.append(
-                "Increase evidence checking"
+            critical_issues.append(
+                "Final answer is missing"
             )
 
+        answer_lower = str(
+            final_answer
+        ).lower()
+
+        question_lower = str(
+            question
+        ).lower()
+
+        high_risk_terms = [
+            "health",
+            "healthcare",
+            "medical",
+            "diagnosis",
+            "treatment",
+            "legal",
+            "financial",
+            "safety"
+        ]
+
+        high_risk_request = any(
+            term in question_lower
+            for term in high_risk_terms
+        )
+
+        risk_markers = [
+            "risk",
+            "risks",
+            "limitation",
+            "limitations",
+            "safety",
+            "caution",
+            "trade-off",
+            "trade-offs"
+        ]
+
+        risk_analysis_present = any(
+            marker in answer_lower
+            for marker in risk_markers
+        )
+
+        if (
+            high_risk_request
+            and not risk_analysis_present
+        ):
+
+            critical_issues.append(
+                "High-risk request lacks explicit risk analysis"
+            )
+
+        if analytical and not evidence:
+
+            warnings.append(
+                "No explicit evidence checks were supplied"
+            )
 
         if not learned_reasoning:
 
-            improvements.append(
-                "Improve learned reasoning connections"
+            warnings.append(
+                "No learned reasoning was used"
             )
-
 
         if not priority_memory:
 
-            improvements.append(
-                "Improve memory context usage"
+            warnings.append(
+                "No priority memory context was used"
             )
 
+        if critical_issues:
+
+            verdict = "REVIEW"
+            confidence = 0.95
+
+            improvements.extend(
+                critical_issues
+            )
+
+        else:
+
+            verdict = "PASS"
+
+            if warnings:
+                confidence = 0.80
+            else:
+                confidence = 0.95
+
+        improvements.extend(
+            warnings
+        )
 
         if not improvements:
 
             improvements.append(
-                "Continue improving confidence calibration"
+                "No material verification issues detected"
             )
-
 
         if learned_reasoning:
 
@@ -80,7 +166,6 @@ class VerifierEngine:
         else:
 
             learning_status = "no_learned_context"
-
 
         return {
 
@@ -100,9 +185,17 @@ class VerifierEngine:
 
             "creative_reviewed": creative,
 
-            "verdict": "REVIEW",
+            "high_risk_request": high_risk_request,
 
-            "confidence": 0.8,
+            "risk_analysis_present": risk_analysis_present,
+
+            "critical_issues": critical_issues,
+
+            "warnings": warnings,
+
+            "verdict": verdict,
+
+            "confidence": confidence,
 
             "improvements": improvements
 
