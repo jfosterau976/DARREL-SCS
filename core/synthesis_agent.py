@@ -231,7 +231,7 @@ RULES:
 
             "question": question,
 
-            "analytical_summary": {
+                        "analytical_summary": {
 
                 "main_points": left_analysis.get(
                     "problem_breakdown",
@@ -248,8 +248,19 @@ RULES:
                     []
                 ),
 
-                "recommendation": left_analysis.get(
-                    "recommendation",
+                "recommendation": (
+                    left_analysis.get(
+                        "recommendation",
+                        ""
+                    )
+                    or left_result.get(
+                        "llm_response",
+                        ""
+                    )
+                ),
+
+                "raw_response": left_result.get(
+                    "llm_response",
                     ""
                 )
             },
