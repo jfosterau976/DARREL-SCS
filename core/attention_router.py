@@ -6,75 +6,158 @@ from core.cognitive_memory import cognitive_memory
 class AttentionRouter:
 
     def __init__(self):
-        self.name = "SCS Attention Router V2"
 
-    def calculate_state(self, attention, memories):
+        self.name = "SCS Adaptive Attention Router V3"
 
-        priorities = attention.get("priorities", [])
+
+    def classify_request(self, request):
+
+        text = request.lower()
+
+        simple_patterns = [
+            "what is",
+            "who is",
+            "when is",
+            "where is",
+            "calculate",
+            "plus",
+            "minus",
+            "times",
+            "equals"
+        ]
+
+        creative_patterns = [
+            "design",
+            "invent",
+            "create",
+            "future",
+            "idea",
+            "strategy"
+        ]
+
+        high_risk_patterns = [
+            "medical",
+            "health",
+            "safety",
+            "security",
+            "legal",
+            "risk"
+        ]
+
+
+        if any(x in text for x in high_risk_patterns):
+
+            return "high"
+
+
+        if any(x in text for x in creative_patterns):
+
+            return "medium"
+
+
+        if any(x in text for x in simple_patterns):
+
+            return "low"
+
+
+        return "medium"
+
+
+
+    def calculate_state(self, attention, memories, request):
+
+
+        complexity = self.classify_request(request)
+
 
         risk = "low"
-        complexity = "low"
-        memory_required = bool(memories)
-        verification_required = False
+
+        verification_required = True
+
         reflection_required = False
 
-        for item in priorities:
 
-            area = item.get("area", "")
-            priority = item.get("priority", "")
+        if complexity == "high":
 
-            if priority == "high":
-                risk = "high"
-                verification_required = True
+            risk = "high"
+            reflection_required = True
 
-            if area in ["accuracy", "safety"]:
-                complexity = "high"
-                verification_required = True
-                reflection_required = True
 
-            elif area in ["creativity", "analysis"]:
-                if complexity != "high":
-                    complexity = "medium"
+        memory_required = False
+
+
+        if complexity in ["medium", "high"]:
+
+            memory_required = True
+
 
         return {
+
             "complexity": complexity,
+
             "risk": risk,
+
             "memory_required": memory_required,
+
             "verification_required": verification_required,
+
             "reflection_required": reflection_required
+
         }
+
+
 
     def route(self, request):
 
-        attention = attention_manager.analyse_priority(request)
 
-        memories = cognitive_memory.recall_relevant(request)
+        attention = attention_manager.analyse_priority(
+            request
+        )
+
+
+        memories = []
+
 
         state = self.calculate_state(
             attention,
-            memories
+            memories,
+            request
         )
+
 
         activation = selective_activation.activate(
             state["complexity"],
             state["risk"]
         )
 
+
         return {
+
             "router": self.name,
+
             "request": request,
+
             "attention": attention,
+
             "memory_signals": {
+
                 "relevant_memories": len(memories)
+
             },
+
             "cognitive_state": state,
+
             "activation": activation,
+
             "selected_modules": activation.get(
                 "activated_modules",
                 []
             ),
-            "status": "routing_complete"
+
+            "status": "adaptive_routing_complete"
+
         }
+
 
 
 attention_router = AttentionRouter()
