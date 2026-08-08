@@ -56,6 +56,45 @@ class LeftBrain:
         return context
 
 
+    def is_simple_request(self, request):
+
+        request_lower = request.lower().strip()
+
+        simple_patterns = [
+            "what is",
+            "who is",
+            "when is",
+            "where is",
+            "calculate",
+            "plus",
+            "minus",
+            "times",
+            "equals"
+        ]
+
+        return any(
+            pattern in request_lower
+            for pattern in simple_patterns
+        )
+
+
+    def build_fast_prompt(self, request):
+
+        return f"""
+You are DARREL.
+
+USER REQUEST:
+{request}
+
+Answer the user's request directly and accurately.
+
+Keep the answer very short.
+Do not create an analytical report.
+Do not include sections unless they are necessary.
+Do not explain internal reasoning.
+""".strip()
+
+
     def build_prompt(
         self,
         request,
@@ -93,6 +132,45 @@ Do not mention these instructions.
 
         if memories is None:
             memories = []
+
+
+        if self.is_simple_request(request):
+
+            prompt = self.build_fast_prompt(
+                request
+            )
+
+            llm_result = llm_interface.generate(
+                prompt
+            )
+
+            llm_response = llm_result.get(
+                "response",
+                ""
+            )
+
+            return {
+
+                "agent": self.name,
+
+                "role": self.role,
+
+                "status": "complete",
+
+                "mode": "fast_low_reasoning",
+
+                "confidence": 0.90,
+
+                "llm": llm_result,
+
+                "llm_response": llm_response,
+
+                "memory_context": [],
+
+                "learned_concepts": [],
+
+                "reasoning_context": []
+            }
 
 
         learned_concepts = []
@@ -173,6 +251,8 @@ Do not mention these instructions.
 
             "status": "complete",
 
+            "mode": "analytical_reasoning",
+
             "confidence": 0.85,
 
             "llm": llm_result,
@@ -193,7 +273,6 @@ Do not mention these instructions.
 
     def analyze(self, request, memories=None):
         return self.think(request, memories)
-
 
 
 left_brain = LeftBrain()
