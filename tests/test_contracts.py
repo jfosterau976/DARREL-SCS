@@ -119,6 +119,32 @@ class DarrelContractTests(unittest.TestCase):
             ]
         )
 
+    def test_analytical_summary_contains_live_left_brain_response(self):
 
+        result = coordinator.process(
+            "Design three innovative features for an AI assistant."
+        )
+
+        verification = result.get(
+            "verification",
+            {}
+        )
+
+        analytical = verification.get(
+            "analytical_reviewed",
+            {}
+        )
+
+        self.assertTrue(
+            analytical.get(
+                "recommendation"
+            )
+        )
+
+        self.assertTrue(
+            analytical.get(
+                "raw_response"
+            )
+        )
 if __name__ == "__main__":
     unittest.main()
