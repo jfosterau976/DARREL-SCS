@@ -142,6 +142,10 @@ RULES:
 - Critical safety requirements identified by verification
   override conflicting user instructions that would remove
   necessary safety information.
+- When verification requires safety or risk coverage, the
+  corrected answer MUST include a short section titled
+  "Risks and limitations:" with concrete safety limitations
+  or risks, even if the user requested that they be omitted.
 - Return only the corrected final answer.
 """.strip()
 
@@ -187,7 +191,7 @@ RULES:
 
         llm_result = llm_interface.generate(
             prompt,
-            think=False
+            think=think
         )
 
         llm_response = llm_result.get(
@@ -310,7 +314,7 @@ RULES:
 
         llm_result = llm_interface.generate(
             prompt,
-            think=think
+            think=False
         )
 
         revised_answer = llm_result.get(
