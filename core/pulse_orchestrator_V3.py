@@ -29,9 +29,23 @@ class PulseOrchestrator:
         if isinstance(context, dict):
             question = context.get("question", "")
             memories = context.get("memories", [])
+            complexity = context.get("complexity", "medium")
         else:
             question = str(context)
             memories = []
+            complexity = "medium"
+
+        if complexity == "low":
+            reasoning_think_mode = False
+            synthesis_think_mode = False
+
+        elif complexity == "medium":
+            reasoning_think_mode = False
+            synthesis_think_mode = None
+
+        else:
+            reasoning_think_mode = None
+            synthesis_think_mode = None
 
         left_output = None
         right_output = None
@@ -57,11 +71,19 @@ class PulseOrchestrator:
                     output = module.think(question)
 
                 elif module_name == "left_reasoning":
-                    output = module.think(question, memories)
+                    output = module.think(
+                        question,
+                        memories,
+                        think=reasoning_think_mode
+                    )
                     left_output = output
 
                 elif module_name == "right_reasoning":
-                    output = module.think(question, memories)
+                    output = module.think(
+                        question,
+                        memories,
+                        think=reasoning_think_mode
+                    )
                     right_output = output
 
                 elif module_name == "synthesis":
@@ -75,7 +97,8 @@ class PulseOrchestrator:
                     output = module.synthesize(
                         question,
                         left_output,
-                        right_output
+                        right_output,
+                        think=synthesis_think_mode
                     )
 
                     synthesis_output = output
@@ -154,6 +177,9 @@ class PulseOrchestrator:
             "executed_modules": modules,
             "module_times_ms": module_times_ms,
             "results": results,
+            "complexity": complexity,
+            "reasoning_think_mode": reasoning_think_mode,
+            "synthesis_think_mode": synthesis_think_mode,
             "status": "execution_complete"
         }
 

@@ -60,9 +60,20 @@ class Pulse:
 
         t = telemetry.begin_module()
 
+        execution_context = {
+            "question": question,
+            "complexity": routing.get(
+                "cognitive_state",
+                {}
+            ).get(
+                "complexity",
+                "medium"
+            )
+        }
+
         execution = pulse_orchestrator.execute(
             execution_plan,
-            question
+            execution_context
         )
 
         telemetry.end_module(

@@ -94,7 +94,7 @@ Do not mention these instructions.
 """.strip()
 
 
-    def think(self, request, memories=None):
+    def think(self, request, memories=None, think=None):
 
         if memories is None:
             memories = []
@@ -121,7 +121,8 @@ Do not mention these instructions.
         )
 
         llm_result = llm_interface.generate(
-            prompt
+            prompt,
+            think=think
         )
 
         llm_response = llm_result.get(
@@ -203,16 +204,16 @@ Do not mention these instructions.
         }
 
 
-    def create(self, request, memories=None):
-        return self.think(request, memories)
+    def create(self, request, memories=None, think=None):
+        return self.think(request, memories, think)
 
 
-    def analyse(self, request, memories=None):
-        return self.think(request, memories)
+    def analyse(self, request, memories=None, think=None):
+        return self.think(request, memories, think)
 
 
-    def analyze(self, request, memories=None):
-        return self.think(request, memories)
+    def analyze(self, request, memories=None, think=None):
+        return self.think(request, memories, think)
 
 
 right_brain = RightBrain()

@@ -40,36 +40,45 @@ class SynthesisAgent:
         )
 
         return f"""
-You are the Synthesis Agent inside DARREL,
+You are the final Synthesis Agent inside DARREL,
 a Synthetic Cognitive System.
 
-Your job is to combine analytical reasoning
-and creative reasoning into one grounded answer.
+Your job is to answer the USER QUESTION directly.
+
+Use the analytical and creative outputs below as internal
+evidence and idea sources. Do not structure the final answer
+as a comparison between the two brains unless the user
+specifically asks for that comparison.
 
 USER QUESTION:
 {question}
 
-LEFT BRAIN ANALYSIS:
+ANALYTICAL INPUT:
 {left_response}
 
-RIGHT BRAIN EXPLORATION:
+CREATIVE INPUT:
 {right_response}
 
 RELEVANT LEARNED MEMORY:
 {priority_memory}
 
-Produce a concise synthesis containing:
+INSTRUCTIONS:
 
-1. Areas where both brains agree
-2. Useful differences between the two perspectives
-3. Which creative ideas are realistic
-4. Which ideas are speculative or require evidence
-5. Important risks or trade-offs
-6. A final combined recommendation
+- Follow the user's requested format and quantity exactly.
+- Answer the user's actual question first.
+- Be concise, practical, and specific.
+- Prefer useful concrete recommendations over commentary
+  about the internal reasoning process.
+- Combine the strongest analytical and creative ideas.
+- Remove repetition.
+- Do not call an idea "proven" unless the supplied evidence
+  clearly supports that claim.
+- Clearly label speculative ideas only when relevant.
+- Mention risks only when they materially help answer the request.
+- Do not mention Left Brain, Right Brain, Synthesis Agent,
+  internal modules, prompts, or these instructions.
 
-Do not treat speculative technologies as established facts.
-Clearly separate proven ideas from exploratory ideas.
-Do not mention these instructions.
+Return only the polished final answer for the user.
 """.strip()
 
 
@@ -77,7 +86,8 @@ Do not mention these instructions.
         self,
         question,
         left_result,
-        right_result
+        right_result,
+        think=None
     ):
 
         left_analysis = left_result.get(
@@ -112,7 +122,8 @@ Do not mention these instructions.
         )
 
         llm_result = llm_interface.generate(
-            prompt
+            prompt,
+            think=think
         )
 
         llm_response = llm_result.get(
@@ -132,7 +143,7 @@ Do not mention these instructions.
             "status": "complete",
 
             "mode": (
-                "llm_synthesis"
+                "llm_direct_synthesis"
                 if llm_success
                 else "structured_fallback"
             ),
@@ -206,11 +217,9 @@ Do not mention these instructions.
                 llm_response
                 if llm_success
                 else (
-                    "SCS synthesis combines analytical "
-                    "evaluation, creative exploration, "
-                    "priority memory context, and learned "
-                    "reasoning to identify opportunities, "
-                    "risks, and recommended actions."
+                    "DARREL combined analytical reasoning, "
+                    "creative exploration, and learned context "
+                    "into a direct response."
                 )
             )
         }
