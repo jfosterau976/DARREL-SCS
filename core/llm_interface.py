@@ -21,7 +21,7 @@ class LLMInterface:
             self.model_name = (
                 model_name
                 or os.getenv("SCS_CLAUDE_MODEL")
-                or "claude-sonnet-4-20250514"
+                or "claude-sonnet-4-6"
             )
 
             self.url = (
