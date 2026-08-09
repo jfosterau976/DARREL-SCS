@@ -1978,11 +1978,11 @@ Current isolated shadow-layer suites:
 
 \- Neural Routing V0.1: 11 / 11 passing
 
-\- Cognitive Budget Manager V0.1: 19 / 19 passing
+\- Cognitive Budget Manager V0.1: 20 / 20 passing
 
 
 
-Current combined safe and shadow suite: 67 / 67 passing in 0.039 seconds of unittest time and 0.277 seconds of runner elapsed time.
+Current combined safe and shadow suite: 68 / 68 passing in 0.041 seconds of unittest time and 0.308 seconds of runner elapsed time.
 
 
 
@@ -3382,7 +3382,7 @@ Verified work from the 9 August engineering session includes:
 
 \- Cognitive Budget Manager V0.1 shadow telemetry with protected pre-change checkpoint
 
-\- 37 / 37 safe regression tests, 11 / 11 Neural Routing tests, 19 / 19 Cognitive Budget tests, and 67 / 67 combined verification
+\- 37 / 37 safe regression tests, 11 / 11 Neural Routing tests, 20 / 20 Cognitive Budget tests, and 68 / 68 combined verification
 
 \- read-only development preflight
 

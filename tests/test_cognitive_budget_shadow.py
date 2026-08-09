@@ -373,6 +373,61 @@ class CognitiveBudgetShadowTests(unittest.TestCase):
             result["telemetry"]["cognitive_budget"]["authority"]
         )
 
+    def test_pulse_locks_budget_proposal_output(self):
+        routing = self.authoritative_low_route()
+        execution = self.low_execution()
+        shadow_prediction = neural_routing_layer.predict(
+            "Budget proposal output"
+        )
+
+        with patch(
+            "core.pulse.attention_router.route",
+            return_value=routing,
+        ), patch(
+            "core.pulse.pulse_orchestrator.decide_execution",
+            return_value={
+                "modules_to_run": ["left_reasoning", "verifier"],
+                "status": "execution_plan_created",
+            },
+        ), patch(
+            "core.pulse.pulse_orchestrator.execute",
+            return_value=execution,
+        ), patch.object(
+            neural_routing_layer,
+            "predict",
+            return_value=shadow_prediction,
+        ), patch.object(
+            cognitive_budget_manager,
+            "propose",
+            return_value={
+                "mode": "production",
+                "version": "unexpected",
+                "status": "proposed",
+                "authority": True,
+                "enforced": True,
+                "limits": {},
+            },
+        ):
+            result = pulse.run("Budget proposal output")
+
+        proposal = result["telemetry"]["cognitive_budget"]
+
+        self.assertEqual(result["status"], "pulse_complete")
+        self.assertEqual(proposal["mode"], "shadow")
+        self.assertEqual(proposal["version"], CognitiveBudgetManager.VERSION)
+        self.assertEqual(proposal["status"], "proposed")
+        self.assertFalse(proposal["authority"])
+        self.assertFalse(proposal["enforced"])
+        self.assertEqual(
+            proposal["data_quality"]["normalized_fields"],
+            [
+                "cognitive_budget.proposal.authority",
+                "cognitive_budget.proposal.enforced",
+                "cognitive_budget.proposal.mode",
+                "cognitive_budget.proposal.version",
+            ],
+        )
+
     def test_coordinator_enriches_budget_actual_usage(self):
         proposal = self.manager.propose(
             "Compare two designs.",

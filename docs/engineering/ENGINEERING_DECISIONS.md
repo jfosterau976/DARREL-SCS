@@ -944,7 +944,7 @@ Decision:
 
 
 
-DARREL now has Cognitive Budget Manager V0.1 in shadow mode. It proposes and compares diagnostic budgets but has authority=false and enforced=false.
+DARREL now has Cognitive Budget Manager V0.1 in shadow mode. It proposes and compares diagnostic budgets but has authority=false and enforced=false. Pulse reasserts that proposal-output contract before execution planning and passes the authoritative Attention Router activation through unchanged, so the proposal cannot select or suppress production modules.
 
 
 

@@ -8,6 +8,7 @@ from core.telemetry import telemetry
 class Pulse:
 
     NEURAL_ROUTING_VERSION = "neural-routing-v0.1"
+    COGNITIVE_BUDGET_VERSION = "cognitive-budget-v0.1"
 
     def __init__(self):
 
@@ -24,6 +25,33 @@ class Pulse:
             "stage": stage,
             "error_type": type(error).__name__,
         }
+
+    def merge_data_quality(self, record, prefix, normalized_fields):
+        quality = record.get("data_quality")
+        if quality is None:
+            return
+
+        if isinstance(quality, Mapping):
+            fields = quality.get("normalized_fields", [])
+
+            if isinstance(fields, (list, tuple)):
+                valid_fields = [
+                    item
+                    for item in fields
+                    if isinstance(item, str) and item
+                ]
+                normalized_fields.extend(valid_fields)
+
+                if len(valid_fields) != len(fields):
+                    normalized_fields.append(
+                        f"{prefix}.data_quality.normalized_fields"
+                    )
+            else:
+                normalized_fields.append(
+                    f"{prefix}.data_quality.normalized_fields"
+                )
+        else:
+            normalized_fields.append(f"{prefix}.data_quality")
 
     def normalize_shadow_comparison(self, record):
         prefix = "neural_routing.comparison"
@@ -57,29 +85,7 @@ class Pulse:
             status = "error"
             normalized_fields.append(f"{prefix}.status")
 
-        quality = record.get("data_quality")
-        if quality is not None:
-            if isinstance(quality, Mapping):
-                fields = quality.get("normalized_fields", [])
-
-                if isinstance(fields, (list, tuple)):
-                    valid_fields = [
-                        item
-                        for item in fields
-                        if isinstance(item, str) and item
-                    ]
-                    normalized_fields.extend(valid_fields)
-
-                    if len(valid_fields) != len(fields):
-                        normalized_fields.append(
-                            f"{prefix}.data_quality.normalized_fields"
-                        )
-                else:
-                    normalized_fields.append(
-                        f"{prefix}.data_quality.normalized_fields"
-                    )
-            else:
-                normalized_fields.append(f"{prefix}.data_quality")
+        self.merge_data_quality(record, prefix, normalized_fields)
 
         return {
             **record,
@@ -87,6 +93,57 @@ class Pulse:
             "version": self.NEURAL_ROUTING_VERSION,
             "status": status,
             "authority": False,
+            "data_quality": {
+                "valid": not normalized_fields,
+                "normalized_fields": sorted(set(normalized_fields)),
+            },
+        }
+
+    def normalize_budget_proposal(self, record):
+        prefix = "cognitive_budget.proposal"
+
+        if not isinstance(record, Mapping):
+            return {
+                "mode": "shadow",
+                "version": self.COGNITIVE_BUDGET_VERSION,
+                "status": "error",
+                "authority": False,
+                "enforced": False,
+                "stage": "proposal_contract",
+                "data_quality": {
+                    "valid": False,
+                    "normalized_fields": [prefix],
+                },
+            }
+
+        normalized_fields = []
+
+        if record.get("mode") != "shadow":
+            normalized_fields.append(f"{prefix}.mode")
+
+        if record.get("version") != self.COGNITIVE_BUDGET_VERSION:
+            normalized_fields.append(f"{prefix}.version")
+
+        if record.get("authority") is not False:
+            normalized_fields.append(f"{prefix}.authority")
+
+        if record.get("enforced") is not False:
+            normalized_fields.append(f"{prefix}.enforced")
+
+        status = record.get("status")
+        if status not in {"proposed", "error", "unavailable"}:
+            status = "error"
+            normalized_fields.append(f"{prefix}.status")
+
+        self.merge_data_quality(record, prefix, normalized_fields)
+
+        return {
+            **record,
+            "mode": "shadow",
+            "version": self.COGNITIVE_BUDGET_VERSION,
+            "status": status,
+            "authority": False,
+            "enforced": False,
             "data_quality": {
                 "valid": not normalized_fields,
                 "normalized_fields": sorted(set(normalized_fields)),
@@ -171,10 +228,13 @@ class Pulse:
                 if shadow_prediction
                 else {}
             )
-            budget_proposal = budget_manager.propose(
+            raw_budget_proposal = budget_manager.propose(
                 question,
                 cognitive_state,
                 neural_signals
+            )
+            budget_proposal = self.normalize_budget_proposal(
+                raw_budget_proposal
             )
 
         except Exception as error:
@@ -186,7 +246,7 @@ class Pulse:
             else:
                 budget_proposal = {
                     "mode": "shadow",
-                    "version": "cognitive-budget-v0.1",
+                    "version": self.COGNITIVE_BUDGET_VERSION,
                     "status": "error",
                     "authority": False,
                     "enforced": False,

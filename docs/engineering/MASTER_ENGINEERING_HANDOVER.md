@@ -1036,11 +1036,11 @@ Additional isolated shadow-layer results:
 
 \- Neural Routing V0.1: 11 / 11 passed
 
-\- Cognitive Budget Manager V0.1: 19 / 19 passed
+\- Cognitive Budget Manager V0.1: 20 / 20 passed
 
 
 
-Combined safe and shadow verification: 67 / 67 passed in 0.039 seconds of unittest time and 0.277 seconds of runner elapsed time.
+Combined safe and shadow verification: 68 / 68 passed in 0.041 seconds of unittest time and 0.308 seconds of runner elapsed time.
 
 
 
@@ -1056,7 +1056,7 @@ Neural Routing comparison telemetry defensively normalizes malformed nested obse
 
 
 
-Cognitive Budget proposal and comparison telemetry defensively normalize malformed top-level records, invalid state categories, and negative, boolean, non-finite, or out-of-range numeric signals. Additive data-quality metadata reports affected fields and proposal warnings are preserved through comparison enrichment. Malformed downstream Pulse/budget telemetry becomes an explicit observation error after authoritative execution, so coordinator completion remains fail-open. Every observed mapping reasserts mode=shadow, authority=false, and enforced=false before and after comparison; this does not enforce limits or alter production execution.
+Cognitive Budget proposal and comparison telemetry defensively normalize malformed top-level records, invalid state categories, and negative, boolean, non-finite, or out-of-range numeric signals. Additive data-quality metadata reports affected fields and proposal warnings are preserved through comparison enrichment. Pulse reasserts mode=shadow, authority=false, and enforced=false on proposal output before execution planning while passing the authoritative Attention Router activation through unchanged. Malformed downstream Pulse/budget telemetry becomes an explicit observation error after authoritative execution, so coordinator completion remains fail-open. Every observed mapping reasserts the same locked contract before and after comparison; this does not enforce limits or alter production execution.
 
 
 

@@ -64,7 +64,7 @@ V0.3 SHADOW / EXPERIMENTAL:
 
 
 
-Current isolated verification is 11 / 11 Neural Routing tests and 19 / 19 Cognitive Budget tests. Both layers reassert their no-authority contracts in comparison/error telemetry. Neural comparison output is locked to mode=shadow and authority=false by Pulse before publication. Their proposal/comparison records expose additive data-quality metadata when malformed observation inputs are normalized, Cognitive Budget carries proposal warnings through comparison enrichment, malformed downstream shadow telemetry fails open after authoritative execution, and every observed budget mapping reasserts the locked shadow/no-authority/no-enforcement contract before and after comparison. Cognitive Budget remains explicitly unenforced.
+Current isolated verification is 11 / 11 Neural Routing tests and 20 / 20 Cognitive Budget tests. Both layers reassert their no-authority contracts in comparison/error telemetry. Neural comparison output is locked to mode=shadow and authority=false by Pulse before publication. Pulse also locks Cognitive Budget proposal output to mode=shadow, authority=false, and enforced=false before execution planning while passing the authoritative Attention Router activation through unchanged. Their proposal/comparison records expose additive data-quality metadata when malformed observation inputs are normalized, Cognitive Budget carries proposal warnings through comparison enrichment, malformed downstream shadow telemetry fails open after authoritative execution, and every observed budget mapping reasserts the locked shadow/no-authority/no-enforcement contract before and after comparison. Cognitive Budget remains explicitly unenforced.
 
 
 

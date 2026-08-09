@@ -554,13 +554,13 @@ Current V0.3 stabilization verification after deterministic provider-telemetry o
 
 \- Neural Routing shadow suite: 11 / 11 passed
 
-\- Cognitive Budget shadow suite: 19 / 19 passed
+\- Cognitive Budget shadow suite: 20 / 20 passed
 
-\- Combined safe + shadow suite: 67 / 67 passed
+\- Combined safe + shadow suite: 68 / 68 passed
 
-\- Combined unittest time: 0.039 seconds
+\- Combined unittest time: 0.041 seconds
 
-\- Combined runner elapsed: 0.277 seconds
+\- Combined runner elapsed: 0.308 seconds
 
 
 
@@ -576,7 +576,7 @@ Neural Routing comparison telemetry now normalizes malformed nested observation 
 
 
 
-Cognitive Budget proposal and comparison telemetry now normalize malformed top-level records, invalid state categories, and negative, boolean, non-finite, or out-of-range numeric signals. Additive data-quality metadata reports affected fields and proposal warnings survive comparison enrichment. Malformed downstream Pulse/budget telemetry produces an observation error after authoritative execution instead of breaking coordinator completion. Every observed mapping reasserts mode=shadow, authority=false, and enforced=false both before and after comparison.
+Cognitive Budget proposal and comparison telemetry now normalize malformed top-level records, invalid state categories, and negative, boolean, non-finite, or out-of-range numeric signals. Additive data-quality metadata reports affected fields and proposal warnings survive comparison enrichment. Pulse reasserts mode=shadow, authority=false, and enforced=false on proposal output before execution planning while passing the authoritative Attention Router activation through unchanged. Malformed downstream Pulse/budget telemetry produces an observation error after authoritative execution instead of breaking coordinator completion. Every observed mapping reasserts the same locked contract before and after comparison.
 
 
 
