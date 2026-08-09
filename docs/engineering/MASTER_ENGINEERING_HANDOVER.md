@@ -1036,11 +1036,11 @@ Additional isolated shadow-layer results:
 
 \- Neural Routing V0.1: 10 / 10 passed
 
-\- Cognitive Budget Manager V0.1: 11 / 11 passed
+\- Cognitive Budget Manager V0.1: 15 / 15 passed
 
 
 
-Combined safe and shadow verification: 58 / 58 passed in 0.037 seconds of unittest time and 0.278 seconds of runner elapsed time.
+Combined safe and shadow verification: 62 / 62 passed in 0.039 seconds of unittest time and 0.287 seconds of runner elapsed time.
 
 
 
@@ -1056,7 +1056,7 @@ Neural Routing comparison telemetry defensively normalizes malformed nested obse
 
 
 
-Cognitive Budget comparison telemetry defensively normalizes malformed or non-finite numeric observations and reports affected fields. It does not enforce limits or alter production execution.
+Cognitive Budget proposal and comparison telemetry defensively normalize malformed top-level records, invalid state categories, and negative, boolean, non-finite, or out-of-range numeric signals. Additive data-quality metadata reports affected fields and proposal warnings are preserved through comparison enrichment. This does not enforce limits or alter production execution.
 
 
 

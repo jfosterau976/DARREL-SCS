@@ -2038,11 +2038,11 @@ Additional isolated shadow-layer verification:
 
 \- Neural Routing V0.1: 10 / 10 passed
 
-\- Cognitive Budget Manager V0.1: 11 / 11 passed
+\- Cognitive Budget Manager V0.1: 15 / 15 passed
 
 
 
-Combined safe and shadow verification: 58 / 58 passed. The safe runner supports safe, shadow, and all classifications.
+Combined safe and shadow verification: 62 / 62 passed. The safe runner supports safe, shadow, and all classifications.
 
 
 
@@ -2058,7 +2058,7 @@ Neural Routing comparison telemetry also normalizes malformed nested observation
 
 
 
-Cognitive Budget comparison telemetry normalizes malformed, negative, boolean, and non-finite metrics and reports affected fields. This is diagnostic only; budgets remain unenforced.
+Cognitive Budget proposal and comparison telemetry normalize malformed top-level records, invalid state categories, and negative, boolean, non-finite, or out-of-range signals and metrics. Affected fields are reported and proposal warnings survive comparison enrichment. This is diagnostic only; budgets remain unenforced.
 
 
 

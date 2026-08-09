@@ -54,17 +54,57 @@ class CognitiveBudgetManager:
     }
 
     def propose(self, request, cognitive_state, neural_signals=None):
-        cognitive_state = cognitive_state or {}
-        neural_signals = neural_signals or {}
+        normalized_fields = []
+        cognitive_state = self._mapping(
+            cognitive_state,
+            "cognitive_state",
+            normalized_fields,
+        )
+        neural_signals = self._mapping(
+            neural_signals if neural_signals is not None else {},
+            "neural_signals",
+            normalized_fields,
+        )
         complexity = cognitive_state.get("complexity", "medium")
         risk = cognitive_state.get("risk", "low")
 
+        if (
+            not isinstance(complexity, str)
+            or complexity not in {"low", "medium", "high"}
+        ):
+            complexity = "medium"
+            normalized_fields.append("cognitive_state.complexity")
+
+        if not isinstance(risk, str) or risk not in {"low", "high"}:
+            risk = "low"
+            normalized_fields.append("cognitive_state.risk")
+
         extra_need = max(
-            neural_signals.get("analysis_intent", 0),
-            neural_signals.get("planning_intent", 0),
-            neural_signals.get("creativity_intent", 0),
-            neural_signals.get("uncertainty", 0),
-            neural_signals.get("verification_intent", 0),
+            self._normalized_signal(
+                neural_signals.get("analysis_intent"),
+                "neural_signals.analysis_intent",
+                normalized_fields,
+            ),
+            self._normalized_signal(
+                neural_signals.get("planning_intent"),
+                "neural_signals.planning_intent",
+                normalized_fields,
+            ),
+            self._normalized_signal(
+                neural_signals.get("creativity_intent"),
+                "neural_signals.creativity_intent",
+                normalized_fields,
+            ),
+            self._normalized_signal(
+                neural_signals.get("uncertainty"),
+                "neural_signals.uncertainty",
+                normalized_fields,
+            ),
+            self._normalized_signal(
+                neural_signals.get("verification_intent"),
+                "neural_signals.verification_intent",
+                normalized_fields,
+            ),
         )
 
         if risk == "high" or complexity == "high":
@@ -90,6 +130,10 @@ class CognitiveBudgetManager:
                 "request_length": len(str(request or "")),
                 "extra_need": round(float(extra_need), 4),
             },
+            "data_quality": {
+                "valid": not normalized_fields,
+                "normalized_fields": sorted(set(normalized_fields)),
+            },
             "stop_conditions": [
                 "authoritative execution completes",
                 "verification passes without unresolved critical issues",
@@ -103,6 +147,11 @@ class CognitiveBudgetManager:
         proposal_record = self._mapping(
             proposal,
             "proposal",
+            normalized_fields,
+        )
+        self._preserve_data_quality(
+            proposal_record,
+            "proposal.data_quality",
             normalized_fields,
         )
         limits = self._mapping(
@@ -197,6 +246,59 @@ class CognitiveBudgetManager:
 
         normalized_fields.append(field)
         return {}
+
+    def _normalized_signal(self, value, field, normalized_fields):
+        if value is None:
+            return 0.0
+
+        if (
+            isinstance(value, bool)
+            or not isinstance(value, (int, float))
+            or not math.isfinite(float(value))
+        ):
+            normalized_fields.append(field)
+            return 0.0
+
+        normalized = float(value)
+
+        if normalized < 0:
+            normalized_fields.append(field)
+            return 0.0
+
+        if normalized > 1:
+            normalized_fields.append(field)
+            return 1.0
+
+        return normalized
+
+    def _preserve_data_quality(self, record, field, normalized_fields):
+        if "data_quality" not in record:
+            return
+
+        quality = record.get("data_quality")
+
+        if not isinstance(quality, Mapping):
+            normalized_fields.append(field)
+            return
+
+        fields = quality.get("normalized_fields", [])
+
+        if not isinstance(fields, (list, tuple)):
+            normalized_fields.append(f"{field}.normalized_fields")
+            return
+
+        valid_fields = [
+            item
+            for item in fields
+            if isinstance(item, str) and item
+        ]
+        normalized_fields.extend(valid_fields)
+
+        if len(valid_fields) != len(fields):
+            normalized_fields.append(f"{field}.normalized_fields")
+
+        if quality.get("valid") is False and not valid_fields:
+            normalized_fields.append(field)
 
     def _nonnegative_number(self, value, field, normalized_fields):
         if value is None:

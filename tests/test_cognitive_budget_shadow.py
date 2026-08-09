@@ -62,6 +62,96 @@ class CognitiveBudgetShadowTests(unittest.TestCase):
                 "correction_passes",
             },
         )
+        self.assertEqual(
+            proposal["data_quality"],
+            {
+                "valid": True,
+                "normalized_fields": [],
+            },
+        )
+
+    def test_proposal_normalizes_malformed_top_level_inputs(self):
+        proposal = self.manager.propose(
+            "Malformed proposal inputs",
+            "unexpected",
+            "unexpected",
+        )
+
+        self.assertEqual(proposal["status"], "proposed")
+        self.assertEqual(proposal["tier"], "standard")
+        self.assertFalse(proposal["authority"])
+        self.assertFalse(proposal["enforced"])
+        self.assertEqual(
+            proposal["data_quality"]["normalized_fields"],
+            ["cognitive_state", "neural_signals"],
+        )
+
+    def test_proposal_normalizes_invalid_and_extreme_signals(self):
+        proposal = self.manager.propose(
+            "Extreme proposal signals",
+            {"complexity": "low", "risk": "low"},
+            {
+                "analysis_intent": "high",
+                "planning_intent": float("inf"),
+                "creativity_intent": -2,
+                "uncertainty": True,
+                "verification_intent": 2,
+            },
+        )
+
+        self.assertEqual(proposal["tier"], "light")
+        self.assertEqual(proposal["inputs"]["extra_need"], 1.0)
+        self.assertFalse(proposal["authority"])
+        self.assertFalse(proposal["enforced"])
+        self.assertEqual(
+            proposal["data_quality"]["normalized_fields"],
+            [
+                "neural_signals.analysis_intent",
+                "neural_signals.creativity_intent",
+                "neural_signals.planning_intent",
+                "neural_signals.uncertainty",
+                "neural_signals.verification_intent",
+            ],
+        )
+
+    def test_proposal_normalizes_invalid_state_categories(self):
+        proposal = self.manager.propose(
+            "Invalid state categories",
+            {"complexity": ["high"], "risk": 42},
+        )
+
+        self.assertEqual(proposal["tier"], "standard")
+        self.assertEqual(proposal["inputs"]["complexity"], "medium")
+        self.assertEqual(proposal["inputs"]["risk"], "low")
+        self.assertEqual(
+            proposal["data_quality"]["normalized_fields"],
+            ["cognitive_state.complexity", "cognitive_state.risk"],
+        )
+
+    def test_comparison_preserves_proposal_data_quality(self):
+        proposal = self.manager.propose(
+            "Invalid proposal signal",
+            {"complexity": "low", "risk": "low"},
+            {"analysis_intent": "high"},
+        )
+
+        comparison = self.manager.compare(
+            proposal,
+            {
+                "latency_ms": 100,
+                "total_tokens": 20,
+                "model_calls": 1,
+                "modules": 2,
+                "verification_passes": 1,
+                "correction_passes": 0,
+            },
+        )
+
+        self.assertFalse(comparison["data_quality"]["valid"])
+        self.assertEqual(
+            comparison["data_quality"]["normalized_fields"],
+            ["neural_signals.analysis_intent"],
+        )
 
     def test_comparison_detects_overruns(self):
         proposal = self.manager.propose(

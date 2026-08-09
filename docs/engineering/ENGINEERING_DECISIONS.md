@@ -1764,7 +1764,7 @@ Neural Routing comparison telemetry may defensively normalize malformed observat
 
 
 
-Cognitive Budget comparison telemetry may defensively normalize malformed or non-finite numeric observations and report additive data-quality metadata. This must not enforce a budget, stop execution, or change module selection.
+Cognitive Budget proposal and comparison telemetry may defensively normalize malformed records, invalid state categories, or invalid numeric observations and report additive data-quality metadata. This must not enforce a budget, stop execution, or change module selection.
 
 
 
