@@ -1,13 +1,38 @@
+param(
+    [ValidateSet("safe", "shadow", "all")]
+    [string]$Suite = "safe"
+)
+
 $ErrorActionPreference = "Stop"
 
 $repositoryRoot = Split-Path -Parent $PSScriptRoot
 $pythonExecutable = Join-Path $repositoryRoot ".venv\Scripts\python.exe"
-$testModules = @(
+$safeTestModules = @(
     "tests.test_anthropic_provider"
     "tests.test_provider_failures"
+    "tests.test_provider_telemetry"
+    "tests.test_provider_diagnostics"
+    "tests.test_telemetry_contract"
     "tests.test_memory_contract"
     "tests.test_learned_relevance"
+    "tests.test_benchmark_result_contract"
 )
+$shadowTestModules = @(
+    "tests.test_neural_routing_shadow"
+    "tests.test_cognitive_budget_shadow"
+)
+
+switch ($Suite) {
+    "safe" {
+        $testModules = $safeTestModules
+    }
+    "shadow" {
+        $testModules = $shadowTestModules
+    }
+    "all" {
+        $testModules = $safeTestModules + $shadowTestModules
+    }
+}
 
 if (-not (Test-Path -LiteralPath $pythonExecutable -PathType Leaf)) {
     Write-Host "FAIL: DARREL Python interpreter was not found:" -ForegroundColor Red
@@ -34,6 +59,7 @@ Push-Location $repositoryRoot
 
 try {
     Write-Host "Running isolated deterministic DARREL tests..."
+    Write-Host ("Suite: {0}" -f $Suite)
     Write-Host ("Modules: {0}" -f ($testModules -join ", "))
 
     & $pythonExecutable -B -m unittest -v @testModules
@@ -66,7 +92,7 @@ finally {
 
     Write-Host ""
     if ($testExitCode -eq 0) {
-        Write-Host "PASS: All isolated DARREL tests passed." -ForegroundColor Green
+        Write-Host ("PASS: DARREL {0} suite passed." -f $Suite) -ForegroundColor Green
     }
     else {
         Write-Host ("FAIL: DARREL tests exited with code {0}." -f $testExitCode) -ForegroundColor Red
