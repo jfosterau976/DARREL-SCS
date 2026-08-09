@@ -109,6 +109,20 @@ class Coordinator:
             },
         }
 
+    def _budget_observation_error(self, field):
+        return {
+            "mode": "shadow",
+            "version": "cognitive-budget-v0.1",
+            "status": "error",
+            "authority": False,
+            "enforced": False,
+            "stage": "observation",
+            "data_quality": {
+                "valid": False,
+                "normalized_fields": [field],
+            },
+        }
+
 
     def process(self, question):
 
@@ -488,15 +502,37 @@ class Coordinator:
         # Compare the shadow budget with observed execution. This record is
         # diagnostic only and cannot alter routing or execution.
 
-        budget_proposal = pulse_result.get(
-            "telemetry",
-            {}
-        ).get(
-            "cognitive_budget",
-            {}
-        )
+        raw_pulse_telemetry = pulse_result.get("telemetry")
 
-        budget_record = budget_proposal or {}
+        if raw_pulse_telemetry is None:
+            pulse_telemetry = {}
+            budget_proposal = {}
+            budget_record = {}
+        elif isinstance(raw_pulse_telemetry, Mapping):
+            pulse_telemetry = dict(raw_pulse_telemetry)
+            raw_budget_proposal = pulse_telemetry.get(
+                "cognitive_budget"
+            )
+
+            if raw_budget_proposal is None:
+                budget_proposal = {}
+                budget_record = {}
+            elif isinstance(raw_budget_proposal, Mapping):
+                budget_proposal = dict(raw_budget_proposal)
+                budget_record = budget_proposal or {}
+            else:
+                budget_proposal = {}
+                budget_record = self._budget_observation_error(
+                    "pulse.telemetry.cognitive_budget"
+                )
+        else:
+            pulse_telemetry = {}
+            budget_proposal = {}
+            budget_record = self._budget_observation_error(
+                "pulse.telemetry"
+            )
+
+        pulse_result["telemetry"] = pulse_telemetry
 
         if budget_proposal.get("status") == "proposed":
 
@@ -553,10 +589,7 @@ class Coordinator:
                     "actual_usage": actual_usage,
                 }
 
-        pulse_result.setdefault(
-            "telemetry",
-            {}
-        )["cognitive_budget"] = budget_record
+        pulse_telemetry["cognitive_budget"] = budget_record
 
         telemetry["cognitive_budget"] = budget_record
 

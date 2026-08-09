@@ -490,6 +490,69 @@ class CognitiveBudgetShadowTests(unittest.TestCase):
         self.assertFalse(budget["authority"])
         self.assertFalse(budget["enforced"])
 
+    def test_coordinator_malformed_budget_record_is_fail_open(self):
+        pulse_result = self.coordinator_result(
+            {"cognitive_budget": "unexpected"}
+        )
+
+        with patch(
+            "core.coordinator.pulse.run",
+            return_value=pulse_result,
+        ):
+            result = coordinator.process("Malformed budget record")
+
+        budget = result["telemetry"]["cognitive_budget"]
+
+        self.assertEqual(result["status"], "workspace_complete")
+        self.assertEqual(budget["status"], "error")
+        self.assertFalse(budget["authority"])
+        self.assertFalse(budget["enforced"])
+        self.assertEqual(
+            budget["data_quality"]["normalized_fields"],
+            ["pulse.telemetry.cognitive_budget"],
+        )
+        self.assertEqual(
+            result["pulse"]["telemetry"]["cognitive_budget"],
+            budget,
+        )
+
+    def test_coordinator_malformed_pulse_telemetry_is_fail_open(self):
+        pulse_result = self.coordinator_result("unexpected")
+
+        with patch(
+            "core.coordinator.pulse.run",
+            return_value=pulse_result,
+        ):
+            result = coordinator.process("Malformed pulse telemetry")
+
+        budget = result["telemetry"]["cognitive_budget"]
+
+        self.assertEqual(result["status"], "workspace_complete")
+        self.assertEqual(budget["status"], "error")
+        self.assertFalse(budget["authority"])
+        self.assertFalse(budget["enforced"])
+        self.assertEqual(
+            budget["data_quality"]["normalized_fields"],
+            ["pulse.telemetry"],
+        )
+
+    def coordinator_result(self, telemetry_record):
+        return {
+            "cognitive_state": {
+                "complexity": "low",
+                "risk": "low",
+            },
+            "execution_plan": {
+                "modules_to_run": [],
+            },
+            "execution": {
+                "results": {},
+                "correction_attempted": False,
+                "status": "execution_complete",
+            },
+            "telemetry": telemetry_record,
+        }
+
     def authoritative_low_route(self):
         return {
             "cognitive_state": {

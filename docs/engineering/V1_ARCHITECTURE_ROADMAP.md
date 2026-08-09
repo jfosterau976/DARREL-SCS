@@ -64,7 +64,7 @@ V0.3 SHADOW / EXPERIMENTAL:
 
 
 
-Current isolated verification is 10 / 10 Neural Routing tests and 15 / 15 Cognitive Budget tests. Both layers reassert their no-authority contracts in comparison/error telemetry. Their proposal/comparison records expose additive data-quality metadata when malformed observation inputs are normalized, and Cognitive Budget carries proposal warnings through comparison enrichment. Cognitive Budget remains explicitly unenforced.
+Current isolated verification is 10 / 10 Neural Routing tests and 17 / 17 Cognitive Budget tests. Both layers reassert their no-authority contracts in comparison/error telemetry. Their proposal/comparison records expose additive data-quality metadata when malformed observation inputs are normalized, Cognitive Budget carries proposal warnings through comparison enrichment, and malformed downstream shadow telemetry fails open after authoritative execution. Cognitive Budget remains explicitly unenforced.
 
 
 
