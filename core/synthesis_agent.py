@@ -1,4 +1,4 @@
-from core.memory_consolidator import memory_consolidator
+﻿from core.memory_consolidator import memory_consolidator
 from core.llm_interface import llm_interface
 
 
@@ -218,6 +218,7 @@ RULES:
 
             "llm": {
                 "status": llm_result.get("status"),
+                "provider": llm_result.get("provider"),
                 "model": llm_result.get("model"),
                 "fallback": llm_result.get(
                     "fallback",
@@ -355,6 +356,7 @@ RULES:
 
         revised_result["revision_llm"] = {
             "status": llm_result.get("status"),
+                "provider": llm_result.get("provider"),
             "model": llm_result.get("model"),
             "fallback": llm_result.get(
                 "fallback",
