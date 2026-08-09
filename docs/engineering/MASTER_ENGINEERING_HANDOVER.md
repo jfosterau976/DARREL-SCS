@@ -1034,13 +1034,13 @@ Additional isolated shadow-layer results:
 
 
 
-\- Neural Routing V0.1: 10 / 10 passed
+\- Neural Routing V0.1: 11 / 11 passed
 
 \- Cognitive Budget Manager V0.1: 19 / 19 passed
 
 
 
-Combined safe and shadow verification: 66 / 66 passed in 0.037 seconds of unittest time and 0.275 seconds of runner elapsed time.
+Combined safe and shadow verification: 67 / 67 passed in 0.039 seconds of unittest time and 0.277 seconds of runner elapsed time.
 
 
 
@@ -1052,7 +1052,7 @@ Coordinator provider telemetry defensively copies and normalizes malformed metri
 
 
 
-Neural Routing comparison telemetry defensively normalizes malformed nested observation inputs and identifies normalized fields through additive data-quality metadata. This reliability behavior does not grant routing authority.
+Neural Routing comparison telemetry defensively normalizes malformed nested observation inputs and identifies normalized fields through additive data-quality metadata. Pulse reasserts mode=shadow and authority=false on comparison output before publication. This reliability behavior occurs after authoritative execution and does not grant routing authority.
 
 
 

@@ -1760,7 +1760,7 @@ Provider telemetry may defensively copy and normalize malformed observation fiel
 
 
 
-Neural Routing comparison telemetry may defensively normalize malformed observation inputs and report additive data-quality metadata. This must not alter authoritative routing or execution.
+Neural Routing comparison telemetry may defensively normalize malformed observation inputs and report additive data-quality metadata. Pulse must reassert mode=shadow and authority=false on comparison output before publication. This happens after authoritative execution and must not alter routing or execution.
 
 
 

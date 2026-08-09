@@ -229,6 +229,55 @@ class NeuralRoutingLayerTests(unittest.TestCase):
             result["telemetry"]["neural_routing"]["authority"]
         )
 
+    def test_pulse_locks_shadow_comparison_output(self):
+        routing = self.authoritative_low_route()
+        execution = self.low_execution()
+        shadow = self.layer.predict("Shadow comparison output")
+
+        with patch(
+            "core.pulse.attention_router.route",
+            return_value=routing,
+        ), patch(
+            "core.pulse.pulse_orchestrator.decide_execution",
+            return_value={
+                "modules_to_run": ["left_reasoning", "verifier"],
+                "status": "execution_plan_created",
+            },
+        ), patch(
+            "core.pulse.pulse_orchestrator.execute",
+            return_value=execution,
+        ), patch.object(
+            neural_routing_layer,
+            "predict",
+            return_value=shadow,
+        ), patch.object(
+            neural_routing_layer,
+            "compare",
+            return_value={
+                "mode": "production",
+                "version": "unexpected",
+                "status": "compared",
+                "authority": True,
+            },
+        ):
+            result = pulse.run("Shadow comparison output")
+
+        record = result["telemetry"]["neural_routing"]
+
+        self.assertEqual(result["status"], "pulse_complete")
+        self.assertEqual(record["mode"], "shadow")
+        self.assertEqual(record["version"], NeuralRoutingLayer.VERSION)
+        self.assertEqual(record["status"], "compared")
+        self.assertFalse(record["authority"])
+        self.assertEqual(
+            record["data_quality"]["normalized_fields"],
+            [
+                "neural_routing.comparison.authority",
+                "neural_routing.comparison.mode",
+                "neural_routing.comparison.version",
+            ],
+        )
+
     def authoritative_low_route(self):
         return {
             "cognitive_state": {

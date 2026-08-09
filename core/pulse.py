@@ -1,9 +1,13 @@
+from collections.abc import Mapping
+
 from core.attention_router import attention_router
 from core.pulse_orchestrator_V3 import pulse_orchestrator
 from core.telemetry import telemetry
 
 
 class Pulse:
+
+    NEURAL_ROUTING_VERSION = "neural-routing-v0.1"
 
     def __init__(self):
 
@@ -14,11 +18,79 @@ class Pulse:
 
         return {
             "mode": "shadow",
-            "version": "neural-routing-v0.1",
+            "version": self.NEURAL_ROUTING_VERSION,
             "status": "error",
             "authority": False,
             "stage": stage,
             "error_type": type(error).__name__,
+        }
+
+    def normalize_shadow_comparison(self, record):
+        prefix = "neural_routing.comparison"
+
+        if not isinstance(record, Mapping):
+            return {
+                "mode": "shadow",
+                "version": self.NEURAL_ROUTING_VERSION,
+                "status": "error",
+                "authority": False,
+                "stage": "comparison_contract",
+                "data_quality": {
+                    "valid": False,
+                    "normalized_fields": [prefix],
+                },
+            }
+
+        normalized_fields = []
+
+        if record.get("mode") != "shadow":
+            normalized_fields.append(f"{prefix}.mode")
+
+        if record.get("version") != self.NEURAL_ROUTING_VERSION:
+            normalized_fields.append(f"{prefix}.version")
+
+        if record.get("authority") is not False:
+            normalized_fields.append(f"{prefix}.authority")
+
+        status = record.get("status")
+        if status not in {"compared", "error", "unavailable"}:
+            status = "error"
+            normalized_fields.append(f"{prefix}.status")
+
+        quality = record.get("data_quality")
+        if quality is not None:
+            if isinstance(quality, Mapping):
+                fields = quality.get("normalized_fields", [])
+
+                if isinstance(fields, (list, tuple)):
+                    valid_fields = [
+                        item
+                        for item in fields
+                        if isinstance(item, str) and item
+                    ]
+                    normalized_fields.extend(valid_fields)
+
+                    if len(valid_fields) != len(fields):
+                        normalized_fields.append(
+                            f"{prefix}.data_quality.normalized_fields"
+                        )
+                else:
+                    normalized_fields.append(
+                        f"{prefix}.data_quality.normalized_fields"
+                    )
+            else:
+                normalized_fields.append(f"{prefix}.data_quality")
+
+        return {
+            **record,
+            "mode": "shadow",
+            "version": self.NEURAL_ROUTING_VERSION,
+            "status": status,
+            "authority": False,
+            "data_quality": {
+                "valid": not normalized_fields,
+                "normalized_fields": sorted(set(normalized_fields)),
+            },
         }
 
     def run(self, question):
@@ -219,10 +291,13 @@ class Pulse:
         if shadow_prediction is not None:
 
             try:
-                telemetry.neural_routing = neural_layer.compare(
+                comparison = neural_layer.compare(
                     shadow_prediction,
                     routing,
                     execution
+                )
+                telemetry.neural_routing = self.normalize_shadow_comparison(
+                    comparison
                 )
 
             except Exception as error:

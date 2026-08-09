@@ -552,15 +552,15 @@ Current V0.3 stabilization verification after deterministic provider-telemetry o
 
 \- Safe deterministic suite: 37 / 37 passed
 
-\- Neural Routing shadow suite: 10 / 10 passed
+\- Neural Routing shadow suite: 11 / 11 passed
 
 \- Cognitive Budget shadow suite: 19 / 19 passed
 
-\- Combined safe + shadow suite: 66 / 66 passed
+\- Combined safe + shadow suite: 67 / 67 passed
 
-\- Combined unittest time: 0.037 seconds
+\- Combined unittest time: 0.039 seconds
 
-\- Combined runner elapsed: 0.275 seconds
+\- Combined runner elapsed: 0.277 seconds
 
 
 
@@ -572,7 +572,7 @@ Provider telemetry now defensively copies and normalizes malformed metric mappin
 
 
 
-Neural Routing comparison telemetry now normalizes malformed nested observation data, reports the affected fields through additive data-quality metadata, and remains shadow-only with authority=false.
+Neural Routing comparison telemetry now normalizes malformed nested observation data, reports the affected fields through additive data-quality metadata, and is contract-locked by Pulse before publication. Even malformed comparison output is reasserted as mode=shadow and authority=false after authoritative execution.
 
 
 

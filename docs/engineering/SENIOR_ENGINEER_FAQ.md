@@ -2036,13 +2036,13 @@ Additional isolated shadow-layer verification:
 
 
 
-\- Neural Routing V0.1: 10 / 10 passed
+\- Neural Routing V0.1: 11 / 11 passed
 
 \- Cognitive Budget Manager V0.1: 19 / 19 passed
 
 
 
-Combined safe and shadow verification: 66 / 66 passed. The safe runner supports safe, shadow, and all classifications.
+Combined safe and shadow verification: 67 / 67 passed. The safe runner supports safe, shadow, and all classifications.
 
 
 
@@ -2054,7 +2054,7 @@ Provider telemetry has five deterministic tests. The coordinator defensively cop
 
 
 
-Neural Routing comparison telemetry also normalizes malformed nested observation inputs and reports which fields were normalized. This is diagnostic shadow reliability, not routing authority.
+Neural Routing comparison telemetry also normalizes malformed nested observation inputs and reports which fields were normalized. Pulse locks comparison output to mode=shadow and authority=false before publication. This happens after authoritative execution and is diagnostic shadow reliability, not routing authority.
 
 
 
