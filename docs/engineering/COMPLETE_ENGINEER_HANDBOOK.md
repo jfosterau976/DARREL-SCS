@@ -2096,6 +2096,10 @@ The runner also redirects SCS\_MEMORY\_FILE to temporary memory and restores the
 
 
 
+The runner fingerprints protected memory by SHA-256, length, and timestamp before and after execution. It returns exit code 3 if that fingerprint changes or cannot be verified and does not attempt to repair memory. Native unittest output may be captured or redirected without converting normal stderr reporting into a false test failure.
+
+
+
 \---
 
 

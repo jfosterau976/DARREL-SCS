@@ -2146,7 +2146,7 @@ Purpose:
 
 
 
-The safe runner provides one-command deterministic regression testing with temporary protected memory and no unnecessary external calls.
+The safe runner provides one-command deterministic regression testing with temporary isolated memory and no unnecessary external calls. It also verifies the real protected-memory hash, length, and timestamp before and after execution, fails with exit code 3 on any mismatch or verification error, and preserves the true unittest exit code under output capture.
 
 
 

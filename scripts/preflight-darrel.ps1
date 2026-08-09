@@ -121,6 +121,8 @@ if ($runnerAvailable) {
         $runnerSource -match 'PYTHONDONTWRITEBYTECODE'
         $runnerSource -match 'SCS_MEMORY_FILE'
         $runnerSource -match '&\s+\$pythonExecutable\s+-B\s+-m\s+unittest'
+        $runnerSource -match 'Get-FileHash'
+        $runnerSource -match 'Protected persistent memory fingerprint unchanged'
     )
 
     if ($runnerChecks -notcontains $false) {

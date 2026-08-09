@@ -558,9 +558,9 @@ Current V0.3 stabilization verification after deterministic provider-failure har
 
 \- Combined safe + shadow suite: 51 / 51 passed
 
-\- Combined unittest time: 0.032 seconds
+\- Combined unittest time: 0.029 seconds
 
-\- Combined runner elapsed: 0.285 seconds
+\- Combined runner elapsed: 0.282 seconds
 
 
 
@@ -576,7 +576,7 @@ Cognitive Budget comparison telemetry now normalizes malformed, negative, boolea
 
 
 
-The safe runner now classifies safe, shadow, and combined suites while retaining temporary-memory isolation and bytecode suppression.
+The safe runner now classifies safe, shadow, and combined suites while retaining temporary-memory isolation and bytecode suppression. It fingerprints protected memory by hash, length, and timestamp before and after each run, returns exit code 3 if the fingerprint changes or cannot be verified, and preserves the real unittest exit code when output is redirected.
 
 
 
@@ -766,7 +766,7 @@ scripts/test-darrel-safe.ps1
 
 
 
-The runner uses Python -B, sets PYTHONDONTWRITEBYTECODE=1, redirects SCS\_MEMORY\_FILE to temporary memory, restores the previous environment, reports PASS / FAIL and elapsed time, and shows git status.
+The runner uses Python -B, sets PYTHONDONTWRITEBYTECODE=1, redirects SCS\_MEMORY\_FILE to temporary memory, restores the previous environment, verifies the protected-memory fingerprint, reports PASS / FAIL and elapsed time, and shows git status. It does not repair or rewrite persistent memory if verification fails.
 
 
 

@@ -42,7 +42,7 @@ IMPLEMENTED NOW:
 
 \- memory relevance protection
 
-\- memory-isolated safe regression runner
+\- memory-isolated safe regression runner with protected-memory fingerprint verification
 
 \- read-only development preflight and safe/shadow/all test classification
 

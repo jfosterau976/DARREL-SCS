@@ -1602,6 +1602,10 @@ Implemented now:
 
 \- temporary persistent-memory isolation through SCS\_MEMORY\_FILE
 
+\- protected-memory SHA-256, length, and timestamp verification before and after deterministic suites
+
+\- fail-closed exit code 3 for a memory fingerprint mismatch or verification failure, without automatic memory repair
+
 
 
 Status:

@@ -1026,6 +1026,10 @@ The safe suite includes provider, provider-telemetry, offline provider-diagnosti
 
 
 
+The safe runner also compares the protected-memory hash, length, and timestamp before and after execution. A change or fingerprint failure returns exit code 3 without attempting to rewrite memory. Redirected unittest output preserves the true process exit code.
+
+
+
 Additional isolated shadow-layer results:
 
 
@@ -1036,7 +1040,7 @@ Additional isolated shadow-layer results:
 
 
 
-Combined safe and shadow verification: 51 / 51 passed in 0.032 seconds of unittest time and 0.285 seconds of runner elapsed time.
+Combined safe and shadow verification: 51 / 51 passed in 0.029 seconds of unittest time and 0.282 seconds of runner elapsed time.
 
 
 
