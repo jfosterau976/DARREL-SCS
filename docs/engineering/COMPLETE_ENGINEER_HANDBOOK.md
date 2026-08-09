@@ -1912,7 +1912,7 @@ tests/test\_anthropic\_provider.py
 
 tests/test\_provider\_telemetry.py
 
-\- 2 provider telemetry tests
+\- 5 deterministic provider telemetry tests covering fallback identity, malformed metric mappings, invalid numeric/fallback values, missing provider identities, and additive data-quality reporting
 
 tests/test\_provider\_diagnostics.py
 
@@ -1968,7 +1968,7 @@ Current V0.3 stabilization safe deterministic subset:
 
 
 
-34 / 34 passing
+37 / 37 passing
 
 
 
@@ -1982,7 +1982,7 @@ Current isolated shadow-layer suites:
 
 
 
-Current combined safe and shadow suite: 55 / 55 passing.
+Current combined safe and shadow suite: 58 / 58 passing in 0.037 seconds of unittest time and 0.278 seconds of runner elapsed time.
 
 
 

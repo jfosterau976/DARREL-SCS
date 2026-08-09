@@ -36,7 +36,7 @@ IMPLEMENTED NOW:
 
 \- V0.2 Selective Pulse production path
 
-\- provider abstraction and fallback telemetry
+\- provider abstraction and fallback telemetry, including defensive post-execution observation normalization with additive data-quality reporting
 
 \- verifier PASS / REVIEW with one corrective revision
 

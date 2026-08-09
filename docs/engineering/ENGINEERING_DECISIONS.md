@@ -1756,6 +1756,10 @@ Neural Routing V0.1 and Cognitive Budget Manager V0.1 currently exist only as V0
 
 
 
+Provider telemetry may defensively copy and normalize malformed observation fields after provider execution and expose additive data-quality metadata. This must not alter provider selection, request behavior, fallback policy, or provider responses.
+
+
+
 Neural Routing comparison telemetry may defensively normalize malformed observation inputs and report additive data-quality metadata. This must not alter authoritative routing or execution.
 
 

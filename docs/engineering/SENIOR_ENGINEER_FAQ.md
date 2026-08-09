@@ -2000,7 +2000,7 @@ Codex successfully ran the approved deterministic isolated set:
 
 
 
-34 passed
+37 passed
 
 0 failed
 
@@ -2042,11 +2042,15 @@ Additional isolated shadow-layer verification:
 
 
 
-Combined safe and shadow verification: 55 / 55 passed. The safe runner supports safe, shadow, and all classifications.
+Combined safe and shadow verification: 58 / 58 passed. The safe runner supports safe, shadow, and all classifications.
 
 
 
 The provider-failure module now has nine behavior-based tests covering explicit failure classification, missing fields/metrics, and primary-to-fallback identity preservation.
+
+
+
+Provider telemetry has five deterministic tests. The coordinator defensively copies and normalizes malformed observation fields after execution and reports additive per-call data-quality metadata. It does not change provider selection, requests, responses, or fallback policy.
 
 
 

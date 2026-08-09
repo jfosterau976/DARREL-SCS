@@ -1,4 +1,6 @@
+import math
 import time
+from collections.abc import Mapping
 from datetime import datetime
 
 from core.pulse import pulse
@@ -10,9 +12,102 @@ from core.scs_executive import scs_executive
 
 class Coordinator:
 
+    LLM_NUMERIC_METRICS = (
+        "input_tokens",
+        "output_tokens",
+        "prompt_eval_count",
+        "eval_count",
+        "total_duration",
+        "load_duration",
+        "prompt_eval_duration",
+        "eval_duration",
+    )
+
     def __init__(self):
 
         self.name = "SCS Central Coordinator"
+
+
+    def _normalize_llm_observation(self, llm_result):
+        normalized_fields = []
+
+        def provider_name(value, field, fallback=None):
+            if isinstance(value, str) and value.strip():
+                return value.strip()
+
+            normalized_fields.append(field)
+            return fallback
+
+        provider = provider_name(
+            llm_result.get("provider"),
+            "provider",
+        )
+        requested_provider = provider_name(
+            llm_result.get("requested_provider"),
+            "requested_provider",
+            provider,
+        )
+        actual_provider = provider_name(
+            llm_result.get("actual_provider"),
+            "actual_provider",
+            provider,
+        )
+        raw_metrics = llm_result.get("metrics")
+
+        if raw_metrics is None:
+            metrics = {}
+        elif isinstance(raw_metrics, Mapping):
+            metrics = dict(raw_metrics)
+        else:
+            metrics = {}
+            normalized_fields.append("metrics")
+
+        for field in self.LLM_NUMERIC_METRICS:
+            if field not in metrics or metrics[field] is None:
+                continue
+
+            value = metrics[field]
+            if (
+                isinstance(value, bool)
+                or not isinstance(value, (int, float))
+                or value < 0
+                or (
+                    isinstance(value, float)
+                    and not math.isfinite(value)
+                )
+            ):
+                metrics[field] = None
+                normalized_fields.append(f"metrics.{field}")
+
+        raw_fallback = llm_result.get("fallback", False)
+        if isinstance(raw_fallback, bool):
+            fallback = raw_fallback
+        else:
+            fallback = False
+            normalized_fields.append("fallback")
+
+        if "fallback_used" not in llm_result:
+            fallback_used = fallback
+        else:
+            raw_fallback_used = llm_result.get("fallback_used")
+            if isinstance(raw_fallback_used, bool):
+                fallback_used = raw_fallback_used
+            else:
+                fallback_used = fallback
+                normalized_fields.append("fallback_used")
+
+        return {
+            "provider": provider,
+            "requested_provider": requested_provider,
+            "actual_provider": actual_provider,
+            "metrics": metrics,
+            "fallback": fallback,
+            "fallback_used": fallback_used,
+            "data_quality": {
+                "valid": not normalized_fields,
+                "normalized_fields": sorted(set(normalized_fields)),
+            },
+        }
 
 
     def process(self, question):
@@ -246,10 +341,6 @@ class Coordinator:
 
             llm_result = item["result"]
 
-            provider = llm_result.get(
-                "provider"
-            )
-
             model = llm_result.get(
                 "model"
             )
@@ -258,32 +349,19 @@ class Coordinator:
                 "status"
             )
 
-            fallback = llm_result.get(
-                "fallback",
-                False
-            )
-
-            requested_provider = llm_result.get(
-                "requested_provider"
-            )
-
-            actual_provider = llm_result.get(
-                "actual_provider"
-            ) or provider
-
-            call_fallback_used = llm_result.get(
-                "fallback_used",
-                fallback
-            )
-
             fallback_reason = llm_result.get(
                 "fallback_reason"
             )
 
-            metrics = llm_result.get(
-                "metrics",
-                {}
-            ) or {}
+            observation = self._normalize_llm_observation(
+                llm_result
+            )
+            provider = observation["provider"]
+            requested_provider = observation["requested_provider"]
+            actual_provider = observation["actual_provider"]
+            metrics = observation["metrics"]
+            fallback = observation["fallback"]
+            call_fallback_used = observation["fallback_used"]
 
             if (
                 provider
@@ -343,7 +421,8 @@ class Coordinator:
                 "fallback": fallback,
                 "fallback_used": call_fallback_used,
                 "fallback_reason": fallback_reason,
-                "metrics": metrics
+                "metrics": metrics,
+                "data_quality": observation["data_quality"]
              })
 
 

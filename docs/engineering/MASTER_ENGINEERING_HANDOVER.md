@@ -1008,11 +1008,11 @@ Safe deterministic tests should:
 
 
 
-Current verified V0.3 stabilization test state after deterministic provider-failure hardening:
+Current verified V0.3 stabilization test state after deterministic provider-telemetry observation hardening:
 
 
 
-34 safe deterministic tests passed
+37 safe deterministic tests passed
 
 0 failed
 
@@ -1040,11 +1040,15 @@ Additional isolated shadow-layer results:
 
 
 
-Combined safe and shadow verification: 55 / 55 passed in 0.038 seconds of unittest time and 0.298 seconds of runner elapsed time.
+Combined safe and shadow verification: 58 / 58 passed in 0.037 seconds of unittest time and 0.278 seconds of runner elapsed time.
 
 
 
 The mocked provider-failure matrix explicitly covers connection, HTTP, timeout, malformed-response, empty-response, missing-metrics, primary-to-fallback failure, provider identity, and unexpected-error behavior.
+
+
+
+Coordinator provider telemetry defensively copies and normalizes malformed metric mappings, known numeric counters, fallback flags, and missing provider identities after execution. Per-call additive data-quality metadata identifies any normalized fields. Provider selection, request, response, and fallback behavior are unchanged.
 
 
 

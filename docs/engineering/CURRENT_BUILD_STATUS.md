@@ -546,25 +546,29 @@ tests.test\_benchmark\_result\_contract
 
 
 
-Current V0.3 stabilization verification after deterministic provider-failure hardening:
+Current V0.3 stabilization verification after deterministic provider-telemetry observation hardening:
 
 
 
-\- Safe deterministic suite: 34 / 34 passed
+\- Safe deterministic suite: 37 / 37 passed
 
 \- Neural Routing shadow suite: 10 / 10 passed
 
 \- Cognitive Budget shadow suite: 11 / 11 passed
 
-\- Combined safe + shadow suite: 55 / 55 passed
+\- Combined safe + shadow suite: 58 / 58 passed
 
-\- Combined unittest time: 0.038 seconds
+\- Combined unittest time: 0.037 seconds
 
-\- Combined runner elapsed: 0.298 seconds
+\- Combined runner elapsed: 0.278 seconds
 
 
 
 The provider-failure matrix now verifies connection, HTTP, timeout, malformed-response, empty-response, missing-metrics, primary-to-fallback failure, provider identity, and unexpected-error behavior with mocked providers only.
+
+
+
+Provider telemetry now defensively copies and normalizes malformed metric mappings, numeric counters, fallback flags, and provider identities after provider execution. Each call reports additive data-quality metadata identifying normalized fields. This is observational reliability only and does not change provider selection, requests, fallback policy, or responses.
 
 
 
