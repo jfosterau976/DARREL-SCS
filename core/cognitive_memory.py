@@ -4,13 +4,17 @@ import os
 
 class CognitiveMemory:
 
-    def __init__(self):
+    def __init__(self, memory_file=None):
 
         self.name = "SCS Cognitive Memory"
 
-        self.file = os.path.join(
-            os.path.dirname(os.path.dirname(__file__)),
-            "scs_memory.json"
+        self.file = os.path.abspath(
+            memory_file
+            or os.getenv("SCS_MEMORY_FILE")
+            or os.path.join(
+                os.path.dirname(os.path.dirname(__file__)),
+                "scs_memory.json"
+            )
         )
 
         self.memory = self.load()

@@ -1,6 +1,7 @@
 import os
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from core.cognitive_memory import CognitiveMemory
 
@@ -72,6 +73,31 @@ class MemoryContractTests(unittest.TestCase):
             self.assertEqual(
                 reloaded.memory[0]["lesson"],
                 "persistent memory works"
+            )
+
+    def test_environment_override_isolates_persistent_memory(self):
+        with tempfile.TemporaryDirectory() as directory:
+            isolated_path = os.path.join(directory, "scs_memory.json")
+
+            with patch.dict(
+                os.environ,
+                {"SCS_MEMORY_FILE": isolated_path}
+            ):
+                memory = CognitiveMemory()
+                result = memory.store({
+                    "type": "test_lesson",
+                    "lesson": "isolated memory works"
+                })
+
+            self.assertEqual(result["status"], "memory_saved")
+            self.assertEqual(memory.file, os.path.abspath(isolated_path))
+            self.assertTrue(os.path.exists(isolated_path))
+
+            reloaded = self.make_memory([], isolated_path)
+            reloaded.memory = reloaded.load()
+            self.assertEqual(
+                reloaded.memory[0]["lesson"],
+                "isolated memory works"
             )
 
 
