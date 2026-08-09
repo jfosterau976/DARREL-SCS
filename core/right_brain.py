@@ -1,4 +1,4 @@
-﻿from core.memory_consolidator import memory_consolidator
+from core.memory_consolidator import memory_consolidator
 from core.llm_interface import llm_interface
 
 
