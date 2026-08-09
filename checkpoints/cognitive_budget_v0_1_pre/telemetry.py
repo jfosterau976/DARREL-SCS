@@ -37,8 +37,6 @@ class Telemetry:
 
         self.neural_routing = {}
 
-        self.cognitive_budget = {}
-
     def start(self, question):
 
         self.reset()
@@ -115,8 +113,6 @@ class Telemetry:
                 self.executive_confidence,
 
             "neural_routing": self.neural_routing,
-
-            "cognitive_budget": self.cognitive_budget,
 
             "status": self.status,
 

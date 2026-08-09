@@ -80,56 +80,6 @@ class Pulse:
         )
 
         # --------------------------
-        # Cognitive Budget Shadow
-        # --------------------------
-
-        budget_manager = None
-        budget_proposal = None
-
-        t = telemetry.begin_module()
-
-        try:
-            from core.cognitive_budget_manager import (
-                cognitive_budget_manager
-            )
-
-            budget_manager = cognitive_budget_manager
-            neural_signals = (
-                shadow_prediction.get("signals", {})
-                if shadow_prediction
-                else {}
-            )
-            budget_proposal = budget_manager.propose(
-                question,
-                cognitive_state,
-                neural_signals
-            )
-
-        except Exception as error:
-            if budget_manager is not None:
-                budget_proposal = budget_manager.error_record(
-                    "proposal",
-                    error
-                )
-            else:
-                budget_proposal = {
-                    "mode": "shadow",
-                    "version": "cognitive-budget-v0.1",
-                    "status": "error",
-                    "authority": False,
-                    "enforced": False,
-                    "stage": "proposal",
-                    "error_type": type(error).__name__,
-                }
-
-        telemetry.cognitive_budget = budget_proposal
-
-        telemetry.end_module(
-            "cognitive_budget_shadow",
-            t
-        )
-
-        # --------------------------
         # Execution Planning
         # --------------------------
 
