@@ -1764,7 +1764,7 @@ Neural Routing comparison telemetry may defensively normalize malformed observat
 
 
 
-Cognitive Budget proposal and comparison telemetry may defensively normalize malformed records, invalid state categories, or invalid numeric observations and report additive data-quality metadata. Malformed downstream shadow telemetry must fail open after authoritative execution, and every observed mapping must reassert the locked shadow/no-authority/no-enforcement contract. This must not enforce a budget, stop execution, or change module selection.
+Cognitive Budget proposal and comparison telemetry may defensively normalize malformed records, invalid state categories, or invalid numeric observations and report additive data-quality metadata. Malformed downstream shadow telemetry must fail open after authoritative execution, and every observed mapping must reassert the locked shadow/no-authority/no-enforcement contract before and after comparison. This must not enforce a budget, stop execution, or change module selection.
 
 
 

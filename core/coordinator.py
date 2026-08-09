@@ -142,7 +142,9 @@ class Coordinator:
             normalized_fields.append(f"{prefix}.enforced")
 
         status = record.get("status")
-        if status not in {"proposed", "error", "unavailable"}:
+        if status not in {
+            "proposed", "compared", "error", "unavailable"
+        }:
             status = "error"
             normalized_fields.append(f"{prefix}.status")
 
@@ -633,10 +635,19 @@ class Coordinator:
                     cognitive_budget_manager
                 )
 
-                budget_record = cognitive_budget_manager.compare(
+                raw_budget_record = cognitive_budget_manager.compare(
                     budget_proposal,
                     actual_usage
                 )
+
+                if isinstance(raw_budget_record, Mapping):
+                    budget_record = self._normalize_budget_observation(
+                        dict(raw_budget_record)
+                    )
+                else:
+                    budget_record = self._budget_observation_error(
+                        "pulse.telemetry.cognitive_budget.comparison"
+                    )
 
             except Exception as error:
                 budget_record = {
