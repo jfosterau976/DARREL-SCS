@@ -1,5 +1,6 @@
 import math
 import re
+from collections.abc import Mapping
 
 
 class NeuralRoutingLayer:
@@ -188,30 +189,92 @@ class NeuralRoutingLayer:
         }
 
     def compare(self, shadow_prediction, routing, execution):
-        prediction = shadow_prediction.get("prediction", {})
-        cognitive_state = routing.get("cognitive_state", {})
-        activation = routing.get("activation", {})
-        predicted_modules = prediction.get("modules", [])
-        authoritative_modules = activation.get("activated_modules", [])
+        normalized_fields = []
+        shadow_record = self._mapping(
+            shadow_prediction,
+            "shadow_prediction",
+            normalized_fields,
+        )
+        prediction = self._mapping(
+            shadow_record.get("prediction", {}),
+            "shadow_prediction.prediction",
+            normalized_fields,
+        )
+        routing_record = self._mapping(
+            routing,
+            "routing",
+            normalized_fields,
+        )
+        cognitive_state = self._mapping(
+            routing_record.get("cognitive_state", {}),
+            "routing.cognitive_state",
+            normalized_fields,
+        )
+        activation = self._mapping(
+            routing_record.get("activation", {}),
+            "routing.activation",
+            normalized_fields,
+        )
+        predicted_modules = self._module_names(
+            prediction.get("modules", []),
+            "shadow_prediction.prediction.modules",
+            normalized_fields,
+        )
+        authoritative_modules = self._module_names(
+            activation.get("activated_modules", []),
+            "routing.activation.activated_modules",
+            normalized_fields,
+        )
         predicted_set = set(predicted_modules)
         authoritative_set = set(authoritative_modules)
         union = predicted_set | authoritative_set
-        results = execution.get("results", {})
-        verification = results.get("verifier", {}).get("output", {})
+        execution_record = self._mapping(
+            execution,
+            "execution",
+            normalized_fields,
+        )
+        executed_modules = self._module_names(
+            execution_record.get("executed_modules", []),
+            "execution.executed_modules",
+            normalized_fields,
+        )
+        results = self._mapping(
+            execution_record.get("results", {}),
+            "execution.results",
+            normalized_fields,
+        )
+        verifier_result = self._mapping(
+            results.get("verifier", {}),
+            "execution.results.verifier",
+            normalized_fields,
+        )
+        verification = self._mapping(
+            verifier_result.get("output", {}),
+            "execution.results.verifier.output",
+            normalized_fields,
+        )
         failed_modules = [
             name
             for name, result in results.items()
-            if result.get("status") in {
+            if self._mapping(
+                result,
+                f"execution.results.{name}",
+                normalized_fields,
+            ).get("status") in {
                 "dependency_missing", "execution_error", "module_not_found"
             }
         ]
 
         return {
-            **shadow_prediction,
+            **shadow_record,
             "mode": "shadow",
             "version": self.VERSION,
             "status": "compared",
             "authority": False,
+            "data_quality": {
+                "valid": not normalized_fields,
+                "normalized_fields": sorted(set(normalized_fields)),
+            },
             "authoritative": {
                 "complexity": cognitive_state.get("complexity"),
                 "risk": cognitive_state.get("risk"),
@@ -239,18 +302,41 @@ class NeuralRoutingLayer:
                 ),
             },
             "outcome": {
-                "execution_status": execution.get("status"),
-                "executed_modules": execution.get("executed_modules", []),
+                "execution_status": execution_record.get("status"),
+                "executed_modules": executed_modules,
                 "failed_modules": failed_modules,
                 "verification_verdict": verification.get("verdict"),
                 "verification_confidence": verification.get(
                     "confidence", 0
                 ),
-                "correction_attempted": execution.get(
+                "correction_attempted": execution_record.get(
                     "correction_attempted", False
                 ),
             },
         }
+
+    def _mapping(self, value, field, normalized_fields):
+        if isinstance(value, Mapping):
+            return value
+
+        normalized_fields.append(field)
+        return {}
+
+    def _module_names(self, value, field, normalized_fields):
+        if not isinstance(value, (list, tuple)):
+            normalized_fields.append(field)
+            return []
+
+        module_names = [
+            name
+            for name in value
+            if isinstance(name, str) and name
+        ]
+
+        if len(module_names) != len(value):
+            normalized_fields.append(field)
+
+        return module_names
 
     def _modules_for_route(self, complexity, risk):
         if complexity == "high" or risk == "high":

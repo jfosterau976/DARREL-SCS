@@ -1030,17 +1030,21 @@ Additional isolated shadow-layer results:
 
 
 
-\- Neural Routing V0.1: 7 / 7 passed
+\- Neural Routing V0.1: 10 / 10 passed
 
 \- Cognitive Budget Manager V0.1: 8 / 8 passed
 
 
 
-Combined safe and shadow verification: 45 / 45 passed in 0.036 seconds of unittest time and 0.277 seconds of runner elapsed time.
+Combined safe and shadow verification: 48 / 48 passed in 0.029 seconds of unittest time and 0.277 seconds of runner elapsed time.
 
 
 
 The mocked provider-failure matrix explicitly covers connection, HTTP, timeout, malformed-response, empty-response, missing-metrics, primary-to-fallback failure, provider identity, and unexpected-error behavior.
+
+
+
+Neural Routing comparison telemetry defensively normalizes malformed nested observation inputs and identifies normalized fields through additive data-quality metadata. This reliability behavior does not grant routing authority.
 
 
 

@@ -64,7 +64,7 @@ V0.3 SHADOW / EXPERIMENTAL:
 
 
 
-Current isolated verification is 7 / 7 Neural Routing tests and 8 / 8 Cognitive Budget tests. Both layers reassert their no-authority contracts in comparison/error telemetry.
+Current isolated verification is 10 / 10 Neural Routing tests and 8 / 8 Cognitive Budget tests. Both layers reassert their no-authority contracts in comparison/error telemetry. Neural Routing comparison records also expose additive data-quality metadata when malformed observation inputs are normalized.
 
 
 

@@ -552,19 +552,23 @@ Current V0.3 stabilization verification after deterministic provider-failure har
 
 \- Safe deterministic suite: 30 / 30 passed
 
-\- Neural Routing shadow suite: 7 / 7 passed
+\- Neural Routing shadow suite: 10 / 10 passed
 
 \- Cognitive Budget shadow suite: 8 / 8 passed
 
-\- Combined safe + shadow suite: 45 / 45 passed
+\- Combined safe + shadow suite: 48 / 48 passed
 
-\- Combined unittest time: 0.036 seconds
+\- Combined unittest time: 0.029 seconds
 
 \- Combined runner elapsed: 0.277 seconds
 
 
 
 The provider-failure matrix now verifies connection, HTTP, timeout, malformed-response, empty-response, missing-metrics, primary-to-fallback failure, provider identity, and unexpected-error behavior with mocked providers only.
+
+
+
+Neural Routing comparison telemetry now normalizes malformed nested observation data, reports the affected fields through additive data-quality metadata, and remains shadow-only with authority=false.
 
 
 

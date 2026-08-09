@@ -2036,17 +2036,21 @@ Additional isolated shadow-layer verification:
 
 
 
-\- Neural Routing V0.1: 7 / 7 passed
+\- Neural Routing V0.1: 10 / 10 passed
 
 \- Cognitive Budget Manager V0.1: 8 / 8 passed
 
 
 
-Combined safe and shadow verification: 45 / 45 passed. The safe runner supports safe, shadow, and all classifications.
+Combined safe and shadow verification: 48 / 48 passed. The safe runner supports safe, shadow, and all classifications.
 
 
 
 The provider-failure module now has nine behavior-based tests covering explicit failure classification, missing fields/metrics, and primary-to-fallback identity preservation.
+
+
+
+Neural Routing comparison telemetry also normalizes malformed nested observation inputs and reports which fields were normalized. This is diagnostic shadow reliability, not routing authority.
 
 
 

@@ -1940,7 +1940,7 @@ tests/test\_learned\_relevance.py
 
 tests/test\_neural\_routing\_shadow.py
 
-\- 7 deterministic Neural Routing shadow tests
+\- 10 deterministic Neural Routing shadow tests, including malformed comparison-input normalization and data-quality reporting
 
 tests/test\_cognitive\_budget\_shadow.py
 
@@ -1976,13 +1976,13 @@ Current isolated shadow-layer suites:
 
 
 
-\- Neural Routing V0.1: 7 / 7 passing
+\- Neural Routing V0.1: 10 / 10 passing
 
 \- Cognitive Budget Manager V0.1: 8 / 8 passing
 
 
 
-Current combined safe and shadow suite: 45 / 45 passing.
+Current combined safe and shadow suite: 48 / 48 passing.
 
 
 
@@ -3378,7 +3378,7 @@ Verified work from the 9 August engineering session includes:
 
 \- Cognitive Budget Manager V0.1 shadow telemetry with protected pre-change checkpoint
 
-\- 30 / 30 safe regression tests, 7 / 7 Neural Routing tests, 8 / 8 Cognitive Budget tests, and 45 / 45 combined verification
+\- 30 / 30 safe regression tests, 10 / 10 Neural Routing tests, 8 / 8 Cognitive Budget tests, and 48 / 48 combined verification
 
 \- read-only development preflight
 

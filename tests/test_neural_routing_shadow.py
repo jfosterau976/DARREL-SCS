@@ -91,6 +91,77 @@ class NeuralRoutingLayerTests(unittest.TestCase):
         self.assertEqual(record["status"], "compared")
         self.assertFalse(record["authority"])
 
+    def test_comparison_reports_valid_data_quality(self):
+        record = self.layer.compare(
+            self.layer.predict("What is 2 plus 2?"),
+            self.authoritative_low_route(),
+            self.low_execution(),
+        )
+
+        self.assertEqual(
+            record["data_quality"],
+            {
+                "valid": True,
+                "normalized_fields": [],
+            },
+        )
+
+    def test_comparison_normalizes_malformed_nested_telemetry(self):
+        shadow = {
+            "prediction": {
+                "complexity": "low",
+                "risk": "low",
+                "modules": ["left_reasoning", {"invalid": True}],
+            }
+        }
+        routing = {
+            "cognitive_state": None,
+            "activation": {
+                "activated_modules": ["left_reasoning", ["invalid"]],
+            },
+        }
+        execution = {
+            "executed_modules": "left_reasoning",
+            "results": {
+                "verifier": {"output": "invalid"},
+                "broken": None,
+            },
+        }
+
+        record = self.layer.compare(shadow, routing, execution)
+
+        self.assertEqual(record["status"], "compared")
+        self.assertFalse(record["authority"])
+        self.assertEqual(
+            record["authoritative"]["modules"],
+            ["left_reasoning"],
+        )
+        self.assertEqual(record["outcome"]["executed_modules"], [])
+        self.assertFalse(record["data_quality"]["valid"])
+        self.assertEqual(
+            record["data_quality"]["normalized_fields"],
+            [
+                "execution.executed_modules",
+                "execution.results.broken",
+                "execution.results.verifier.output",
+                "routing.activation.activated_modules",
+                "routing.cognitive_state",
+                "shadow_prediction.prediction.modules",
+            ],
+        )
+
+    def test_comparison_normalizes_missing_top_level_records(self):
+        record = self.layer.compare(None, None, None)
+
+        self.assertEqual(record["status"], "compared")
+        self.assertFalse(record["authority"])
+        self.assertEqual(record["authoritative"]["modules"], [])
+        self.assertEqual(record["outcome"]["failed_modules"], [])
+        self.assertEqual(
+            record["data_quality"]["normalized_fields"],
+            ["execution", "routing", "shadow_prediction"],
+        )
+
     def test_pulse_keeps_authoritative_activation(self):
         routing = self.authoritative_low_route()
         shadow = self.layer.predict(
