@@ -191,6 +191,141 @@ class Coordinator:
         )
 
 
+        llm_results = []
+
+        for module_name, module_result in results.items():
+
+            if not isinstance(module_result, dict):
+                continue
+
+            module_output = module_result.get(
+                "output",
+                {}
+            )
+
+            if not isinstance(module_output, dict):
+                continue
+
+            for llm_key in [
+                "llm",
+                "revision_llm"
+            ]:
+
+                llm_result = module_output.get(
+                    llm_key,
+                    {}
+                )
+
+                if (
+                    isinstance(llm_result, dict)
+                    and llm_result
+                ):
+
+                    llm_results.append({
+                        "module": module_name,
+                        "call_type": llm_key,
+                        "result": llm_result
+                    })
+
+
+        providers = []
+        models = []
+
+        input_tokens = 0
+        output_tokens = 0
+
+        prompt_tokens = 0
+        eval_tokens = 0
+
+        fallback_used = False
+
+        llm_calls = []
+
+
+        for item in llm_results:
+
+            llm_result = item["result"]
+
+            provider = llm_result.get(
+                "provider"
+            )
+
+            model = llm_result.get(
+                "model"
+            )
+
+            status = llm_result.get(
+                "status"
+            )
+
+            fallback = llm_result.get(
+                "fallback",
+                False
+            )
+
+            metrics = llm_result.get(
+                "metrics",
+                {}
+            ) or {}
+
+            if (
+                provider
+                and provider not in providers
+            ):
+                providers.append(
+                    provider
+                )
+
+            if (
+                model
+                and model not in models
+            ):
+                models.append(
+                    model
+                )
+
+            if fallback:
+                fallback_used = True
+
+            input_tokens += (
+                metrics.get(
+                    "input_tokens"
+                )
+                or 0
+            )
+
+            output_tokens += (
+                metrics.get(
+                    "output_tokens"
+                )
+                or 0
+            )
+
+            prompt_tokens += (
+                metrics.get(
+                    "prompt_eval_count"
+                )
+                or 0
+            )
+
+            eval_tokens += (
+                metrics.get(
+                    "eval_count"
+                )
+                or 0
+            )
+
+            llm_calls.append({
+                "module": item["module"],
+                "call_type": item["call_type"],
+                "provider": provider,
+                "model": model,
+                "status": status,
+                "fallback": fallback,
+                "metrics": metrics
+            })
+
+
         telemetry = {
 
             "system": {
@@ -220,6 +355,30 @@ class Coordinator:
                 "module_count": len(
                     activated_modules
                 )
+
+            },
+
+            "llm": {
+
+                "providers": providers,
+
+                "models": models,
+
+                "llm_call_count": len(
+                    llm_results
+                ),
+
+                "input_tokens": input_tokens,
+
+                "output_tokens": output_tokens,
+
+                "prompt_tokens": prompt_tokens,
+
+                "eval_tokens": eval_tokens,
+
+                "fallback_used": fallback_used,
+
+                "calls": llm_calls
 
             }
 
