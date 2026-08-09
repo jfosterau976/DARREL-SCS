@@ -550,17 +550,17 @@ Current V0.3 stabilization verification after deterministic provider-failure har
 
 
 
-\- Safe deterministic suite: 30 / 30 passed
+\- Safe deterministic suite: 34 / 34 passed
 
 \- Neural Routing shadow suite: 10 / 10 passed
 
 \- Cognitive Budget shadow suite: 11 / 11 passed
 
-\- Combined safe + shadow suite: 51 / 51 passed
+\- Combined safe + shadow suite: 55 / 55 passed
 
-\- Combined unittest time: 0.029 seconds
+\- Combined unittest time: 0.038 seconds
 
-\- Combined runner elapsed: 0.282 seconds
+\- Combined runner elapsed: 0.298 seconds
 
 
 
@@ -573,6 +573,10 @@ Neural Routing comparison telemetry now normalizes malformed nested observation 
 
 
 Cognitive Budget comparison telemetry now normalizes malformed, negative, boolean, and non-finite numeric observations, reports affected fields, and remains shadow-only with authority=false and enforced=false.
+
+
+
+Benchmark validation now supports deterministic file/directory discovery, optional filename patterns, human or JSON summaries, finite numeric checks, and explicit exit codes without mutating source artifacts. The 20 timestamped historical artifacts pass; the two legacy aggregate files remain intentionally reported as incompatible with the current record contract.
 
 
 

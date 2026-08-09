@@ -1,15 +1,20 @@
+import io
 import json
 import tempfile
 import unittest
+from contextlib import redirect_stdout
 from pathlib import Path
 
 from benchmarks.result_contract import (
     BenchmarkContractError,
     SCHEMA_VERSION,
     build_capture,
+    collect_result_paths,
     load_payload,
+    main,
     records_from_payload,
     require_valid_records,
+    validate_paths,
     validate_records,
     write_capture,
 )
@@ -31,6 +36,27 @@ class BenchmarkResultContractTests(unittest.TestCase):
         self.assertTrue(any("missing direct fields" in item for item in issues))
         with self.assertRaises(BenchmarkContractError):
             require_valid_records([record])
+
+    def test_non_finite_numeric_fields_are_rejected(self):
+        direct = self.direct_record()
+        darrel = self.darrel_record()
+        direct["elapsed_seconds"] = float("inf")
+        darrel["input_tokens"] = float("nan")
+
+        issues = validate_records([direct, darrel])
+
+        self.assertTrue(
+            any(
+                "elapsed_seconds must be finite and non-negative" in item
+                for item in issues
+            )
+        )
+        self.assertTrue(
+            any(
+                "input_tokens must be finite and non-negative" in item
+                for item in issues
+            )
+        )
 
     def test_capture_contains_reproducibility_metadata(self):
         records = [self.direct_record(), self.darrel_record()]
@@ -83,6 +109,84 @@ class BenchmarkResultContractTests(unittest.TestCase):
                 write_capture(output_path, [self.direct_record()])
 
             self.assertFalse(output_path.exists())
+
+    def test_directory_discovery_is_sorted_and_deduplicated(self):
+        with tempfile.TemporaryDirectory() as directory:
+            result_directory = Path(directory)
+            second = result_directory / "b.json"
+            first = result_directory / "a.json"
+            first.write_text("[]", encoding="utf-8")
+            second.write_text("[]", encoding="utf-8")
+
+            discovered = collect_result_paths([
+                result_directory,
+                second,
+            ])
+
+        self.assertEqual(
+            [path.name for path in discovered],
+            ["a.json", "b.json"],
+        )
+
+    def test_validation_summary_is_read_only_for_mixed_results(self):
+        with tempfile.TemporaryDirectory() as directory:
+            result_directory = Path(directory)
+            valid_path = result_directory / "valid.json"
+            invalid_path = result_directory / "invalid.json"
+            valid_path.write_text(
+                json.dumps([self.direct_record()]),
+                encoding="utf-8",
+            )
+            invalid_path.write_text("{}", encoding="utf-8")
+            before = {
+                path.name: (path.read_bytes(), path.stat().st_mtime_ns)
+                for path in (valid_path, invalid_path)
+            }
+
+            summary = validate_paths([valid_path, invalid_path])
+
+            after = {
+                path.name: (path.read_bytes(), path.stat().st_mtime_ns)
+                for path in (valid_path, invalid_path)
+            }
+
+        self.assertEqual(summary["status"], "fail")
+        self.assertEqual(summary["files_checked"], 2)
+        self.assertEqual(summary["files_passed"], 1)
+        self.assertEqual(summary["files_failed"], 1)
+        self.assertEqual(summary["records_validated"], 1)
+        self.assertEqual(before, after)
+
+    def test_json_cli_summary_and_empty_discovery_exit_codes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            result_directory = Path(directory)
+            result_path = result_directory / "run.json"
+            result_path.write_text(
+                json.dumps([self.direct_record()]),
+                encoding="utf-8",
+            )
+            output = io.StringIO()
+
+            with redirect_stdout(output):
+                success_code = main([
+                    "--json",
+                    str(result_directory),
+                ])
+
+            summary = json.loads(output.getvalue())
+            empty_directory = result_directory / "empty"
+            empty_directory.mkdir()
+
+            with redirect_stdout(io.StringIO()):
+                empty_code = main([
+                    "--json",
+                    str(empty_directory),
+                ])
+
+        self.assertEqual(success_code, 0)
+        self.assertEqual(summary["status"], "pass")
+        self.assertEqual(summary["files_checked"], 1)
+        self.assertEqual(empty_code, 2)
 
     def direct_record(self):
         return {

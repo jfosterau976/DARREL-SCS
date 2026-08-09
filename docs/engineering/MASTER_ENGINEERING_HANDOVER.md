@@ -1012,7 +1012,7 @@ Current verified V0.3 stabilization test state after deterministic provider-fail
 
 
 
-30 safe deterministic tests passed
+34 safe deterministic tests passed
 
 0 failed
 
@@ -1040,7 +1040,7 @@ Additional isolated shadow-layer results:
 
 
 
-Combined safe and shadow verification: 51 / 51 passed in 0.029 seconds of unittest time and 0.282 seconds of runner elapsed time.
+Combined safe and shadow verification: 55 / 55 passed in 0.038 seconds of unittest time and 0.298 seconds of runner elapsed time.
 
 
 
@@ -1053,6 +1053,10 @@ Neural Routing comparison telemetry defensively normalizes malformed nested obse
 
 
 Cognitive Budget comparison telemetry defensively normalizes malformed or non-finite numeric observations and reports affected fields. It does not enforce limits or alter production execution.
+
+
+
+The benchmark result contract can discover files from directories with an optional pattern and emit human or machine-readable validation summaries. Validation is read-only, rejects non-finite numeric metrics, and returns non-zero for invalid or undiscovered artifacts. The 20 timestamped historical files pass; baseline\_results.json and results.json remain legacy incompatible aggregates.
 
 
 

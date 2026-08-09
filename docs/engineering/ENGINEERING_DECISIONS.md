@@ -1606,6 +1606,8 @@ Implemented now:
 
 \- fail-closed exit code 3 for a memory fingerprint mismatch or verification failure, without automatic memory repair
 
+\- read-only benchmark artifact discovery and validation with human or JSON summaries and non-zero failure codes
+
 
 
 Status:

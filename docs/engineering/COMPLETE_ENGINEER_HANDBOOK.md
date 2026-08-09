@@ -1924,7 +1924,7 @@ tests/test\_telemetry\_contract.py
 
 tests/test\_benchmark\_result\_contract.py
 
-\- 5 deterministic benchmark result/capture contract tests
+\- 9 deterministic benchmark result/capture tests covering record contracts, atomic capture, directory discovery, structured summaries, source immutability, exit codes, and finite numeric validation
 
 
 
@@ -1968,7 +1968,7 @@ Current V0.3 stabilization safe deterministic subset:
 
 
 
-30 / 30 passing
+34 / 34 passing
 
 
 
@@ -1982,7 +1982,7 @@ Current isolated shadow-layer suites:
 
 
 
-Current combined safe and shadow suite: 51 / 51 passing.
+Current combined safe and shadow suite: 55 / 55 passing.
 
 
 
@@ -3382,13 +3382,13 @@ Verified work from the 9 August engineering session includes:
 
 \- Cognitive Budget Manager V0.1 shadow telemetry with protected pre-change checkpoint
 
-\- 30 / 30 safe regression tests, 10 / 10 Neural Routing tests, 11 / 11 Cognitive Budget tests, and 51 / 51 combined verification
+\- 34 / 34 safe regression tests, 10 / 10 Neural Routing tests, 11 / 11 Cognitive Budget tests, and 55 / 55 combined verification
 
 \- read-only development preflight
 
 \- configuration-only credential-redacted provider diagnostics
 
-\- deterministic benchmark result validation and structured capture contract
+\- deterministic read-only benchmark discovery/validation, human or JSON summaries, finite numeric validation, and structured capture contract
 
 \- defensive telemetry snapshots and fail-open shadow-contract reassertion
 

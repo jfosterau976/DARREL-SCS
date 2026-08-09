@@ -2000,7 +2000,7 @@ Codex successfully ran the approved deterministic isolated set:
 
 
 
-30 passed
+34 passed
 
 0 failed
 
@@ -2042,7 +2042,7 @@ Additional isolated shadow-layer verification:
 
 
 
-Combined safe and shadow verification: 51 / 51 passed. The safe runner supports safe, shadow, and all classifications.
+Combined safe and shadow verification: 55 / 55 passed. The safe runner supports safe, shadow, and all classifications.
 
 
 
@@ -2186,7 +2186,7 @@ Good targets:
 
 
 
-The committed V0.3 support baseline includes a read-only preflight, configuration-only credential-redacted provider diagnostics, deterministic benchmark result/capture validation, and defensive telemetry snapshots. Live provider checks and integration of capture into benchmark execution remain separately controlled work.
+The committed V0.3 support baseline includes a read-only preflight, configuration-only credential-redacted provider diagnostics, deterministic benchmark result/capture validation, and defensive telemetry snapshots. Benchmark validation accepts files or directories, supports filename patterns and JSON summaries, rejects non-finite numeric metrics, and does not mutate artifacts. Live provider checks and integration of capture into benchmark execution remain separately controlled work.
 
 \- release checks
 

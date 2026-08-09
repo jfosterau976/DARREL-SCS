@@ -2,6 +2,7 @@ import argparse
 from copy import deepcopy
 import hashlib
 import json
+import math
 import os
 import platform
 import uuid
@@ -10,6 +11,7 @@ from pathlib import Path
 
 
 SCHEMA_VERSION = "darrel-benchmark-results-v0.1"
+VALIDATION_SCHEMA_VERSION = "darrel-benchmark-validation-v0.1"
 
 COMMON_FIELDS = {
     "benchmark_version",
@@ -47,6 +49,15 @@ MODE_FIELDS = {
 
 class BenchmarkContractError(ValueError):
     pass
+
+
+def is_nonnegative_finite_number(value):
+    return (
+        not isinstance(value, bool)
+        and isinstance(value, (int, float))
+        and value >= 0
+        and not (isinstance(value, float) and not math.isfinite(value))
+    )
 
 
 def validate_record(record, index=0):
@@ -87,12 +98,12 @@ def validate_record(record, index=0):
             issues.append(f"{prefix}.{field} must be a non-empty string")
 
     elapsed = record.get("elapsed_seconds")
-    if "elapsed_seconds" in record and (
-        isinstance(elapsed, bool)
-        or not isinstance(elapsed, (int, float))
-        or elapsed < 0
+    if "elapsed_seconds" in record and not is_nonnegative_finite_number(
+        elapsed
     ):
-        issues.append(f"{prefix}.elapsed_seconds must be non-negative")
+        issues.append(
+            f"{prefix}.elapsed_seconds must be finite and non-negative"
+        )
 
     if "fallback_used" in record and not isinstance(
         record.get("fallback_used"), bool
@@ -123,12 +134,10 @@ def validate_record(record, index=0):
             "eval_tokens",
         ):
             value = record.get(field)
-            if field in record and (
-                isinstance(value, bool)
-                or not isinstance(value, (int, float))
-                or value < 0
-            ):
-                issues.append(f"{prefix}.{field} must be non-negative")
+            if field in record and not is_nonnegative_finite_number(value):
+                issues.append(
+                    f"{prefix}.{field} must be finite and non-negative"
+                )
 
     return issues
 
@@ -253,31 +262,140 @@ def load_payload(path):
         return json.load(handle)
 
 
+def collect_result_paths(raw_paths, pattern="*.json"):
+    discovered = {}
+
+    for raw_path in raw_paths:
+        path = Path(raw_path)
+        candidates = (
+            sorted(path.glob(pattern))
+            if path.is_dir()
+            else [path]
+        )
+
+        for candidate in candidates:
+            if candidate.is_dir():
+                continue
+
+            resolved = candidate.resolve()
+            discovered[os.path.normcase(str(resolved))] = resolved
+
+    return [
+        discovered[key]
+        for key in sorted(discovered)
+    ]
+
+
+def validate_result_path(path):
+    result_path = Path(path)
+    records = []
+
+    try:
+        records = records_from_payload(load_payload(result_path))
+        issues = validate_records(records)
+    except (OSError, json.JSONDecodeError, BenchmarkContractError) as error:
+        issues = [type(error).__name__]
+
+    return {
+        "path": str(result_path),
+        "status": "fail" if issues else "pass",
+        "record_count": len(records),
+        "issues": issues,
+    }
+
+
+def validate_paths(paths):
+    results = [
+        validate_result_path(path)
+        for path in paths
+    ]
+    files_failed = sum(
+        result["status"] == "fail"
+        for result in results
+    )
+    discovery_issues = (
+        []
+        if results
+        else ["no benchmark result JSON files found"]
+    )
+
+    return {
+        "schema_version": VALIDATION_SCHEMA_VERSION,
+        "status": "fail" if files_failed or discovery_issues else "pass",
+        "files_checked": len(results),
+        "files_passed": len(results) - files_failed,
+        "files_failed": files_failed,
+        "records_validated": sum(
+            result["record_count"]
+            for result in results
+        ),
+        "issues": discovery_issues,
+        "results": results,
+    }
+
+
+def print_validation_summary(summary):
+    for result in summary["results"]:
+        if result["status"] == "pass":
+            print(
+                f"PASS: {result['path']} "
+                f"({result['record_count']} record(s))"
+            )
+            continue
+
+        print(
+            f"FAIL: {result['path']} "
+            f"({len(result['issues'])} issue(s))"
+        )
+        for issue in result["issues"]:
+            print(f"  - {issue}")
+
+    for issue in summary["issues"]:
+        print(f"FAIL: {issue}")
+
+    print(
+        "SUMMARY: "
+        f"{summary['files_passed']}/{summary['files_checked']} files passed; "
+        f"{summary['records_validated']} record(s) inspected"
+    )
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(
         description="Validate DARREL benchmark result JSON without running it."
     )
+    parser.add_argument(
+        "--json",
+        action="store_true",
+        dest="json_output",
+        help="emit one machine-readable validation summary",
+    )
+    parser.add_argument(
+        "--pattern",
+        default="*.json",
+        help="file pattern used when an input path is a directory",
+    )
     parser.add_argument("paths", nargs="+")
     args = parser.parse_args(argv)
 
-    failed = False
-    for raw_path in args.paths:
-        path = Path(raw_path)
-        try:
-            records = records_from_payload(load_payload(path))
-            issues = validate_records(records)
-        except (OSError, json.JSONDecodeError, BenchmarkContractError) as error:
-            issues = [type(error).__name__]
+    try:
+        paths = collect_result_paths(args.paths, pattern=args.pattern)
+        summary = validate_paths(paths)
+    except (OSError, ValueError, NotImplementedError) as error:
+        summary = validate_paths([])
+        summary["issues"] = [f"discovery failed: {type(error).__name__}"]
 
-        if issues:
-            failed = True
-            print(f"FAIL: {path} ({len(issues)} issue(s))")
-            for issue in issues:
-                print(f"  - {issue}")
-        else:
-            print(f"PASS: {path} ({len(records)} record(s))")
+    summary["pattern"] = args.pattern
 
-    return 1 if failed else 0
+    if args.json_output:
+        print(json.dumps(summary, ensure_ascii=True, sort_keys=True))
+    else:
+        print_validation_summary(summary)
+
+    if summary["files_checked"] == 0:
+        return 2
+
+    return 0 if summary["status"] == "pass" else 1
 
 
 if __name__ == "__main__":

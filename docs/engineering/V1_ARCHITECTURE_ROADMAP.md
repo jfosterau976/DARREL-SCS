@@ -48,7 +48,7 @@ IMPLEMENTED NOW:
 
 \- configuration-only credential-redacted provider diagnostics
 
-\- deterministic benchmark result validation and structured capture contract
+\- deterministic read-only benchmark discovery/validation, structured summaries, and capture contract
 
 \- defensive telemetry snapshots
 
