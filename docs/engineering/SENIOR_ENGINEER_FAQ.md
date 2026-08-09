@@ -2000,7 +2000,7 @@ Codex successfully ran the approved deterministic isolated set:
 
 
 
-13 passed
+24 passed
 
 0 failed
 
@@ -2014,9 +2014,17 @@ tests.test\_anthropic\_provider
 
 tests.test\_provider\_failures
 
+tests.test\_provider\_telemetry
+
+tests.test\_provider\_diagnostics
+
+tests.test\_telemetry\_contract
+
 tests.test\_memory\_contract
 
 tests.test\_learned\_relevance
+
+tests.test\_benchmark\_result\_contract
 
 
 
@@ -2028,9 +2036,13 @@ Additional isolated shadow-layer verification:
 
 
 
-\- Neural Routing V0.1: 6 / 6 passed
+\- Neural Routing V0.1: 7 / 7 passed
 
-\- Cognitive Budget Manager V0.1: 6 / 6 passed
+\- Cognitive Budget Manager V0.1: 8 / 8 passed
+
+
+
+Combined safe and shadow verification: 39 / 39 passed. The safe runner supports safe, shadow, and all classifications.
 
 
 
@@ -2126,7 +2138,7 @@ The safe runner provides one-command deterministic regression testing with tempo
 
 
 
-The current immediate task is to synchronize engineering documentation with the live implementation and formally document the V0.2 â†’ V0.3 boundary.
+The documentation synchronization and V0.2 to V0.3 boundary are committed at 177e500. The immediate task is to review the verified uncommitted V0.3 stabilization milestones and create controlled commits only after explicit approval.
 
 
 
@@ -2159,6 +2171,10 @@ Good targets:
 \- provider diagnostics
 
 \- telemetry capture
+
+
+
+The current working tree now includes a read-only preflight, configuration-only credential-redacted provider diagnostics, deterministic benchmark result/capture validation, and defensive telemetry snapshots. Live provider checks and integration of capture into benchmark execution remain separately controlled work.
 
 \- release checks
 

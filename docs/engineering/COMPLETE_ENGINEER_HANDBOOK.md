@@ -1912,7 +1912,19 @@ tests/test\_anthropic\_provider.py
 
 tests/test\_provider\_telemetry.py
 
-\- 1 provider telemetry test
+\- 2 provider telemetry tests
+
+tests/test\_provider\_diagnostics.py
+
+\- 2 offline, credential-redaction provider diagnostic tests
+
+tests/test\_telemetry\_contract.py
+
+\- 2 deterministic telemetry contract/snapshot tests
+
+tests/test\_benchmark\_result\_contract.py
+
+\- 5 deterministic benchmark result/capture contract tests
 
 
 
@@ -1928,11 +1940,11 @@ tests/test\_learned\_relevance.py
 
 tests/test\_neural\_routing\_shadow.py
 
-\- 6 deterministic Neural Routing shadow tests
+\- 7 deterministic Neural Routing shadow tests
 
 tests/test\_cognitive\_budget\_shadow.py
 
-\- 6 deterministic Cognitive Budget shadow tests
+\- 8 deterministic Cognitive Budget shadow tests
 
 
 
@@ -1952,11 +1964,11 @@ Historical measured full-suite time:
 
 
 
-Current Codex safe deterministic subset:
+Current V0.3 stabilization safe deterministic subset:
 
 
 
-13 / 13 passing
+24 / 24 passing
 
 
 
@@ -1964,9 +1976,13 @@ Current isolated shadow-layer suites:
 
 
 
-\- Neural Routing V0.1: 6 / 6 passing
+\- Neural Routing V0.1: 7 / 7 passing
 
-\- Cognitive Budget Manager V0.1: 6 / 6 passing
+\- Cognitive Budget Manager V0.1: 8 / 8 passing
+
+
+
+Current combined safe and shadow suite: 39 / 39 passing.
 
 
 
@@ -2026,7 +2042,7 @@ Safe tests should:
 
 
 
-Implemented and committed script:
+Base script committed; current suite-classification extensions remain uncommitted:
 
 
 
@@ -2034,7 +2050,7 @@ scripts/test-darrel-safe.ps1
 
 
 
-Initial safe set:
+Current safe set:
 
 
 
@@ -2042,9 +2058,17 @@ tests.test\_anthropic\_provider
 
 tests.test\_provider\_failures
 
+tests.test\_provider\_telemetry
+
+tests.test\_provider\_diagnostics
+
+tests.test\_telemetry\_contract
+
 tests.test\_memory\_contract
 
 tests.test\_learned\_relevance
+
+tests.test\_benchmark\_result\_contract
 
 
 
@@ -3354,7 +3378,23 @@ Verified work from the 9 August engineering session includes:
 
 \- Cognitive Budget Manager V0.1 shadow telemetry with protected pre-change checkpoint
 
-\- 13 / 13 safe regression tests, 6 / 6 Neural Routing tests, and 6 / 6 Cognitive Budget tests
+\- 24 / 24 safe regression tests, 7 / 7 Neural Routing tests, 8 / 8 Cognitive Budget tests, and 39 / 39 combined verification
+
+\- read-only development preflight
+
+\- configuration-only credential-redacted provider diagnostics
+
+\- deterministic benchmark result validation and structured capture contract
+
+\- defensive telemetry snapshots and fail-open shadow-contract reassertion
+
+
+
+Current committed documentation baseline: 177e500 — DARREL synchronize V0.2 to V0.3 engineering boundary.
+
+
+
+The stabilization items above are verified in the current working tree but remain uncommitted. V0.4 Cognitive Compiler implementation has not started.
 
 
 

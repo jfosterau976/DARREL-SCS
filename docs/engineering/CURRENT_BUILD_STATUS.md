@@ -60,7 +60,7 @@ Latest known commit:
 
 
 
-d56a570
+177e500
 
 
 
@@ -68,7 +68,7 @@ Commit message:
 
 
 
-DARREL add engineering knowledge base and V1 architecture roadmap
+DARREL synchronize V0.2 to V0.3 engineering boundary
 
 
 
@@ -532,9 +532,39 @@ tests.test\_anthropic\_provider
 
 tests.test\_provider\_failures
 
+tests.test\_provider\_telemetry
+
+tests.test\_provider\_diagnostics
+
+tests.test\_telemetry\_contract
+
 tests.test\_memory\_contract
 
 tests.test\_learned\_relevance
+
+tests.test\_benchmark\_result\_contract
+
+
+
+Current V0.3 stabilization verification in the uncommitted working tree:
+
+
+
+\- Safe deterministic suite: 24 / 24 passed
+
+\- Neural Routing shadow suite: 7 / 7 passed
+
+\- Cognitive Budget shadow suite: 8 / 8 passed
+
+\- Combined safe + shadow suite: 39 / 39 passed
+
+\- Combined unittest time: 0.028 seconds
+
+\- Combined runner elapsed: 0.280 seconds
+
+
+
+The safe runner now classifies safe, shadow, and combined suites while retaining temporary-memory isolation and bytecode suppression.
 
 
 
@@ -582,7 +612,7 @@ The Cognitive Budget unittest suite itself ran in approximately 0.006 seconds wi
 
 
 
-Latest documentation-audit verification:
+Previous documentation-audit verification:
 
 
 
@@ -994,7 +1024,7 @@ Do not destabilize the current Selective Pulse architecture while documenting V1
 
 
 
-\# 16. Immediate Next Engineering Task
+\# 16. Stabilization Engineering Task
 
 
 
@@ -1002,7 +1032,7 @@ The immediate engineering target is:
 
 
 
-Synchronize repository-native engineering documentation with verified current code and Git history, and formally document the V0.2 â†’ V0.3 boundary.
+Review the verified, uncommitted V0.3 stabilization changes as coherent milestones and create controlled Git commits only after explicit approval.
 
 
 
@@ -1011,6 +1041,28 @@ The previously listed automation target is complete:
 
 
 scripts/test-darrel-safe.ps1
+
+
+
+The previous documentation-synchronization target is complete at commit 177e500. The current working tree contains the verified stabilization changes described below.
+
+
+
+Additional verified engineering support now present in the working tree:
+
+
+
+\- scripts/preflight-darrel.ps1 for read-only reproducibility checks
+
+\- scripts/provider\_diagnostics.py for configuration-only, credential-redacted provider diagnostics
+
+\- benchmarks/result\_contract.py for deterministic benchmark validation and structured capture
+
+\- defensive telemetry snapshots and explicit shadow-contract reassertion
+
+
+
+V0.4 Cognitive Compiler implementation has not started.
 
 
 
@@ -1038,13 +1090,13 @@ Similar controlled scripts may be considered later for:
 
 
 
-\- full regression testing
+\- controlled live/stateful regression testing
 
-\- benchmarks
+\- integration of structured capture into a separately approved benchmark execution workflow
 
 \- DARREL startup
 
-\- provider diagnostics
+\- live provider connectivity diagnostics when separately approved
 
 \- release/checkpoint preparation
 

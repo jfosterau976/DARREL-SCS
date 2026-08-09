@@ -50,6 +50,10 @@ Current synchronization baseline:
 
 
 
+\- 177e500 — synchronized V0.2 to V0.3 engineering boundary
+
+
+
 \- d56a570 â€” engineering knowledge base and V1 roadmap
 
 \- 10504e5 â€” Cognitive Budget Manager V0.1 shadow telemetry
@@ -1004,11 +1008,11 @@ Safe deterministic tests should:
 
 
 
-Current safe isolated Codex test run:
+Current verified V0.3 stabilization test state in the uncommitted working tree:
 
 
 
-13 passed
+24 safe deterministic tests passed
 
 0 failed
 
@@ -1018,7 +1022,7 @@ No repository or persistent memory changes occurred during that run.
 
 
 
-The thirteenth safe test protects the SCS\_MEMORY\_FILE isolation contract.
+The safe suite includes provider, provider-telemetry, offline provider-diagnostic, telemetry-snapshot, memory, learned-relevance, and benchmark-result-contract coverage.
 
 
 
@@ -1026,9 +1030,13 @@ Additional isolated shadow-layer results:
 
 
 
-\- Neural Routing V0.1: 6 / 6 passed
+\- Neural Routing V0.1: 7 / 7 passed
 
-\- Cognitive Budget Manager V0.1: 6 / 6 passed
+\- Cognitive Budget Manager V0.1: 8 / 8 passed
+
+
+
+Combined safe and shadow verification: 39 / 39 passed in 0.028 seconds of unittest time and 0.280 seconds of runner elapsed time.
 
 
 
@@ -1259,6 +1267,14 @@ Current V0.3 shadow / experimental work includes:
 \- Neural Routing V0.1 prediction and comparison telemetry
 
 \- Cognitive Budget Manager V0.1 proposal and observed-usage comparison telemetry
+
+
+
+Current uncommitted V0.3 stabilization support also includes a read-only development preflight, explicit safe/shadow/all test classification, configuration-only credential-redacted provider diagnostics, a benchmark result/capture contract, defensive telemetry snapshots, and fail-open shadow-contract reassertion.
+
+
+
+These support changes do not grant routing or budget authority. V0.4 Cognitive Compiler implementation has not started.
 
 
 

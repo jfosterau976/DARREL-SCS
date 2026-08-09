@@ -44,6 +44,14 @@ IMPLEMENTED NOW:
 
 \- memory-isolated safe regression runner
 
+\- read-only development preflight and safe/shadow/all test classification
+
+\- configuration-only credential-redacted provider diagnostics
+
+\- deterministic benchmark result validation and structured capture contract
+
+\- defensive telemetry snapshots
+
 
 
 V0.3 SHADOW / EXPERIMENTAL:
@@ -56,7 +64,15 @@ V0.3 SHADOW / EXPERIMENTAL:
 
 
 
+Current isolated verification is 7 / 7 Neural Routing tests and 8 / 8 Cognitive Budget tests. Both layers reassert their no-authority contracts in comparison/error telemetry.
+
+
+
 Neither shadow layer controls production. The current Attention Router remains authoritative and the Selective Pulse Engine remains the final executive activation gatekeeper.
+
+
+
+The engineering-support additions above are verified in the current working tree but remain uncommitted. They do not implement a Cognitive Compiler or dynamic execution graph.
 
 
 
