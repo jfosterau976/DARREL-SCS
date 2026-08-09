@@ -12,6 +12,8 @@ from core.scs_executive import scs_executive
 
 class Coordinator:
 
+    COGNITIVE_BUDGET_VERSION = "cognitive-budget-v0.1"
+
     LLM_NUMERIC_METRICS = (
         "input_tokens",
         "output_tokens",
@@ -112,7 +114,7 @@ class Coordinator:
     def _budget_observation_error(self, field):
         return {
             "mode": "shadow",
-            "version": "cognitive-budget-v0.1",
+            "version": self.COGNITIVE_BUDGET_VERSION,
             "status": "error",
             "authority": False,
             "enforced": False,
@@ -120,6 +122,64 @@ class Coordinator:
             "data_quality": {
                 "valid": False,
                 "normalized_fields": [field],
+            },
+        }
+
+    def _normalize_budget_observation(self, record):
+        normalized_fields = []
+        prefix = "pulse.telemetry.cognitive_budget"
+
+        if record.get("mode") != "shadow":
+            normalized_fields.append(f"{prefix}.mode")
+
+        if record.get("version") != self.COGNITIVE_BUDGET_VERSION:
+            normalized_fields.append(f"{prefix}.version")
+
+        if record.get("authority") is not False:
+            normalized_fields.append(f"{prefix}.authority")
+
+        if record.get("enforced") is not False:
+            normalized_fields.append(f"{prefix}.enforced")
+
+        status = record.get("status")
+        if status not in {"proposed", "error", "unavailable"}:
+            status = "error"
+            normalized_fields.append(f"{prefix}.status")
+
+        quality = record.get("data_quality")
+        if quality is not None:
+            if isinstance(quality, Mapping):
+                fields = quality.get("normalized_fields", [])
+
+                if isinstance(fields, (list, tuple)):
+                    valid_fields = [
+                        item
+                        for item in fields
+                        if isinstance(item, str) and item
+                    ]
+                    normalized_fields.extend(valid_fields)
+
+                    if len(valid_fields) != len(fields):
+                        normalized_fields.append(
+                            f"{prefix}.data_quality.normalized_fields"
+                        )
+                else:
+                    normalized_fields.append(
+                        f"{prefix}.data_quality.normalized_fields"
+                    )
+            else:
+                normalized_fields.append(f"{prefix}.data_quality")
+
+        return {
+            **record,
+            "mode": "shadow",
+            "version": self.COGNITIVE_BUDGET_VERSION,
+            "status": status,
+            "authority": False,
+            "enforced": False,
+            "data_quality": {
+                "valid": not normalized_fields,
+                "normalized_fields": sorted(set(normalized_fields)),
             },
         }
 
@@ -518,8 +578,10 @@ class Coordinator:
                 budget_proposal = {}
                 budget_record = {}
             elif isinstance(raw_budget_proposal, Mapping):
-                budget_proposal = dict(raw_budget_proposal)
-                budget_record = budget_proposal or {}
+                budget_proposal = self._normalize_budget_observation(
+                    dict(raw_budget_proposal)
+                )
+                budget_record = budget_proposal
             else:
                 budget_proposal = {}
                 budget_record = self._budget_observation_error(

@@ -536,6 +536,41 @@ class CognitiveBudgetShadowTests(unittest.TestCase):
             ["pulse.telemetry"],
         )
 
+    def test_coordinator_rejects_budget_authority_claims(self):
+        pulse_result = self.coordinator_result({
+            "cognitive_budget": {
+                "mode": "production",
+                "version": "unexpected",
+                "status": "unexpected",
+                "authority": True,
+                "enforced": True,
+            }
+        })
+
+        with patch(
+            "core.coordinator.pulse.run",
+            return_value=pulse_result,
+        ):
+            result = coordinator.process("Budget authority claim")
+
+        budget = result["telemetry"]["cognitive_budget"]
+
+        self.assertEqual(budget["mode"], "shadow")
+        self.assertEqual(budget["version"], CognitiveBudgetManager.VERSION)
+        self.assertEqual(budget["status"], "error")
+        self.assertFalse(budget["authority"])
+        self.assertFalse(budget["enforced"])
+        self.assertEqual(
+            budget["data_quality"]["normalized_fields"],
+            [
+                "pulse.telemetry.cognitive_budget.authority",
+                "pulse.telemetry.cognitive_budget.enforced",
+                "pulse.telemetry.cognitive_budget.mode",
+                "pulse.telemetry.cognitive_budget.status",
+                "pulse.telemetry.cognitive_budget.version",
+            ],
+        )
+
     def coordinator_result(self, telemetry_record):
         return {
             "cognitive_state": {
