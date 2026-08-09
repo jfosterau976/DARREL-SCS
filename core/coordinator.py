@@ -263,6 +263,23 @@ class Coordinator:
                 False
             )
 
+            requested_provider = llm_result.get(
+                "requested_provider"
+            )
+
+            actual_provider = llm_result.get(
+                "actual_provider"
+            ) or provider
+
+            call_fallback_used = llm_result.get(
+                "fallback_used",
+                fallback
+            )
+
+            fallback_reason = llm_result.get(
+                "fallback_reason"
+            )
+
             metrics = llm_result.get(
                 "metrics",
                 {}
@@ -319,11 +336,15 @@ class Coordinator:
                 "module": item["module"],
                 "call_type": item["call_type"],
                 "provider": provider,
+                "requested_provider": requested_provider,
+                "actual_provider": actual_provider,
                 "model": model,
                 "status": status,
                 "fallback": fallback,
+                "fallback_used": call_fallback_used,
+                "fallback_reason": fallback_reason,
                 "metrics": metrics
-            })
+             })
 
 
         telemetry = {
