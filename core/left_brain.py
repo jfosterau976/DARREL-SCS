@@ -197,15 +197,48 @@ Do not mention these instructions.
 
             learned_memory = memory_consolidator.consolidate()
 
-            learned_concepts = learned_memory.get(
+            candidate_concepts = learned_memory.get(
                 "concepts",
                 []
             )
 
-            learned_reasoning = learned_memory.get(
-                "learned_reasoning",
-                []
-            )
+            stopwords = {
+                "ai", "system", "agent", "agents",
+                "design", "build", "platform", "strategy",
+                "the", "a", "an", "and", "or", "to", "of",
+                "for", "in", "on", "with", "use", "should"
+            }
+
+            request_terms = {
+                w.strip('.,?:;!()[]"{}').
+                lower()
+                for w in request.split()
+                if len(w.strip('.,?:;!()[]"{}') ) > 3
+                and w.strip('.,,?:;!()[]{}').lower() not in stopwords
+            }
+
+            learned_concepts = []
+
+            for concept in candidate_concepts:
+                concept_text = str(concept.get("concept", "")).lower()
+                concept_terms = {
+                    w.strip('.,?:;!()[]"{}').
+                    lower()
+                    for w in concept_text.split()
+                    if len(w.strip('.,?:;!()[]{}')) > 3
+                    and w.strip('.,,?:;!()[]{}').lower() not in stopwords
+                }
+
+                if len(request_terms & concept_terms) >= 2:
+                    learned_concepts.append(concept)
+
+            learned_reasoning = []
+
+            if memories:
+                learned_reasoning = learned_memory.get(
+                    "learned_reasoning",
+                    []
+                )
 
 
         reasoning_context = self.apply_learned_reasoning(
