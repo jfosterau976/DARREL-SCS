@@ -26,6 +26,58 @@ The purpose of this roadmap is to preserve the long-term engineering direction s
 
 
 
+\# 0. Current Implementation Boundary
+
+
+
+IMPLEMENTED NOW:
+
+
+
+\- V0.2 Selective Pulse production path
+
+\- provider abstraction and fallback telemetry
+
+\- verifier PASS / REVIEW with one corrective revision
+
+\- memory relevance protection
+
+\- memory-isolated safe regression runner
+
+
+
+V0.3 SHADOW / EXPERIMENTAL:
+
+
+
+\- Neural Routing V0.1 predicts complexity, risk, and module candidates from 16 signals
+
+\- Cognitive Budget Manager V0.1 proposes diagnostic budgets and compares observed usage
+
+
+
+Neither shadow layer controls production. The current Attention Router remains authoritative and the Selective Pulse Engine remains the final executive activation gatekeeper.
+
+
+
+FUTURE:
+
+
+
+\- V0.4 Cognitive Compiler and temporary execution graphs
+
+\- production or learned Neural Routing authority
+
+\- production Cognitive Budget enforcement and stopping
+
+\- remaining V1 architecture
+
+
+
+\---
+
+
+
 \# 1. Core SCS Hypothesis
 
 
@@ -138,6 +190,10 @@ Before activating expensive cognition, DARREL should estimate what kind of task 
 
 
 
+Neural Routing V0.1 currently provides a limited shadow signal prototype. There is no separate production Cognitive Intake authority yet.
+
+
+
 The Cognitive Intake Layer should produce signals such as:
 
 
@@ -186,7 +242,11 @@ The Selective Pulse Engine remains the executive gatekeeper.
 
 
 
-DARREL should have an explicit cognitive budget.
+Cognitive Budget Manager V0.1 now proposes an explicit diagnostic cognitive budget in shadow mode.
+
+
+
+It has authority=false and enforced=false. Production budget control remains future work.
 
 
 
@@ -251,6 +311,10 @@ It should eventually learn from historical outcomes.
 
 
 The Cognitive Compiler is a key V1 architecture concept.
+
+
+
+It is a future V0.4 prototype. It is not implemented, and V0.4 has not started.
 
 
 
@@ -582,19 +646,23 @@ The workspace should support coordination without creating massive context dupli
 
 
 
-Neural Routing is a future experiment, not current production authority.
+Neural Routing V0.1 shadow telemetry is implemented, but Neural Routing is not current production authority.
 
 
 
-Initial prototype:
+Current V0.1 prototype:
 
 
 
-approximately 10–20 software neurons representing cognitive signals.
+16 deterministic normalized software signals with static versioned weights.
 
 
 
-Possible neurons:
+Exact implemented signals cover request length, multi-part density, constraints, question breadth, factual lookup, calculation, analysis, comparison, planning, creativity, decision support, risk, safety, uncertainty, verification, and memory relevance.
+
+
+
+Future signals may include:
 
 
 
@@ -650,7 +718,7 @@ Weights may eventually adapt based on measured outcomes.
 
 
 
-Initial rollout must use SHADOW MODE.
+The current rollout uses SHADOW MODE.
 
 
 
@@ -1184,7 +1252,7 @@ Self-experimentation means evidence collection, not uncontrolled self-modificati
 
 
 
-A future neural router should initially operate as a Shadow Brain.
+Neural Routing V0.1 currently operates as a limited Shadow Brain. Broader provider, budget, verifier-depth, memory-depth, and learned routing remain future work.
 
 
 
@@ -1436,6 +1504,14 @@ stabilize current Selective Pulse architecture.
 
 
 
+Current status:
+
+
+
+IMPLEMENTED production baseline. Safe testing, memory isolation, provider reliability, verification, relevance protection, telemetry, and reproducibility remain stabilization concerns.
+
+
+
 Focus:
 
 
@@ -1458,7 +1534,7 @@ Focus:
 
 
 
-Do not destabilize V0.2 by prematurely integrating Neural Routing.
+Do not destabilize V0.2 by promoting Neural Routing beyond shadow telemetry without evidence and explicit approval.
 
 
 
@@ -1469,6 +1545,14 @@ Do not destabilize V0.2 by prematurely integrating Neural Routing.
 Goal:
 
 introduce richer cognitive signals and explicit budgeting.
+
+
+
+Current status:
+
+
+
+V0.3 SHADOW / EXPERIMENTAL. Neural Routing V0.1 and Cognitive Budget Manager V0.1 are implemented only as telemetry. Neither has production authority.
 
 
 
@@ -1495,6 +1579,14 @@ Potential work:
 Goal:
 
 prototype Cognitive Compiler and temporary execution graphs.
+
+
+
+Current status:
+
+
+
+FUTURE. Not started and not approved for implementation by this documentation synchronization.
 
 
 

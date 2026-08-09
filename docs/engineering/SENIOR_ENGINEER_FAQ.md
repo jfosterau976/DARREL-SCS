@@ -568,11 +568,11 @@ No.
 
 
 
-Neural Routing is intentionally frozen as production functionality until V0.2 is stable.
+Neural Routing V0.1 shadow telemetry is implemented, but production Neural Routing authority remains frozen until evidence and explicit approval justify promotion.
 
 
 
-Initial Neural Routing must operate in shadow mode.
+The current implementation operates in shadow mode.
 
 
 
@@ -592,7 +592,7 @@ The current router controls the real run.
 
 
 
-The neural router receives the same inputs/signals and predicts what it would have done.
+The Neural Routing V0.1 layer receives the same request and predicts complexity, risk, and module candidates from 16 deterministic normalized signals.
 
 
 
@@ -616,7 +616,7 @@ Status: DESIGN DECISION
 
 
 
-Approximately 10–20 software cognitive signal neurons.
+Neural Routing V0.1 currently implements 16 deterministic normalized cognitive signals with static versioned weights.
 
 
 
@@ -664,7 +664,7 @@ Possible signals include:
 
 
 
-Exact implementation is deliberately not locked yet.
+Production thresholds, adaptive learning, provider routing, and broader signal design remain deliberately unlocked for future experiments.
 
 
 
@@ -926,7 +926,11 @@ Status: FUTURE DIRECTION
 
 
 
-A future front-end reasoning layer that estimates what cognitive resources a request requires before expensive processing begins.
+A future authoritative front-end reasoning layer that estimates what cognitive resources a request requires before expensive processing begins.
+
+
+
+Neural Routing V0.1 currently provides a limited shadow signal prototype, not a production Cognitive Intake authority.
 
 
 
@@ -938,11 +942,15 @@ A future front-end reasoning layer that estimates what cognitive resources a req
 
 
 
-Status: FUTURE DIRECTION
+Status: V0.3 SHADOW / EXPERIMENTAL; PRODUCTION AUTHORITY FUTURE
 
 
 
-A future component that determines how much cognition a task is worth spending.
+Cognitive Budget Manager V0.1 is implemented in shadow mode. It proposes diagnostic budget tiers and compares them with observed usage.
+
+
+
+It has authority=false and enforced=false, so production budget control remains future work.
 
 
 
@@ -984,7 +992,11 @@ Status: FUTURE DIRECTION
 
 
 
-A major V1 concept.
+A major future V0.4/V1 concept.
+
+
+
+It is not implemented and V0.4 has not started.
 
 
 
@@ -1790,11 +1802,11 @@ Autonomous production code modification is intentionally frozen during current d
 
 
 
-Status: FUTURE DIRECTION
+Status: V0.3 SHADOW / EXPERIMENTAL; BROADER LEARNED AUTHORITY FUTURE
 
 
 
-The future neural router in observation-only mode.
+Neural Routing V0.1 in observation-only mode, with broader learned routing remaining future work.
 
 
 
@@ -1912,13 +1924,13 @@ Finish and stabilize V0.2 before promoting major V0.3/V1 architecture.
 
 
 
-Near-term priority:
+Current near-term priority:
 
 
 
-1\. safe reproducible testing
+1\. synchronize docs/engineering with verified live code and Git history
 
-2\. one-command test runner
+2\. preserve the completed one-command test runner and memory isolation contract
 
 3\. environment reproducibility
 
@@ -1931,6 +1943,10 @@ Near-term priority:
 7\. documentation synchronization
 
 8\. stable checkpoint
+
+
+
+Neural Routing V0.1 and Cognitive Budget Manager V0.1 exist only as V0.3 shadow / experimental telemetry. Do not begin V0.4.
 
 
 
@@ -1984,7 +2000,7 @@ Codex successfully ran the approved deterministic isolated set:
 
 
 
-12 passed
+13 passed
 
 0 failed
 
@@ -2005,6 +2021,16 @@ tests.test\_learned\_relevance
 
 
 Persistent memory and Git state were unchanged.
+
+
+
+Additional isolated shadow-layer verification:
+
+
+
+\- Neural Routing V0.1: 6 / 6 passed
+
+\- Cognitive Budget Manager V0.1: 6 / 6 passed
 
 
 
@@ -2084,7 +2110,7 @@ Status: CURRENT PRIORITY
 
 
 
-Create:
+Implemented and committed:
 
 
 
@@ -2096,7 +2122,11 @@ Purpose:
 
 
 
-one-command deterministic regression testing with protected memory and no unnecessary external calls.
+The safe runner provides one-command deterministic regression testing with temporary protected memory and no unnecessary external calls.
+
+
+
+The current immediate task is to synchronize engineering documentation with the live implementation and formally document the V0.2 â†’ V0.3 boundary.
 
 
 
@@ -2229,6 +2259,14 @@ provider capability-aware cognition
 Phase 6:
 
 Neural Routing shadow mode
+
+
+
+Current state note:
+
+
+
+Neural Routing V0.1 shadow telemetry and Cognitive Budget Manager V0.1 shadow telemetry were introduced before the broader performance sequence was completed. This does not grant either layer production authority or approve later phases.
 
 
 
@@ -2703,4 +2741,74 @@ Never add complexity because it sounds intelligent.
 
 
 Add it only when DARREL becomes measurably better because of it.
+
+
+
+\---
+
+
+
+\# 76. What is the current implementation boundary?
+
+
+
+Status: VERIFIED CURRENT BOUNDARY
+
+
+
+IMPLEMENTED NOW:
+
+
+
+\- V0.2 Selective Pulse baseline, provider behavior, verification, memory relevance, safe runner, and memory isolation
+
+
+
+V0.3 SHADOW / EXPERIMENTAL:
+
+
+
+\- Neural Routing V0.1 telemetry
+
+\- Cognitive Budget Manager V0.1 telemetry
+
+
+
+FUTURE:
+
+
+
+\- V0.4 Cognitive Compiler and temporary execution graphs
+
+\- production Neural Routing authority
+
+\- production budget enforcement and the remaining V1 architecture
+
+
+
+Current milestone commits:
+
+
+
+\- 0521a8f â€” safe runner and memory isolation
+
+\- bef072e â€” Neural Routing shadow telemetry
+
+\- 10504e5 â€” Cognitive Budget shadow telemetry
+
+\- d56a570 â€” engineering knowledge base
+
+
+
+Protected milestone checkpoints:
+
+
+
+\- checkpoints/neural\_routing\_v0\_1\_pre
+
+\- checkpoints/cognitive\_budget\_v0\_1\_pre
+
+
+
+The current Attention Router remains authoritative and the Selective Pulse Engine remains the final execution gatekeeper.
 

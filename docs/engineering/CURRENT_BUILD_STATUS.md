@@ -60,7 +60,7 @@ Latest known commit:
 
 
 
-8b44ff7dc8a3457f3e2af018d06378bff7298741
+d56a570
 
 
 
@@ -68,7 +68,23 @@ Commit message:
 
 
 
-DARREL V0.2 add learned relevance regression tests
+DARREL add engineering knowledge base and V1 architecture roadmap
+
+
+
+Recent implementation milestones immediately before that documentation commit:
+
+
+
+0521a8f â€” DARREL V0.2 add memory-isolated safe test runner
+
+
+
+bef072e â€” DARREL V0.2 add neural routing shadow telemetry
+
+
+
+10504e5 â€” DARREL V0.3 add cognitive budget shadow telemetry
 
 
 
@@ -522,11 +538,11 @@ tests.test\_learned\_relevance
 
 
 
-Most recent safe Codex execution:
+Previous recorded safe Codex execution:
 
 
 
-12 tests passed
+13 tests passed
 
 0 failed
 
@@ -536,19 +552,57 @@ Approximate unittest duration:
 
 
 
-0.121 seconds
+0.032 seconds
 
 
 
-Approximate total process time:
+Approximate safe-runner elapsed time:
 
 
 
-1.3 seconds
+0.448 seconds
 
 
 
-One non-failing ResourceWarning was observed during mocked HTTP error cleanup.
+The thirteenth test protects the SCS\_MEMORY\_FILE isolation contract.
+
+
+
+Previous recorded isolated shadow-layer verification:
+
+
+
+\- Neural Routing V0.1: 6 passed
+
+\- Cognitive Budget Manager V0.1: 6 passed
+
+
+
+The Cognitive Budget unittest suite itself ran in approximately 0.006 seconds within an approximately 0.408-second isolated command.
+
+
+
+Latest documentation-audit verification:
+
+
+
+\- Safe regressions: 13 / 13 passed
+
+  \- unittest time: 0.057 seconds
+
+  \- runner elapsed: 1.053 seconds
+
+\- Neural Routing shadow tests: 6 / 6 passed
+
+  \- time: 0.021 seconds
+
+\- Cognitive Budget shadow tests: 6 / 6 passed
+
+  \- time: 0.005 seconds
+
+
+
+These are deterministic isolated results, not live-provider or full stateful-pipeline results.
 
 
 
@@ -662,7 +716,7 @@ For deterministic regression runs:
 
 
 
-A dedicated safe test runner is planned:
+A dedicated safe test runner is implemented and committed:
 
 
 
@@ -670,7 +724,11 @@ scripts/test-darrel-safe.ps1
 
 
 
-This runner has not yet been confirmed as created at the time of this document.
+The runner uses Python -B, sets PYTHONDONTWRITEBYTECODE=1, redirects SCS\_MEMORY\_FILE to temporary memory, restores the previous environment, reports PASS / FAIL and elapsed time, and shows git status.
+
+
+
+The CognitiveMemory constructor supports an explicit memory file or SCS\_MEMORY\_FILE. When neither is supplied, its existing persistent-memory behavior remains unchanged.
 
 
 
@@ -818,6 +876,14 @@ Important known V0.2 engineering work includes:
 
 \- learned relevance regression tests
 
+\- memory-isolated safe regression runner
+
+\- persistent-memory path override contract
+
+\- Neural Routing V0.1 shadow telemetry
+
+\- Cognitive Budget Manager V0.1 shadow telemetry
+
 
 
 Current Git history should always be inspected before relying on this list.
@@ -856,6 +922,18 @@ Do not move or delete stable tags casually.
 
 
 
+Protected milestone checkpoints also include:
+
+
+
+checkpoints/neural\_routing\_v0\_1\_pre
+
+
+
+checkpoints/cognitive\_budget\_v0\_1\_pre
+
+
+
 \---
 
 
@@ -868,7 +946,7 @@ Primary objective:
 
 
 
-Finish and stabilize V0.2.
+Finish and stabilize the V0.2 baseline while formally maintaining the V0.2 â†’ V0.3 boundary.
 
 
 
@@ -876,9 +954,9 @@ Near-term work should prioritize:
 
 
 
-1\. safe reproducible testing
+1\. documentation synchronization with live code and Git history
 
-2\. local execution automation
+2\. continued safe reproducible testing and local execution automation
 
 3\. provider reliability
 
@@ -896,7 +974,15 @@ Near-term work should prioritize:
 
 
 
-Do not begin production Neural Routing yet.
+The safe runner, persistent-memory isolation guard, Neural Routing shadow telemetry, and Cognitive Budget shadow telemetry are already implemented.
+
+
+
+Neural Routing and Cognitive Budget are V0.3 shadow / experimental features. They do not control production routing, module activation, execution, stopping, or budget enforcement.
+
+
+
+Do not promote Neural Routing or Cognitive Budget to production authority.
 
 
 
@@ -912,7 +998,15 @@ Do not destabilize the current Selective Pulse architecture while documenting V1
 
 
 
-The immediate automation target is:
+The immediate engineering target is:
+
+
+
+Synchronize repository-native engineering documentation with verified current code and Git history, and formally document the V0.2 â†’ V0.3 boundary.
+
+
+
+The previously listed automation target is complete:
 
 
 
@@ -920,15 +1014,7 @@ scripts/test-darrel-safe.ps1
 
 
 
-Purpose:
-
-
-
-Provide one safe command to run deterministic isolated regression tests without touching real persistent memory or live external providers.
-
-
-
-Expected behavior:
+Verified behavior:
 
 
 
@@ -948,7 +1034,7 @@ Expected behavior:
 
 
 
-After this is reliable, similar controlled scripts may be added for:
+Similar controlled scripts may be considered later for:
 
 
 
@@ -976,13 +1062,45 @@ V0.2 is the stable engineering baseline.
 
 
 
-V1 roadmap concepts include:
+IMPLEMENTED NOW:
+
+
+
+\- Selective Pulse production execution path
+
+\- provider abstraction and fallback telemetry
+
+\- verifier PASS / REVIEW with one corrective revision
+
+\- memory relevance protection
+
+\- memory-isolated safe regression runner
+
+
+
+V0.3 SHADOW / EXPERIMENTAL:
+
+
+
+\- Neural Routing V0.1 predicts complexity, risk, and modules from 16 signals
+
+\- Cognitive Budget Manager V0.1 proposes and compares diagnostic budgets
+
+
+
+Both report authority=false. Cognitive Budget also reports enforced=false.
+
+
+
+The Attention Router remains authoritative. The Selective Pulse Engine remains the final execution gatekeeper.
+
+
+
+FUTURE V0.4+ / V1:
 
 
 
 \- Cognitive Intake Layer
-
-\- Cognitive Budget Manager
 
 \- Cognitive Compiler
 
@@ -996,7 +1114,9 @@ V1 roadmap concepts include:
 
 \- adversarial verification
 
-\- Neural Routing / Shadow Brain
+\- production or learned Neural Routing authority
+
+\- production Cognitive Budget enforcement
 
 \- learned cognitive programs
 
@@ -1007,6 +1127,10 @@ These are future architecture unless live code proves otherwise.
 
 
 They must not be described as completed V0.2 features.
+
+
+
+The current shadow implementations must not be described as production V0.3 authority.
 
 
 

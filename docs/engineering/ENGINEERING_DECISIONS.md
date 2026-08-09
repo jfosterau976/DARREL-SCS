@@ -438,6 +438,14 @@ Safe deterministic tests should avoid writing to real persistent memory.
 
 
 
+Implemented protection:
+
+
+
+CognitiveMemory supports an explicit memory path or SCS\_MEMORY\_FILE. The safe runner uses temporary memory through this contract while preserving unchanged default production behavior.
+
+
+
 Status:
 
 
@@ -580,7 +588,7 @@ LOCKED
 
 
 
-\# 14. Neural Routing Is Future Experimental Work
+\# 14. Neural Routing Is Shadow Experimental Work
 
 
 
@@ -588,11 +596,11 @@ Decision:
 
 
 
-Neural Routing is not current production authority.
+Neural Routing V0.1 is implemented in shadow mode but is not production authority.
 
 
 
-Initial Neural Routing should use a small prototype of approximately 10–20 cognitive signal neurons.
+Neural Routing V0.1 uses 16 deterministic normalized cognitive signals and static versioned weights.
 
 
 
@@ -936,7 +944,11 @@ Decision:
 
 
 
-DARREL should eventually allocate an explicit cognitive budget.
+DARREL now has Cognitive Budget Manager V0.1 in shadow mode. It proposes and compares diagnostic budgets but has authority=false and enforced=false.
+
+
+
+Production budget allocation and enforcement remain future work.
 
 
 
@@ -994,7 +1006,11 @@ Decision:
 
 
 
-The Cognitive Compiler is a major approved V1 architecture concept.
+The Cognitive Compiler is a major approved future V0.4/V1 architecture concept.
+
+
+
+It is not implemented, and approval of the direction is not approval to begin V0.4 implementation.
 
 
 
@@ -1430,7 +1446,11 @@ Decision:
 
 
 
-Future Neural Routing should begin as a Shadow Brain.
+Neural Routing V0.1 has begun as a limited Shadow Brain for complexity, risk, and module prediction.
+
+
+
+Provider, budget, verifier-depth, memory-depth, and learned-routing authority remain future work.
 
 
 
@@ -1571,6 +1591,16 @@ Approved early automation:
 \- GitHub Actions for safe mocked tests
 
 \- release/checkpoint preparation
+
+
+
+Implemented now:
+
+
+
+\- scripts/test-darrel-safe.ps1
+
+\- temporary persistent-memory isolation through SCS\_MEMORY\_FILE
 
 
 
@@ -1716,6 +1746,14 @@ V0.2 should be stabilized before major V0.3/V1 architecture is promoted into pro
 
 
 
+Neural Routing V0.1 and Cognitive Budget Manager V0.1 currently exist only as V0.3 shadow / experimental telemetry. Their existence does not promote either component to production authority.
+
+
+
+The current Attention Router remains authoritative and the Selective Pulse Engine remains the final execution gatekeeper.
+
+
+
 Future concepts may be:
 
 
@@ -1758,9 +1796,9 @@ The current near-term sequence is:
 
 
 
-1\. safe reproducible tests
+1\. synchronize docs/engineering with verified live code and Git history
 
-2\. one-command safe test runner
+2\. preserve the completed one-command safe test runner and memory isolation contract
 
 3\. environment/reproducibility improvement
 
@@ -1774,7 +1812,11 @@ The current near-term sequence is:
 
 8\. stable checkpoint
 
-9\. only then begin measured V0.3 experiments
+9\. continue V0.3 experiments only in measured shadow mode
+
+
+
+V0.4 Cognitive Compiler implementation has not started and is not part of the current objective.
 
 
 
@@ -1783,6 +1825,48 @@ Status:
 
 
 CURRENT PRIORITY
+
+
+
+\---
+
+
+
+\# 41A. Implementation-State Labels
+
+
+
+Decision:
+
+
+
+Engineering documentation must use these labels consistently:
+
+
+
+IMPLEMENTED NOW
+
+= verified live production or engineering-support behavior.
+
+
+
+V0.3 SHADOW / EXPERIMENTAL
+
+= implemented observation or comparison behavior with no production authority.
+
+
+
+FUTURE
+
+= approved roadmap direction that is not implemented.
+
+
+
+Status:
+
+
+
+LOCKED DOCUMENTATION RULE
 
 
 

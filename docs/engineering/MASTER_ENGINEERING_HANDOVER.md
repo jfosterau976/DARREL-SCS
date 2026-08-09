@@ -46,6 +46,20 @@ For current known implementation state:
 
 
 
+Current synchronization baseline:
+
+
+
+\- d56a570 â€” engineering knowledge base and V1 roadmap
+
+\- 10504e5 â€” Cognitive Budget Manager V0.1 shadow telemetry
+
+\- bef072e â€” Neural Routing V0.1 shadow telemetry
+
+\- 0521a8f â€” memory-isolated safe test runner
+
+
+
 \---
 
 
@@ -808,6 +822,14 @@ It is not model-weight training.
 
 
 
+IMPLEMENTED NOW:
+
+
+
+core/cognitive\_memory.py accepts an explicit memory file or the SCS\_MEMORY\_FILE environment override. The safe runner uses this to redirect test writes to temporary memory. Default production memory behavior is unchanged when no override is supplied.
+
+
+
 \---
 
 
@@ -986,13 +1008,27 @@ Current safe isolated Codex test run:
 
 
 
-12 passed
+13 passed
 
 0 failed
 
 
 
 No repository or persistent memory changes occurred during that run.
+
+
+
+The thirteenth safe test protects the SCS\_MEMORY\_FILE isolation contract.
+
+
+
+Additional isolated shadow-layer results:
+
+
+
+\- Neural Routing V0.1: 6 / 6 passed
+
+\- Cognitive Budget Manager V0.1: 6 / 6 passed
 
 
 
@@ -1130,6 +1166,16 @@ v0.2-pre-benchmark
 
 
 
+Protected milestone checkpoint directories include:
+
+
+
+checkpoints/neural\_routing\_v0\_1\_pre
+
+checkpoints/cognitive\_budget\_v0\_1\_pre
+
+
+
 Do not move or delete stable tags casually.
 
 
@@ -1200,6 +1246,24 @@ Significant V0.2 hardening already completed includes:
 
 \- stable Git checkpoints
 
+\- memory-isolated one-command safe regression runner
+
+\- persistent-memory path isolation through SCS\_MEMORY\_FILE
+
+
+
+Current V0.3 shadow / experimental work includes:
+
+
+
+\- Neural Routing V0.1 prediction and comparison telemetry
+
+\- Cognitive Budget Manager V0.1 proposal and observed-usage comparison telemetry
+
+
+
+Neither shadow layer has production authority. The current Attention Router remains authoritative and the Selective Pulse Engine remains the final execution gatekeeper.
+
 
 
 Current implementation details should always be verified against the repository before changing code.
@@ -1214,11 +1278,11 @@ Current implementation details should always be verified against the repository 
 
 
 
-Current engineering priority remains:
+Current engineering priority is:
 
 
 
-Finish and stabilize V0.2.
+Finish and stabilize the V0.2 baseline while formally documenting the V0.2 â†’ V0.3 shadow boundary.
 
 
 
@@ -1226,9 +1290,9 @@ Near-term sequence:
 
 
 
-1\. safe reproducible testing
+1\. synchronize docs/engineering with current code and Git history
 
-2\. one-command safe regression runner
+2\. preserve the completed one-command safe regression runner and memory isolation contract
 
 3\. environment reproducibility
 
@@ -1242,7 +1306,11 @@ Near-term sequence:
 
 8\. stable checkpoint
 
-9\. only then measured V0.3 experiments
+9\. continue V0.3 experiments only in measured shadow mode
+
+
+
+The safe runner, Neural Routing shadow telemetry, and Cognitive Budget shadow telemetry are already implemented. Do not describe them as merely planned, and do not describe either shadow layer as production authority.
 
 
 
@@ -1258,19 +1326,27 @@ Do not jump directly into production Neural Routing.
 
 
 
-Neural Routing remains future experimental architecture.
+Neural Routing V0.1 is implemented as V0.3 shadow / experimental telemetry.
 
 
 
-Initial concept:
+Production Neural Routing authority remains future architecture.
 
 
 
-approximately 10–20 cognitive signal neurons.
+Current V0.1 implementation:
 
 
 
-Possible signals include:
+16 deterministic normalized cognitive signals.
+
+
+
+Exact implemented signals are request length, multi-part density, constraint density, question breadth, factual lookup, calculation, analysis, comparison, planning, creativity, decision support, risk, safety, uncertainty, verification, and memory relevance.
+
+
+
+The broader roadmap signal catalogue includes:
 
 
 
@@ -1300,23 +1376,23 @@ Possible signals include:
 
 
 
-Weighted connections may eventually recommend:
+Current static weighted predictions cover:
 
 
 
 \- modules
 
-\- providers
+\- complexity
 
-\- memory systems
-
-\- tools
-
-\- cognitive depth
+\- risk
 
 
 
-Initial implementation must use shadow mode.
+Provider, memory-system, tool, and learned-weight recommendations remain future work.
+
+
+
+The implementation uses shadow mode.
 
 
 
@@ -1340,7 +1416,7 @@ The Selective Pulse Engine remains final execution authority.
 
 
 
-Initial process:
+Current V0.1 process:
 
 
 
@@ -1376,13 +1452,25 @@ The project direction has expanded beyond the original handover.
 
 
 
-Approved future architecture now includes:
+Approved direction now contains implemented, shadow, and future states.
+
+
+
+V0.3 SHADOW / EXPERIMENTAL:
+
+
+
+\- Neural Routing V0.1 telemetry
+
+\- Cognitive Budget Manager V0.1 telemetry
+
+
+
+FUTURE V0.4+ / V1:
 
 
 
 \- Cognitive Intake Layer
-
-\- Cognitive Budget Manager
 
 \- Cognitive Compiler
 
@@ -1410,7 +1498,9 @@ Approved future architecture now includes:
 
 \- self-experimentation
 
-\- Shadow Brain
+\- production/learned Shadow Brain authority
+
+\- production Cognitive Budget enforcement
 
 \- Executive Resolution layer
 
@@ -1426,7 +1516,7 @@ docs/engineering/V1\_ARCHITECTURE\_ROADMAP.md
 
 
 
-They are future direction, not automatically current implementation.
+Future items are approved direction, not current implementation.
 
 
 
@@ -1438,7 +1528,11 @@ They are future direction, not automatically current implementation.
 
 
 
-A major V1 concept is the Cognitive Compiler.
+A major future V0.4/V1 concept is the Cognitive Compiler.
+
+
+
+It is not implemented and V0.4 has not started.
 
 
 
@@ -1518,7 +1612,11 @@ This is a signature future direction.
 
 
 
-Future DARREL should explicitly decide:
+The Cognitive Budget Manager V0.1 now proposes diagnostic budgets in shadow mode. It records authority=false and enforced=false and cannot limit, stop, reroute, or otherwise change production execution.
+
+
+
+Future DARREL may explicitly control:
 
 
 

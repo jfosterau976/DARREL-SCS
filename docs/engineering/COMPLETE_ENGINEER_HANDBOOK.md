@@ -96,7 +96,7 @@ Current development target:
 
 
 
-stable V0.2
+stabilize the V0.2 baseline and formally maintain the V0.2 â†’ V0.3 shadow boundary
 
 
 
@@ -584,6 +584,12 @@ core/llm\_interface.py
 
 core/goal\_planning\_engine.py
 
+core/neural\_routing\_layer.py
+
+core/cognitive\_budget\_manager.py
+
+scripts/test-darrel-safe.ps1
+
 
 
 Other router/controller experiments have existed.
@@ -1027,6 +1033,14 @@ Current learning is structured persistent experience and concepts.
 
 
 It is not model-weight training.
+
+
+
+IMPLEMENTED NOW:
+
+
+
+core/cognitive\_memory.py accepts an explicit memory file or the SCS\_MEMORY\_FILE environment override. The safe runner redirects tests to temporary memory through this contract. Default production memory behavior is unchanged when no override is supplied.
 
 
 
@@ -1904,13 +1918,21 @@ tests/test\_provider\_telemetry.py
 
 tests/test\_memory\_contract.py
 
-\- 4 deterministic isolated memory tests
+\- 5 deterministic isolated memory tests
 
 
 
 tests/test\_learned\_relevance.py
 
 \- 2 deterministic learned-memory relevance tests
+
+tests/test\_neural\_routing\_shadow.py
+
+\- 6 deterministic Neural Routing shadow tests
+
+tests/test\_cognitive\_budget\_shadow.py
+
+\- 6 deterministic Cognitive Budget shadow tests
 
 
 
@@ -1930,11 +1952,21 @@ Historical measured full-suite time:
 
 
 
-Later Codex safe deterministic subset:
+Current Codex safe deterministic subset:
 
 
 
-12 / 12 passing
+13 / 13 passing
+
+
+
+Current isolated shadow-layer suites:
+
+
+
+\- Neural Routing V0.1: 6 / 6 passing
+
+\- Cognitive Budget Manager V0.1: 6 / 6 passing
 
 
 
@@ -1994,7 +2026,7 @@ Safe tests should:
 
 
 
-Approved near-term script:
+Implemented and committed script:
 
 
 
@@ -2033,6 +2065,10 @@ The runner should:
 \- show elapsed time
 
 \- show git status
+
+
+
+The runner also redirects SCS\_MEMORY\_FILE to temporary memory and restores the previous environment afterward. The default production memory path is unchanged when no override is supplied.
 
 
 
@@ -2418,7 +2454,11 @@ Future DARREL should learn:
 
 
 
-Future experiment only.
+Neural Routing V0.1 shadow telemetry is implemented as a V0.3 experiment.
+
+
+
+Production routing authority remains future work.
 
 
 
@@ -2434,11 +2474,15 @@ Do not give it production authority during V0.2.
 
 
 
-Approximately 10–20 cognitive signal neurons.
+Current V0.1 uses 16 deterministic normalized cognitive signals and static versioned weights.
 
 
 
-Possible signals:
+Exact V0.1 signals are request length, multi-part density, constraint density, question breadth, factual lookup, calculation, analysis, comparison, planning, creativity, decision support, risk, safety, uncertainty, verification, and memory relevance.
+
+
+
+The broader future signal catalogue includes:
 
 
 
@@ -2492,7 +2536,7 @@ Possible signals:
 
 
 
-Initial Neural Routing must be observation-only.
+Neural Routing V0.1 is observation-only.
 
 
 
@@ -2602,7 +2646,11 @@ Future input analysis should estimate:
 
 
 
-Future DARREL should explicitly answer:
+Cognitive Budget Manager V0.1 now proposes this answer in shadow mode. It compares the proposal with observed usage but has authority=false and enforced=false.
+
+
+
+Future production DARREL may explicitly control:
 
 
 
@@ -2644,7 +2692,11 @@ Budget dimensions may include:
 
 
 
-Major V1 concept.
+Major future V0.4/V1 concept.
+
+
+
+The Cognitive Compiler is not implemented and V0.4 has not started.
 
 
 
@@ -3204,6 +3256,58 @@ Never store secrets.
 
 
 
+\# PART XVIII-A — CURRENT IMPLEMENTATION BOUNDARY
+
+
+
+IMPLEMENTED NOW:
+
+
+
+\- V0.2 Selective Pulse production path
+
+\- provider abstraction and fallback telemetry
+
+\- verifier PASS / REVIEW and one corrective revision
+
+\- memory relevance protection
+
+\- memory-isolated safe regression runner
+
+
+
+V0.3 SHADOW / EXPERIMENTAL:
+
+
+
+\- Neural Routing V0.1 predicts complexity, risk, and module candidates from 16 signals
+
+\- Cognitive Budget Manager V0.1 proposes diagnostic budgets and compares observed usage
+
+
+
+Neither shadow layer controls production. The current Attention Router remains authoritative and the Selective Pulse Engine remains the final execution gatekeeper.
+
+
+
+FUTURE:
+
+
+
+\- V0.4 Cognitive Compiler and temporary execution graphs
+
+\- production or learned Neural Routing authority
+
+\- production Cognitive Budget enforcement and stopping
+
+\- remaining V1 architecture
+
+
+
+\---
+
+
+
 \# PART XIX — CURRENT STATUS
 
 
@@ -3244,6 +3348,38 @@ Verified work from the 9 August engineering session includes:
 
 \- post-benchmark architecture planning
 
+\- memory-isolated safe regression runner and SCS\_MEMORY\_FILE guard
+
+\- Neural Routing V0.1 shadow telemetry with protected pre-change checkpoint
+
+\- Cognitive Budget Manager V0.1 shadow telemetry with protected pre-change checkpoint
+
+\- 13 / 13 safe regression tests, 6 / 6 Neural Routing tests, and 6 / 6 Cognitive Budget tests
+
+
+
+Current milestone history:
+
+
+
+\- 0521a8f â€” memory-isolated safe test runner
+
+\- bef072e â€” Neural Routing shadow telemetry
+
+\- 10504e5 â€” Cognitive Budget shadow telemetry
+
+\- d56a570 â€” engineering knowledge base and V1 roadmap
+
+
+
+Protected milestone checkpoints:
+
+
+
+\- checkpoints/neural\_routing\_v0\_1\_pre
+
+\- checkpoints/cognitive\_budget\_v0\_1\_pre
+
 
 
 \---
@@ -3254,7 +3390,7 @@ Verified work from the 9 August engineering session includes:
 
 
 
-Finish V0.2.
+Finish and stabilize the V0.2 baseline while formally documenting the V0.2 â†’ V0.3 shadow boundary.
 
 
 
@@ -3262,9 +3398,9 @@ Order:
 
 
 
-1\. safe reproducible tests
+1\. synchronize docs/engineering with verified current code and Git history
 
-2\. one-command safe test runner
+2\. preserve the completed one-command safe test runner and memory isolation contract
 
 3\. environment reproducibility
 
@@ -3278,7 +3414,11 @@ Order:
 
 8\. stable checkpoint
 
-9\. measured V0.3 experiments
+9\. continue V0.3 experiments only in measured shadow mode
+
+
+
+Do not begin V0.4 implementation until the current boundary is reviewed and explicitly approved.
 
 
 
