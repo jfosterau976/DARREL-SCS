@@ -58,15 +58,59 @@ class LLMInterface:
         think=None
     ):
 
-        if self.provider == "anthropic":
-            return self._generate_anthropic(
+        requested_provider = self.provider
+
+        if requested_provider == "anthropic":
+
+            primary_result = self._generate_anthropic(
                 prompt
             )
 
-        return self._generate_ollama(
+            if primary_result.get("status") == "success":
+
+                primary_result["requested_provider"] = "anthropic"
+                primary_result["actual_provider"] = "anthropic"
+                primary_result["fallback_used"] = False
+                primary_result["fallback_reason"] = None
+
+                return primary_result
+
+            fallback_reason = (
+                primary_result.get("error")
+                or primary_result.get("status")
+            )
+
+            ollama = LLMInterface(
+                provider="ollama"
+            )
+
+            fallback_result = ollama._generate_ollama(
+                prompt,
+                think=think
+            )
+
+            fallback_result["requested_provider"] = "anthropic"
+            fallback_result["actual_provider"] = "ollama"
+            fallback_result["fallback_used"] = True
+            fallback_result["fallback"] = True
+            fallback_result["fallback_reason"] = fallback_reason
+            fallback_result["primary_status"] = primary_result.get(
+                "status"
+            )
+
+            return fallback_result
+
+        result = self._generate_ollama(
             prompt,
             think=think
         )
+
+        result["requested_provider"] = "ollama"
+        result["actual_provider"] = "ollama"
+        result["fallback_used"] = False
+        result["fallback_reason"] = None
+
+        return result
 
 
     def _generate_ollama(

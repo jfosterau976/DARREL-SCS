@@ -8,7 +8,7 @@ from core.llm_interface import LLMInterface
 
 class AnthropicProviderTests(unittest.TestCase):
 
-    def test_missing_api_key_returns_configuration_error(self):
+    def test_missing_api_key_falls_back_to_ollama(self):
 
         with patch.dict(
             os.environ,
@@ -24,30 +24,63 @@ class AnthropicProviderTests(unittest.TestCase):
                 provider="anthropic"
             )
 
-            result = interface.generate(
-                "Test prompt",
-                think=False
-            )
+            with patch.object(
+                LLMInterface,
+                "_generate_ollama",
+                return_value={
+                    "status": "success",
+                    "provider": "ollama",
+                    "model": "qwen3:1.7b",
+                    "response": "Fallback response",
+                    "fallback": False,
+                    "metrics": {
+                        "prompt_eval_count": 10,
+                        "eval_count": 4
+                    }
+                }
+            ):
+
+                result = interface.generate(
+                    "Test prompt",
+                    think=False
+                )
 
         self.assertEqual(
             result.get("status"),
-            "configuration_error"
+            "success"
         )
 
         self.assertEqual(
-            result.get("provider"),
+            result.get("requested_provider"),
             "anthropic"
+         )
+
+        self.assertEqual(
+            result.get("actual_provider"),
+            "ollama"
         )
 
         self.assertTrue(
-            result.get("fallback")
+            result.get("fallback_used")
+        )
+
+        self.assertEqual(
+            result.get("primary_status"),
+            "configuration_error"
         )
 
         self.assertIn(
             "ANTHROPIC_API_KEY",
-            result.get("error", "")
+            result.get(
+                "fallback_reason",
+                ""
+            )
         )
 
+        self.assertEqual(
+            result.get("response"),
+            "Fallback response"
+        )
 
     def test_anthropic_success_contract(self):
 
