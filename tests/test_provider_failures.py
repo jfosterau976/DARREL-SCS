@@ -59,15 +59,20 @@ class ProviderFailureTests(unittest.TestCase):
             fp=None,
         )
 
-        with patch(
-            "urllib.request.urlopen",
-            side_effect=http_error,
-        ):
+        try:
+            with patch(
+                "urllib.request.urlopen",
+                side_effect=http_error,
+            ):
 
-            result = interface.generate(
-                "Test prompt",
-                think=False,
-            )
+                result = interface.generate(
+                    "Test prompt",
+                    think=False,
+                )
+        finally:
+            http_error.close()
+
+        self.assertTrue(http_error.closed)
 
         self.assertEqual(
             result.get("status"),
