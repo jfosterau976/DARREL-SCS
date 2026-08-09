@@ -1900,7 +1900,7 @@ tests/test\_contracts.py
 
 tests/test\_provider\_failures.py
 
-\- 3 deterministic provider-failure tests
+\- 9 deterministic provider-failure tests covering connection, HTTP, timeout, malformed and empty responses, missing metrics, fallback failure identity, and unexpected errors
 
 
 
@@ -1968,7 +1968,7 @@ Current V0.3 stabilization safe deterministic subset:
 
 
 
-24 / 24 passing
+30 / 30 passing
 
 
 
@@ -1982,7 +1982,7 @@ Current isolated shadow-layer suites:
 
 
 
-Current combined safe and shadow suite: 39 / 39 passing.
+Current combined safe and shadow suite: 45 / 45 passing.
 
 
 
@@ -2042,7 +2042,7 @@ Safe tests should:
 
 
 
-Base script committed; current suite-classification extensions remain uncommitted:
+The base script and its safe/shadow/all suite classification are committed:
 
 
 
@@ -3378,7 +3378,7 @@ Verified work from the 9 August engineering session includes:
 
 \- Cognitive Budget Manager V0.1 shadow telemetry with protected pre-change checkpoint
 
-\- 24 / 24 safe regression tests, 7 / 7 Neural Routing tests, 8 / 8 Cognitive Budget tests, and 39 / 39 combined verification
+\- 30 / 30 safe regression tests, 7 / 7 Neural Routing tests, 8 / 8 Cognitive Budget tests, and 45 / 45 combined verification
 
 \- read-only development preflight
 
@@ -3390,11 +3390,11 @@ Verified work from the 9 August engineering session includes:
 
 
 
-Current committed documentation baseline: 177e500 — DARREL synchronize V0.2 to V0.3 engineering boundary.
+The V0.2 to V0.3 boundary was synchronized at 177e500. The later stabilization documentation checkpoint is c3974a6.
 
 
 
-The stabilization items above are verified in the current working tree but remain uncommitted. V0.4 Cognitive Compiler implementation has not started.
+The initial stabilization items above are protected by commits 601cd91, 611a773, 6dbcbd1, and c3974a6; mocked-resource cleanup is protected by 24e1a74. V0.4 Cognitive Compiler implementation has not started.
 
 
 

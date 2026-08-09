@@ -2000,7 +2000,7 @@ Codex successfully ran the approved deterministic isolated set:
 
 
 
-24 passed
+30 passed
 
 0 failed
 
@@ -2042,7 +2042,11 @@ Additional isolated shadow-layer verification:
 
 
 
-Combined safe and shadow verification: 39 / 39 passed. The safe runner supports safe, shadow, and all classifications.
+Combined safe and shadow verification: 45 / 45 passed. The safe runner supports safe, shadow, and all classifications.
+
+
+
+The provider-failure module now has nine behavior-based tests covering explicit failure classification, missing fields/metrics, and primary-to-fallback identity preservation.
 
 
 
@@ -2138,7 +2142,7 @@ The safe runner provides one-command deterministic regression testing with tempo
 
 
 
-The documentation synchronization and V0.2 to V0.3 boundary are committed at 177e500. The immediate task is to review the verified uncommitted V0.3 stabilization milestones and create controlled commits only after explicit approval.
+The V0.2 to V0.3 boundary is committed at 177e500. The initial V0.3 stabilization milestones are protected by commits 601cd91, 611a773, 6dbcbd1, and c3974a6. Current work continues through small regression-led V0.3 objectives; V0.4 remains out of scope.
 
 
 
@@ -2174,7 +2178,7 @@ Good targets:
 
 
 
-The current working tree now includes a read-only preflight, configuration-only credential-redacted provider diagnostics, deterministic benchmark result/capture validation, and defensive telemetry snapshots. Live provider checks and integration of capture into benchmark execution remain separately controlled work.
+The committed V0.3 support baseline includes a read-only preflight, configuration-only credential-redacted provider diagnostics, deterministic benchmark result/capture validation, and defensive telemetry snapshots. Live provider checks and integration of capture into benchmark execution remain separately controlled work.
 
 \- release checks
 

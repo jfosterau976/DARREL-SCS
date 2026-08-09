@@ -1008,11 +1008,11 @@ Safe deterministic tests should:
 
 
 
-Current verified V0.3 stabilization test state in the uncommitted working tree:
+Current verified V0.3 stabilization test state after deterministic provider-failure hardening:
 
 
 
-24 safe deterministic tests passed
+30 safe deterministic tests passed
 
 0 failed
 
@@ -1036,7 +1036,11 @@ Additional isolated shadow-layer results:
 
 
 
-Combined safe and shadow verification: 39 / 39 passed in 0.028 seconds of unittest time and 0.280 seconds of runner elapsed time.
+Combined safe and shadow verification: 45 / 45 passed in 0.036 seconds of unittest time and 0.277 seconds of runner elapsed time.
+
+
+
+The mocked provider-failure matrix explicitly covers connection, HTTP, timeout, malformed-response, empty-response, missing-metrics, primary-to-fallback failure, provider identity, and unexpected-error behavior.
 
 
 
@@ -1270,7 +1274,7 @@ Current V0.3 shadow / experimental work includes:
 
 
 
-Current uncommitted V0.3 stabilization support also includes a read-only development preflight, explicit safe/shadow/all test classification, configuration-only credential-redacted provider diagnostics, a benchmark result/capture contract, defensive telemetry snapshots, and fail-open shadow-contract reassertion.
+Current committed V0.3 stabilization support also includes a read-only development preflight, explicit safe/shadow/all test classification, configuration-only credential-redacted provider diagnostics, a benchmark result/capture contract, defensive telemetry snapshots, and fail-open shadow-contract reassertion. These milestones are protected by commits 601cd91, 611a773, 6dbcbd1, and c3974a6; mocked-resource cleanup is protected by 24e1a74.
 
 
 

@@ -206,6 +206,28 @@ class LLMInterface:
                     "metrics": metrics
                 }
 
+        except json.JSONDecodeError as error:
+
+            return {
+                "status": "malformed_response",
+                "provider": self.provider,
+                "model": self.model_name,
+                "response": "",
+                "error": str(error),
+                "fallback": True
+            }
+
+        except TimeoutError as error:
+
+            return {
+                "status": "timeout_error",
+                "provider": self.provider,
+                "model": self.model_name,
+                "response": "",
+                "error": str(error),
+                "fallback": True
+            }
+
         except urllib.error.HTTPError as error:
 
             return {
@@ -361,6 +383,28 @@ class LLMInterface:
                     "fallback": True,
                     "metrics": metrics
                 }
+
+        except json.JSONDecodeError as error:
+
+            return {
+                "status": "malformed_response",
+                "provider": self.provider,
+                "model": self.model_name,
+                "response": "",
+                "error": str(error),
+                "fallback": True
+            }
+
+        except TimeoutError as error:
+
+            return {
+                "status": "timeout_error",
+                "provider": self.provider,
+                "model": self.model_name,
+                "response": "",
+                "error": str(error),
+                "fallback": True
+            }
 
         except urllib.error.HTTPError as error:
 

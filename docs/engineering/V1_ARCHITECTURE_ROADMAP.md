@@ -72,7 +72,7 @@ Neither shadow layer controls production. The current Attention Router remains a
 
 
 
-The engineering-support additions above are verified in the current working tree but remain uncommitted. They do not implement a Cognitive Compiler or dynamic execution graph.
+The engineering-support additions above are protected by commits 601cd91, 611a773, 6dbcbd1, and c3974a6. They do not implement a Cognitive Compiler or dynamic execution graph.
 
 
 

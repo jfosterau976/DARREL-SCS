@@ -546,21 +546,25 @@ tests.test\_benchmark\_result\_contract
 
 
 
-Current V0.3 stabilization verification in the uncommitted working tree:
+Current V0.3 stabilization verification after deterministic provider-failure hardening:
 
 
 
-\- Safe deterministic suite: 24 / 24 passed
+\- Safe deterministic suite: 30 / 30 passed
 
 \- Neural Routing shadow suite: 7 / 7 passed
 
 \- Cognitive Budget shadow suite: 8 / 8 passed
 
-\- Combined safe + shadow suite: 39 / 39 passed
+\- Combined safe + shadow suite: 45 / 45 passed
 
-\- Combined unittest time: 0.028 seconds
+\- Combined unittest time: 0.036 seconds
 
-\- Combined runner elapsed: 0.280 seconds
+\- Combined runner elapsed: 0.277 seconds
+
+
+
+The provider-failure matrix now verifies connection, HTTP, timeout, malformed-response, empty-response, missing-metrics, primary-to-fallback failure, provider identity, and unexpected-error behavior with mocked providers only.
 
 
 
@@ -1032,7 +1036,7 @@ The immediate engineering target is:
 
 
 
-Review the verified, uncommitted V0.3 stabilization changes as coherent milestones and create controlled Git commits only after explicit approval.
+Continue V0.3 stabilization one regression-led, deterministic objective at a time while keeping V0.4 and production authority changes out of scope.
 
 
 
@@ -1044,11 +1048,11 @@ scripts/test-darrel-safe.ps1
 
 
 
-The previous documentation-synchronization target is complete at commit 177e500. The current working tree contains the verified stabilization changes described below.
+The V0.2 to V0.3 boundary synchronization is committed at 177e500. The initial V0.3 stabilization objectives are protected by commits 601cd91, 611a773, 6dbcbd1, and c3974a6; mocked-resource cleanup is protected by 24e1a74.
 
 
 
-Additional verified engineering support now present in the working tree:
+Additional verified engineering support now present in the committed baseline:
 
 
 
