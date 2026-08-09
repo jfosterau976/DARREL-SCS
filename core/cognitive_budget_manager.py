@@ -130,7 +130,11 @@ class CognitiveBudgetManager:
 
         return {
             **proposal,
+            "mode": "shadow",
+            "version": self.VERSION,
             "status": "compared",
+            "authority": False,
+            "enforced": False,
             "actual_usage": dict(actual_usage),
             "comparison": {
                 "within_budget": not overruns,

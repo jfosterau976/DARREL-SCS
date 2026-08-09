@@ -208,6 +208,10 @@ class NeuralRoutingLayer:
 
         return {
             **shadow_prediction,
+            "mode": "shadow",
+            "version": self.VERSION,
+            "status": "compared",
+            "authority": False,
             "authoritative": {
                 "complexity": cognitive_state.get("complexity"),
                 "risk": cognitive_state.get("risk"),

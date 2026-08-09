@@ -301,7 +301,7 @@ class Coordinator:
                     model
                 )
 
-            if fallback:
+            if call_fallback_used:
                 fallback_used = True
 
             input_tokens += (
@@ -464,7 +464,11 @@ class Coordinator:
             except Exception as error:
                 budget_record = {
                     **budget_proposal,
+                    "mode": "shadow",
+                    "version": "cognitive-budget-v0.1",
                     "status": "error",
+                    "authority": False,
+                    "enforced": False,
                     "stage": "comparison",
                     "error_type": type(error).__name__,
                     "actual_usage": actual_usage,

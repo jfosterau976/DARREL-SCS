@@ -69,6 +69,28 @@ class NeuralRoutingLayerTests(unittest.TestCase):
         )
         self.assertEqual(record["comparison"]["false_negatives"], [])
 
+    def test_comparison_reasserts_shadow_contract(self):
+        shadow = self.layer.predict(
+            "Compare two designs for an AI assistant."
+        )
+        shadow.update({
+            "mode": "unexpected",
+            "version": "unexpected",
+            "status": "predicted",
+            "authority": True,
+        })
+
+        record = self.layer.compare(
+            shadow,
+            self.authoritative_low_route(),
+            self.low_execution(),
+        )
+
+        self.assertEqual(record["mode"], "shadow")
+        self.assertEqual(record["version"], NeuralRoutingLayer.VERSION)
+        self.assertEqual(record["status"], "compared")
+        self.assertFalse(record["authority"])
+
     def test_pulse_keeps_authoritative_activation(self):
         routing = self.authoritative_low_route()
         shadow = self.layer.predict(

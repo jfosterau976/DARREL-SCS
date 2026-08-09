@@ -92,6 +92,29 @@ class CognitiveBudgetShadowTests(unittest.TestCase):
             {"latency_ms", "total_tokens", "model_calls", "modules"},
         )
 
+    def test_comparison_reasserts_shadow_contract(self):
+        proposal = self.manager.propose(
+            "Compare two designs.",
+            {"complexity": "medium", "risk": "low"},
+        )
+        proposal.update({
+            "mode": "unexpected",
+            "version": "unexpected",
+            "authority": True,
+            "enforced": True,
+        })
+
+        comparison = self.manager.compare(proposal, {})
+
+        self.assertEqual(comparison["mode"], "shadow")
+        self.assertEqual(
+            comparison["version"],
+            CognitiveBudgetManager.VERSION,
+        )
+        self.assertEqual(comparison["status"], "compared")
+        self.assertFalse(comparison["authority"])
+        self.assertFalse(comparison["enforced"])
+
     def test_pulse_keeps_authoritative_activation(self):
         routing = self.authoritative_low_route()
         execution = self.low_execution()
@@ -243,6 +266,56 @@ class CognitiveBudgetShadowTests(unittest.TestCase):
             result["pulse"]["telemetry"]["cognitive_budget"],
             budget,
         )
+
+    def test_coordinator_comparison_failure_reasserts_shadow_contract(self):
+        proposal = self.manager.propose(
+            "Compare two designs.",
+            {"complexity": "medium", "risk": "low"},
+        )
+        proposal.update({
+            "mode": "unexpected",
+            "version": "unexpected",
+            "authority": True,
+            "enforced": True,
+        })
+        pulse_result = {
+            "cognitive_state": {
+                "complexity": "medium",
+                "risk": "low",
+            },
+            "execution_plan": {
+                "modules_to_run": [],
+            },
+            "execution": {
+                "results": {},
+                "correction_attempted": False,
+                "status": "execution_complete",
+            },
+            "telemetry": {
+                "cognitive_budget": proposal,
+            },
+        }
+
+        with patch(
+            "core.coordinator.pulse.run",
+            return_value=pulse_result,
+        ), patch.object(
+            cognitive_budget_manager,
+            "compare",
+            side_effect=RuntimeError("simulated comparison failure"),
+        ):
+            result = coordinator.process("Compare two designs.")
+
+        budget = result["telemetry"]["cognitive_budget"]
+
+        self.assertEqual(budget["mode"], "shadow")
+        self.assertEqual(
+            budget["version"],
+            CognitiveBudgetManager.VERSION,
+        )
+        self.assertEqual(budget["status"], "error")
+        self.assertFalse(budget["authority"])
+        self.assertFalse(budget["enforced"])
 
     def authoritative_low_route(self):
         return {

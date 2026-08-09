@@ -87,6 +87,56 @@ class ProviderTelemetryContractTests(unittest.TestCase):
             "ollama"
         )
 
+    def test_direct_provider_failure_is_not_reported_as_provider_fallback(self):
+
+        fake_pulse_result = {
+            "execution": {
+                "results": {
+                    "left_reasoning": {
+                        "output": {
+                            "llm": {
+                                "status": "connection_error",
+                                "provider": "ollama",
+                                "requested_provider": "ollama",
+                                "actual_provider": "ollama",
+                                "model": "qwen3:1.7b",
+                                "fallback": True,
+                                "fallback_used": False,
+                                "fallback_reason": None,
+                                "metrics": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "execution_plan": {
+                "modules_to_run": [
+                    "left_reasoning"
+                ]
+            },
+            "cognitive_state": {
+                "complexity": "low",
+                "risk": "low"
+            }
+        }
+
+        with patch(
+            "core.coordinator.pulse.run",
+            return_value=fake_pulse_result
+        ):
+            result = coordinator.process(
+                "Direct provider failure telemetry test"
+            )
+
+        telemetry = result["telemetry"]["llm"]
+        call = telemetry["calls"][0]
+
+        self.assertFalse(telemetry["fallback_used"])
+        self.assertTrue(call["fallback"])
+        self.assertFalse(call["fallback_used"])
+        self.assertEqual(call["requested_provider"], "ollama")
+        self.assertEqual(call["actual_provider"], "ollama")
+
 
 if __name__ == "__main__":
     unittest.main()

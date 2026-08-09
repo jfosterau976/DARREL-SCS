@@ -1,3 +1,4 @@
+from copy import deepcopy
 from datetime import datetime
 import time
 import uuid
@@ -88,7 +89,7 @@ class Telemetry:
 
     def export(self):
 
-        return {
+        return deepcopy({
 
             "pulse_id": self.pulse_id,
 
@@ -122,7 +123,7 @@ class Telemetry:
 
             "errors": self.errors
 
-        }
+        })
 
 
 telemetry = Telemetry()
