@@ -35,8 +35,6 @@ class Telemetry:
 
         self.executive_confidence = 0
 
-        self.neural_routing = {}
-
     def start(self, question):
 
         self.reset()
@@ -111,8 +109,6 @@ class Telemetry:
 
             "executive_confidence":
                 self.executive_confidence,
-
-            "neural_routing": self.neural_routing,
 
             "status": self.status,
 

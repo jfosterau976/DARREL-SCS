@@ -10,17 +10,6 @@ class Pulse:
         self.name = "SCS Pulse Engine"
         self.version = "V0.2"
 
-    def shadow_error(self, stage, error):
-
-        return {
-            "mode": "shadow",
-            "version": "neural-routing-v0.1",
-            "status": "error",
-            "authority": False,
-            "stage": stage,
-            "error_type": type(error).__name__,
-        }
-
     def run(self, question):
 
         telemetry.start(question)
@@ -37,35 +26,6 @@ class Pulse:
 
         telemetry.end_module(
             "attention_router",
-            t
-        )
-
-        # --------------------------
-        # Neural Routing Shadow
-        # --------------------------
-
-        neural_layer = None
-        shadow_prediction = None
-        shadow_failure = None
-
-        t = telemetry.begin_module()
-
-        try:
-            from core.neural_routing_layer import neural_routing_layer
-
-            neural_layer = neural_routing_layer
-            shadow_prediction = neural_layer.predict(
-                question
-            )
-
-        except Exception as error:
-            shadow_failure = self.shadow_error(
-                "prediction",
-                error
-            )
-
-        telemetry.end_module(
-            "neural_routing_shadow",
             t
         )
 
@@ -165,29 +125,6 @@ class Pulse:
                 0
             )
         )
-
-        if shadow_prediction is not None:
-
-            try:
-                telemetry.neural_routing = neural_layer.compare(
-                    shadow_prediction,
-                    routing,
-                    execution
-                )
-
-            except Exception as error:
-                telemetry.neural_routing = self.shadow_error(
-                    "comparison",
-                    error
-                )
-
-        else:
-            telemetry.neural_routing = shadow_failure or {
-                "mode": "shadow",
-                "version": "neural-routing-v0.1",
-                "status": "unavailable",
-                "authority": False,
-            }
 
         left = (
             results.get(
