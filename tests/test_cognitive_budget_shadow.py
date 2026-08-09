@@ -115,6 +115,89 @@ class CognitiveBudgetShadowTests(unittest.TestCase):
         self.assertFalse(comparison["authority"])
         self.assertFalse(comparison["enforced"])
 
+    def test_comparison_reports_valid_data_quality(self):
+        proposal = self.manager.propose(
+            "What is two plus two?",
+            {"complexity": "low", "risk": "low"},
+        )
+
+        comparison = self.manager.compare(
+            proposal,
+            {
+                "latency_ms": 100,
+                "total_tokens": 20,
+                "model_calls": 1,
+                "modules": 2,
+                "verification_passes": 1,
+                "correction_passes": 0,
+            },
+        )
+
+        self.assertEqual(
+            comparison["data_quality"],
+            {
+                "valid": True,
+                "normalized_fields": [],
+            },
+        )
+
+    def test_comparison_normalizes_malformed_and_extreme_metrics(self):
+        proposal = self.manager.propose(
+            "What is two plus two?",
+            {"complexity": "low", "risk": "low"},
+        )
+        proposal["limits"]["model_calls"] = "one"
+        actual_usage = {
+            "latency_ms": float("inf"),
+            "total_tokens": -1,
+            "model_calls": "two",
+            "modules": True,
+            "verification_passes": float("nan"),
+            "correction_passes": 0,
+        }
+
+        comparison = self.manager.compare(proposal, actual_usage)
+
+        self.assertEqual(comparison["status"], "compared")
+        self.assertFalse(comparison["authority"])
+        self.assertFalse(comparison["enforced"])
+        self.assertIsNone(comparison["actual_usage"]["latency_ms"])
+        self.assertIsNone(comparison["actual_usage"]["total_tokens"])
+        self.assertIsNone(comparison["actual_usage"]["model_calls"])
+        self.assertIsNone(comparison["actual_usage"]["modules"])
+        self.assertIsNone(
+            comparison["actual_usage"]["verification_passes"]
+        )
+        self.assertEqual(
+            comparison["comparison"]["utilization"][
+                "correction_passes"
+            ],
+            0.0,
+        )
+        self.assertEqual(
+            comparison["data_quality"]["normalized_fields"],
+            [
+                "actual_usage.latency_ms",
+                "actual_usage.model_calls",
+                "actual_usage.modules",
+                "actual_usage.total_tokens",
+                "actual_usage.verification_passes",
+                "proposal.limits.model_calls",
+            ],
+        )
+
+    def test_comparison_normalizes_missing_top_level_records(self):
+        comparison = self.manager.compare(None, None)
+
+        self.assertEqual(comparison["status"], "compared")
+        self.assertFalse(comparison["authority"])
+        self.assertFalse(comparison["enforced"])
+        self.assertEqual(comparison["actual_usage"], {})
+        self.assertEqual(
+            comparison["data_quality"]["normalized_fields"],
+            ["actual_usage", "proposal"],
+        )
+
     def test_pulse_keeps_authoritative_activation(self):
         routing = self.authoritative_low_route()
         execution = self.low_execution()

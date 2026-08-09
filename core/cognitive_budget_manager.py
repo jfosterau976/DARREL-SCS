@@ -1,3 +1,7 @@
+import math
+from collections.abc import Mapping
+
+
 class CognitiveBudgetManager:
 
     VERSION = "cognitive-budget-v0.1"
@@ -95,8 +99,24 @@ class CognitiveBudgetManager:
         }
 
     def compare(self, proposal, actual_usage):
-        limits = proposal.get("limits", {})
-        actual_usage = actual_usage or {}
+        normalized_fields = []
+        proposal_record = self._mapping(
+            proposal,
+            "proposal",
+            normalized_fields,
+        )
+        limits = self._mapping(
+            proposal_record.get("limits", {}),
+            "proposal.limits",
+            normalized_fields,
+        )
+        actual_record = self._mapping(
+            actual_usage,
+            "actual_usage",
+            normalized_fields,
+        )
+        normalized_limits = dict(limits)
+        normalized_actual = dict(actual_record)
         measured_dimensions = (
             "latency_ms",
             "total_tokens",
@@ -109,8 +129,22 @@ class CognitiveBudgetManager:
         utilization = {}
 
         for dimension in measured_dimensions:
-            actual = actual_usage.get(dimension)
-            limit = limits.get(dimension)
+            actual = self._nonnegative_number(
+                actual_record.get(dimension),
+                f"actual_usage.{dimension}",
+                normalized_fields,
+            )
+            limit = self._nonnegative_number(
+                limits.get(dimension),
+                f"proposal.limits.{dimension}",
+                normalized_fields,
+            )
+
+            if dimension in actual_record:
+                normalized_actual[dimension] = actual
+
+            if dimension in limits:
+                normalized_limits[dimension] = limit
 
             if actual is None or limit is None:
                 utilization[dimension] = None
@@ -129,13 +163,18 @@ class CognitiveBudgetManager:
                 })
 
         return {
-            **proposal,
+            **proposal_record,
             "mode": "shadow",
             "version": self.VERSION,
             "status": "compared",
             "authority": False,
             "enforced": False,
-            "actual_usage": dict(actual_usage),
+            "limits": normalized_limits,
+            "actual_usage": normalized_actual,
+            "data_quality": {
+                "valid": not normalized_fields,
+                "normalized_fields": sorted(set(normalized_fields)),
+            },
             "comparison": {
                 "within_budget": not overruns,
                 "overruns": overruns,
@@ -147,10 +186,32 @@ class CognitiveBudgetManager:
                         "memory_lookups",
                         "tool_calls",
                     )
-                    if actual_usage.get(dimension) is None
+                    if normalized_actual.get(dimension) is None
                 ],
             },
         }
+
+    def _mapping(self, value, field, normalized_fields):
+        if isinstance(value, Mapping):
+            return value
+
+        normalized_fields.append(field)
+        return {}
+
+    def _nonnegative_number(self, value, field, normalized_fields):
+        if value is None:
+            return None
+
+        if (
+            isinstance(value, bool)
+            or not isinstance(value, (int, float))
+            or not math.isfinite(float(value))
+            or value < 0
+        ):
+            normalized_fields.append(field)
+            return None
+
+        return value
 
     def error_record(self, stage, error):
         return {

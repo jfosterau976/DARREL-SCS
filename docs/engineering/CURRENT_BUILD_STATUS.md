@@ -554,13 +554,13 @@ Current V0.3 stabilization verification after deterministic provider-failure har
 
 \- Neural Routing shadow suite: 10 / 10 passed
 
-\- Cognitive Budget shadow suite: 8 / 8 passed
+\- Cognitive Budget shadow suite: 11 / 11 passed
 
-\- Combined safe + shadow suite: 48 / 48 passed
+\- Combined safe + shadow suite: 51 / 51 passed
 
-\- Combined unittest time: 0.029 seconds
+\- Combined unittest time: 0.032 seconds
 
-\- Combined runner elapsed: 0.277 seconds
+\- Combined runner elapsed: 0.285 seconds
 
 
 
@@ -569,6 +569,10 @@ The provider-failure matrix now verifies connection, HTTP, timeout, malformed-re
 
 
 Neural Routing comparison telemetry now normalizes malformed nested observation data, reports the affected fields through additive data-quality metadata, and remains shadow-only with authority=false.
+
+
+
+Cognitive Budget comparison telemetry now normalizes malformed, negative, boolean, and non-finite numeric observations, reports affected fields, and remains shadow-only with authority=false and enforced=false.
 
 
 

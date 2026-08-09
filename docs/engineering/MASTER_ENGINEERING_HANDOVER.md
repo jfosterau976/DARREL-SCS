@@ -1032,11 +1032,11 @@ Additional isolated shadow-layer results:
 
 \- Neural Routing V0.1: 10 / 10 passed
 
-\- Cognitive Budget Manager V0.1: 8 / 8 passed
+\- Cognitive Budget Manager V0.1: 11 / 11 passed
 
 
 
-Combined safe and shadow verification: 48 / 48 passed in 0.029 seconds of unittest time and 0.277 seconds of runner elapsed time.
+Combined safe and shadow verification: 51 / 51 passed in 0.032 seconds of unittest time and 0.285 seconds of runner elapsed time.
 
 
 
@@ -1045,6 +1045,10 @@ The mocked provider-failure matrix explicitly covers connection, HTTP, timeout, 
 
 
 Neural Routing comparison telemetry defensively normalizes malformed nested observation inputs and identifies normalized fields through additive data-quality metadata. This reliability behavior does not grant routing authority.
+
+
+
+Cognitive Budget comparison telemetry defensively normalizes malformed or non-finite numeric observations and reports affected fields. It does not enforce limits or alter production execution.
 
 
 
