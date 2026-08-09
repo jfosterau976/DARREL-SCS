@@ -50,6 +50,14 @@ Current synchronization baseline:
 
 
 
+Latest reviewed V0.3 implementation checkpoint: d205dc8 (DARREL lock cognitive budget proposal output).
+
+
+
+The 17 local V0.3 stabilization commits from 601cd91 through d205dc8 passed controlled closure review and have not been pushed.
+
+
+
 \- 177e500 — synchronized V0.2 to V0.3 engineering boundary
 
 
@@ -1008,7 +1016,7 @@ Safe deterministic tests should:
 
 
 
-Current verified V0.3 stabilization test state after deterministic provider-telemetry observation hardening:
+Current controlled V0.3 closure test state:
 
 
 
@@ -1040,7 +1048,7 @@ Additional isolated shadow-layer results:
 
 
 
-Combined safe and shadow verification: 68 / 68 passed in 0.041 seconds of unittest time and 0.308 seconds of runner elapsed time.
+Combined safe and shadow verification: 68 / 68 passed in 0.040 seconds of unittest time and 0.303 seconds of runner elapsed time.
 
 
 
@@ -1314,11 +1322,11 @@ Current implementation details should always be verified against the repository 
 
 
 
-\# 21. Current Priority
+\# 21. Historical Priority and Current Closure Boundary
 
 
 
-Current engineering priority is:
+Historical pre-closure engineering priority was:
 
 
 
@@ -1355,6 +1363,14 @@ The safe runner, Neural Routing shadow telemetry, and Cognitive Budget shadow te
 
 
 Do not jump directly into production Neural Routing.
+
+
+
+Current closure priority:
+
+
+
+Preserve the locally closed V0.3 stabilization state, review the checkpoint chain, and stop at the V0.4 boundary until a separate architecture objective is explicitly approved. Further V0.3 work requires evidence of a genuine defect.
 
 
 

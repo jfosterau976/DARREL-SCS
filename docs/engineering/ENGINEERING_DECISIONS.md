@@ -1802,7 +1802,7 @@ LOCKED
 
 
 
-\# 41. Current Immediate Engineering Priority
+\# 41. Historical Priority and Current Closure Decision
 
 
 
@@ -1810,7 +1810,7 @@ Decision:
 
 
 
-The current near-term sequence is:
+The historical pre-closure sequence was:
 
 
 
@@ -1842,7 +1842,7 @@ The initial V0.3 stabilization objectives are protected by commits 601cd91, 611a
 
 
 
-The next priority is continued gap-led V0.3 reliability and contract protection. V0.4 remains out of scope, and production authority boundaries remain locked.
+Controlled closure review found no remaining material implementation defect across the 17 local checkpoints from 601cd91 through d205dc8. V0.3 stabilization is complete locally. Further V0.3 work requires evidence of a genuine defect. V0.4 remains out of scope, and production authority boundaries remain locked.
 
 
 
@@ -1850,7 +1850,7 @@ Status:
 
 
 
-CURRENT PRIORITY
+CURRENT CLOSURE BOUNDARY
 
 
 

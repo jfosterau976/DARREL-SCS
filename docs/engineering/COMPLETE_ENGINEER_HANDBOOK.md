@@ -92,7 +92,7 @@ Synthetic Cognitive System (SCS)
 
 
 
-Current development target:
+Historical development target before V0.3 closure:
 
 
 
@@ -101,6 +101,14 @@ stabilize the V0.2 baseline and formally maintain the V0.2 â†’ V0.3 shadow 
 
 
 DARREL is an experimental cognitive orchestration system.
+
+
+
+Current development target:
+
+
+
+Preserve the locally closed V0.3 stabilization state and stop at the V0.4 boundary pending explicit approval.
 
 
 
@@ -1944,7 +1952,7 @@ tests/test\_neural\_routing\_shadow.py
 
 tests/test\_cognitive\_budget\_shadow.py
 
-\- 19 deterministic Cognitive Budget shadow tests, including malformed proposal inputs, invalid/extreme signal and metric normalization, data-quality provenance, downstream coordinator fail-open behavior, and pre/post-comparison contract reassertion
+\- 20 deterministic Cognitive Budget shadow tests, including malformed proposal inputs, invalid/extreme signal and metric normalization, data-quality provenance, downstream coordinator fail-open behavior, pre/post-comparison contract reassertion, and Pulse-level proposal-output locking
 
 
 
@@ -1982,7 +1990,7 @@ Current isolated shadow-layer suites:
 
 
 
-Current combined safe and shadow suite: 68 / 68 passing in 0.041 seconds of unittest time and 0.308 seconds of runner elapsed time.
+Current combined safe and shadow suite: 68 / 68 passing in 0.040 seconds of unittest time and 0.303 seconds of runner elapsed time.
 
 
 
@@ -3402,6 +3410,10 @@ The initial stabilization items above are protected by commits 601cd91, 611a773,
 
 
 
+Controlled closure review covers 17 local V0.3 checkpoint commits from 601cd91 through d205dc8. The sequence remains local and unpushed.
+
+
+
 Current milestone history:
 
 
@@ -3430,7 +3442,7 @@ Protected milestone checkpoints:
 
 
 
-\## 80. Current Immediate Priority
+\## 80. Historical Pre-Closure Priority
 
 
 
@@ -3466,11 +3478,19 @@ Do not begin V0.4 implementation until the current boundary is reviewed and expl
 
 
 
+\## 80A. Current Immediate Priority
+
+
+
+V0.3 stabilization is complete locally. Preserve the checkpoint sequence and current authority boundaries. Additional V0.3 changes require evidence of a genuine defect; V0.4 remains separately gated.
+
+
+
 \---
 
 
 
-\## 81. Frozen Until V0.2 Is Stable
+\## 81. Frozen Beyond V0.3 Closure
 
 
 
